@@ -2,12 +2,13 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/Hero.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
-import PlaceholderImage from '../components/PlaceholderImage.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import { Image } from 'astro:assets';
 import { services } from '../data/services';
 import { site } from '../data/site';
 import { localePath } from '../data/nav';
 import heroPhoto from '../assets/photos/hero-gaming-build.jpg';
+import portfolioPhoto from '../assets/photos/gaming-portfolio-1.jpg';
 
 const lang = "pl" as const;
 const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
@@ -58,8 +59,8 @@ const jsonLd = {
 
 	<section class="container gaming-portfolio" data-animate="reveal">
 		<h2>Portfolio buildów</h2>
-		<p>Realizacje pojawią się tutaj, gdy tylko będziemy mieli pierwsze udokumentowane projekty.</p>
-		<PlaceholderImage lang={lang} captionPl="Zdjęcia zrealizowanych buildów — do dodania" captionEn="Photos of completed builds — to be added" ratio="16 / 9" />
+		<p>Jedna z naszych ostatnich realizacji — więcej zdjęć pojawi się tutaj wraz z kolejnymi projektami.</p>
+		<Image src={portfolioPhoto} alt="Zbudowany komputer gamingowy z chłodzeniem wodnym i podświetleniem RGB" width={1200} height={675} format="webp" class="gaming-portfolio__photo" />
 	</section>
 
 	<ProcessSteps lang={lang} heading="Jak wygląda zlecenie krok po kroku" />
@@ -99,6 +100,14 @@ const jsonLd = {
 	.gaming-portfolio p {
 		color: var(--color-ink-soft);
 		margin-bottom: var(--space-4);
+	}
+
+	.gaming-portfolio__photo {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: var(--radius-soft);
 	}
 
 	@media (min-width: 800px) {
