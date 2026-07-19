@@ -2,6 +2,7 @@
 import { site } from '../data/site';
 import { primaryNav, servicesLabel, contactNav, localePath } from '../data/nav';
 import { services } from '../data/services';
+import ServiceIcon from './ServiceIcon.astro';
 
 export interface Props {
   lang: "pl" | "en";
@@ -26,7 +27,12 @@ const servicesToggleId = "nav-services-toggle";
 				<summary>{servicesLabel[lang]}</summary>
 				<ul>
 					{services.map((s) => (
-						<li><a href={localePath(lang, s.slug)}>{s.title[lang]}</a></li>
+						<li>
+							<a href={localePath(lang, s.slug)}>
+								<ServiceIcon slug={s.slug} />
+								<span>{s.title[lang]}</span>
+							</a>
+						</li>
 					))}
 				</ul>
 			</details>
@@ -62,7 +68,12 @@ const servicesToggleId = "nav-services-toggle";
 	<nav id="mobile-nav" class="mobile-nav" aria-label={lang === "en" ? "Mobile navigation" : "Nawigacja mobilna"} hidden>
 		<ul>
 			{services.map((s) => (
-				<li><a href={localePath(lang, s.slug)}>{s.title[lang]}</a></li>
+				<li class="mobile-nav__service">
+					<a href={localePath(lang, s.slug)}>
+						<ServiceIcon slug={s.slug} />
+						<span>{s.title[lang]}</span>
+					</a>
+				</li>
 			))}
 			{primaryNav.map((item) => (
 				<li><a href={localePath(lang, item.slug)}>{item.label[lang]}</a></li>
@@ -152,9 +163,16 @@ const servicesToggleId = "nav-services-toggle";
 	}
 
 	.nav-services li a {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
 		padding: var(--space-2);
 		border-radius: var(--radius-sharp);
+	}
+
+	.nav-services li a svg {
+		flex-shrink: 0;
+		color: var(--color-accent);
 	}
 
 	.nav-services li a:hover {
@@ -222,6 +240,17 @@ const servicesToggleId = "nav-services-toggle";
 		font-weight: var(--weight-body-bold);
 	}
 
+	.mobile-nav__service a {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+	}
+
+	.mobile-nav__service svg {
+		flex-shrink: 0;
+		color: var(--color-accent);
+	}
+
 	@media (min-width: 900px) {
 		.site-header__nav {
 			display: block;
@@ -232,13 +261,9 @@ const servicesToggleId = "nav-services-toggle";
 			display: inline-flex;
 		}
 
-		.nav-toggle {
-			display: none;
-		}
-
-		.mobile-nav {
-			display: none;
-		}
+		/* The hamburger toggle + its "all pages" panel now stay available on desktop too,
+		   alongside the inline nav — an extra, always-in-the-same-place way to see every page
+		   in one list, not a mobile-only fallback. */
 	}
 </style>
 

@@ -95,7 +95,9 @@ const photoAlt = lang === "en" ? photoCaptionEn : photoCaptionPl;
 
 	@media (min-width: 900px) {
 		.hero {
-			grid-template-columns: 1.1fr 0.9fr;
+			/* Give the photo a bit more room than before (was 1.1fr / 0.9fr) — same two-column
+			   layout, just a larger image without restructuring anything. */
+			grid-template-columns: 0.95fr 1.05fr;
 		}
 	}
 </style>
