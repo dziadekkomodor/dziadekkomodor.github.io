@@ -1,0 +1,93 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+
+const lang = "pl" as const;
+const svc = services.find((s) => s.slug === "pomoc-komputerowa-seniorzy")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd} density="comfortable">
+	<Hero
+		lang={lang}
+		eyebrow="Pomoc komputerowa dla seniorów"
+		headline="Cierpliwa pomoc, bez trudnych słów."
+		subhead="Tłumaczymy prostym językiem, bez pośpiechu. Możemy przyjechać do domu, jeśli tak jest wygodniej."
+		ctaLabel="Zadzwoń do nas"
+		ctaHref={site.phone.href}
+		photoCaptionPl="Zdjęcie: pomoc komputerowa u seniora w domu — do dodania"
+		photoCaptionEn="Photo: helping a senior with a computer at home — to be added"
+	/>
+
+	<section class="container senior-help" data-animate="reveal">
+		<h2>W czym możemy pomóc</h2>
+		<ul>
+			<li>Wolno działający komputer albo telefon.</li>
+			<li>Problemy z internetem, pocztą e-mail albo Skype/WhatsApp.</li>
+			<li>Wirusy, dziwne okienka albo reklamy, które nie znikają.</li>
+			<li>Konfiguracja nowego sprzętu — krok po kroku, tak długo, aż będzie jasne.</li>
+			<li>Utracone zdjęcia albo dokumenty — pomożemy je odzyskać.</li>
+		</ul>
+		<div class="senior-help__promise">
+			<h3>Nasza obietnica</h3>
+			<p>Tłumaczymy wszystko prostym językiem — bez żargonu i bez pośpiechu. Możesz zadzwonić i po
+			prostu zapytać, zanim jeszcze coś przyniesiesz. Jeśli wolisz, żebyśmy przyjechali do domu,
+			po prostu powiedz — obsługujemy Piłę, Bydgoszcz i okoliczne miejscowości.</p>
+		</div>
+	</section>
+
+	<ProcessSteps lang={lang} heading="Jak wygląda pomoc krok po kroku" />
+
+	<CtaBanner
+		heading="Zadzwoń — porozmawiamy i doradzimy, co dalej"
+		body="Nie musisz nic przynosić ani wysyłać, żeby zapytać."
+		ctaLabel="Zadzwoń teraz"
+		ctaHref={site.phone.href}
+	/>
+</PageLayout>
+
+<style>
+	.senior-help {
+		padding-block: var(--space-7);
+	}
+
+	.senior-help ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 62ch;
+	}
+
+	.senior-help li {
+		font-size: var(--text-lg);
+	}
+
+	.senior-help__promise {
+		margin-top: var(--space-6);
+		padding: var(--space-5);
+		background: var(--color-bg-raised);
+		border-radius: var(--radius-soft);
+		max-width: 62ch;
+	}
+
+	.senior-help__promise h3 {
+		margin-bottom: var(--space-2);
+	}
+
+	.senior-help__promise p {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+</style>

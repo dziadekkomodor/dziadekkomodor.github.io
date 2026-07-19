@@ -1,0 +1,43 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PricingTable from '../../components/PricingTable.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { localePath } from '../../data/nav';
+
+const lang = "en" as const;
+const title = "Pricing";
+const description = "Indicative prices for computer, laptop, and phone repairs in Piła and Bydgoszcz. Free diagnosis, a clear quote before every repair.";
+---
+
+<PageLayout lang={lang} slug="cennik" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Pricing</h1>
+		<p class="page-hero__lead">
+			Below are indicative prices for our most common repairs. We always give you the exact
+			amount after a free initial diagnosis — in writing, before any work starts.
+		</p>
+	</section>
+
+	<section class="container">
+		<PricingTable lang={lang} />
+	</section>
+
+	<CtaBanner
+		heading="Don't see your service listed?"
+		body="Call or message us — we'll tell you right away roughly how much the repair will cost."
+		ctaLabel="Free quote"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

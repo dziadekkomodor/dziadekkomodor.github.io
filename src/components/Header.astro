@@ -1,0 +1,277 @@
+---
+import { site } from '../data/site';
+import { primaryNav, servicesLabel, contactNav, localePath } from '../data/nav';
+import { services } from '../data/services';
+
+export interface Props {
+  lang: "pl" | "en";
+  /** Locale-agnostic slug of the current page, used to build the language-switcher target. */
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const otherLang = lang === "pl" ? "en" : "pl";
+const otherLangHref = localePath(otherLang, slug);
+const homeHref = localePath(lang, "");
+const ctaLabel = lang === "en" ? "Free quote" : "Darmowa wycena";
+const servicesToggleId = "nav-services-toggle";
+---
+
+<header class="site-header" data-scroll-behavior="auto-hide">
+	<div class="site-header__bar container">
+		<a href={homeHref} class="site-header__brand">{site.brandName}</a>
+
+		<nav class="site-header__nav" aria-label={lang === "en" ? "Main navigation" : "Nawigacja główna"}>
+			<details class="nav-services">
+				<summary>{servicesLabel[lang]}</summary>
+				<ul>
+					{services.map((s) => (
+						<li><a href={localePath(lang, s.slug)}>{s.title[lang]}</a></li>
+					))}
+				</ul>
+			</details>
+			<ul class="site-header__links">
+				{primaryNav.map((item) => (
+					<li><a href={localePath(lang, item.slug)}>{item.label[lang]}</a></li>
+				))}
+				<li><a href={localePath(lang, contactNav.slug)}>{contactNav.label[lang]}</a></li>
+			</ul>
+		</nav>
+
+		<div class="site-header__actions">
+			<a href={otherLangHref} class="lang-switch" aria-label={lang === "en" ? "Przełącz na polski" : "Switch to English"}>
+				{lang === "en" ? "PL" : "EN"}
+			</a>
+			<a href={site.phone.href} class="site-header__phone">{site.phone.display}</a>
+			<a href={localePath(lang, "kontakt")} class="btn btn-primary site-header__cta">{ctaLabel}</a>
+			<button
+				type="button"
+				class="nav-toggle"
+				aria-expanded="false"
+				aria-controls="mobile-nav"
+				id={servicesToggleId}
+			>
+				<span class="visually-hidden">{lang === "en" ? "Open menu" : "Otwórz menu"}</span>
+				<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M3 6h18M3 12h18M3 18h18" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<nav id="mobile-nav" class="mobile-nav" aria-label={lang === "en" ? "Mobile navigation" : "Nawigacja mobilna"} hidden>
+		<ul>
+			{services.map((s) => (
+				<li><a href={localePath(lang, s.slug)}>{s.title[lang]}</a></li>
+			))}
+			{primaryNav.map((item) => (
+				<li><a href={localePath(lang, item.slug)}>{item.label[lang]}</a></li>
+			))}
+			<li><a href={localePath(lang, contactNav.slug)}>{contactNav.label[lang]}</a></li>
+		</ul>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+		backdrop-filter: blur(6px);
+		border-bottom: 1px solid var(--color-border);
+		transition: transform var(--duration-base) var(--ease-out);
+	}
+
+	.site-header.is-hidden {
+		transform: translateY(-100%);
+	}
+
+	.site-header__bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		min-height: var(--header-height);
+	}
+
+	.site-header__brand {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-black);
+		font-size: var(--text-lg);
+		color: var(--color-ink);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.site-header__nav {
+		display: none;
+	}
+
+	.site-header__links {
+		display: flex;
+		gap: var(--space-4);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.site-header__links a,
+	.nav-services summary {
+		text-decoration: none;
+		color: var(--color-ink);
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+	}
+
+	.nav-services {
+		position: relative;
+	}
+
+	.nav-services summary {
+		list-style: none;
+		cursor: pointer;
+	}
+
+	.nav-services summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.nav-services ul {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		margin-top: var(--space-2);
+		background: var(--color-bg-raised);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-soft);
+		list-style: none;
+		padding: var(--space-2);
+		min-width: 16rem;
+		box-shadow: 0 12px 30px -12px rgba(36, 23, 18, 0.25);
+	}
+
+	.nav-services li a {
+		display: block;
+		padding: var(--space-2);
+		border-radius: var(--radius-sharp);
+	}
+
+	.nav-services li a:hover {
+		background: var(--color-bg);
+	}
+
+	.site-header__actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+	}
+
+	.lang-switch {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-body-bold);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		padding: 0.3em 0.7em;
+		text-decoration: none;
+		color: var(--color-ink);
+	}
+
+	.site-header__phone {
+		display: none;
+		font-weight: var(--weight-body-bold);
+		color: var(--color-ink);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.site-header__cta {
+		display: none;
+		padding: 0.6em 1.2em;
+		font-size: var(--text-sm);
+	}
+
+	.nav-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: none;
+		border: none;
+		color: var(--color-ink);
+		padding: var(--space-2);
+		cursor: pointer;
+	}
+
+	.mobile-nav {
+		border-top: 1px solid var(--color-border);
+		background: var(--color-bg);
+	}
+
+	.mobile-nav ul {
+		list-style: none;
+		margin: 0;
+		padding: var(--space-3) var(--space-4);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.mobile-nav a {
+		text-decoration: none;
+		color: var(--color-ink);
+		font-weight: var(--weight-body-bold);
+	}
+
+	@media (min-width: 900px) {
+		.site-header__nav {
+			display: block;
+		}
+
+		.site-header__phone,
+		.site-header__cta {
+			display: inline-flex;
+		}
+
+		.nav-toggle {
+			display: none;
+		}
+
+		.mobile-nav {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+	const mobileNav = document.getElementById('mobile-nav');
+
+	if (toggle && mobileNav) {
+		toggle.addEventListener('click', () => {
+			const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+			toggle.setAttribute('aria-expanded', String(!isOpen));
+			mobileNav.hidden = isOpen;
+		});
+	}
+
+	// Sticky header hide-on-scroll-down / show-on-scroll-up (restrained, no GSAP needed for this
+	// one — a simple direction check is cheaper and just as deliberate).
+	const header = document.querySelector<HTMLElement>('.site-header');
+	let lastY = window.scrollY;
+
+	if (header) {
+		window.addEventListener(
+			'scroll',
+			() => {
+				const y = window.scrollY;
+				if (y > lastY && y > 120) {
+					header.classList.add('is-hidden');
+				} else {
+					header.classList.remove('is-hidden');
+				}
+				lastY = y;
+			},
+			{ passive: true }
+		);
+	}
+</script>

@@ -1,0 +1,48 @@
+---
+// Stand-in for a real photo. The brief explicitly forbids stock photography and AI-generated
+// imagery (both read as untrustworthy to this audience) — so until real photos exist, every
+// photo slot renders this instead of a fake image. `ratio` reserves the exact final aspect box
+// so swapping in a real <img fetchpriority="high" width height> later causes zero layout shift.
+
+export interface Props {
+  lang: "pl" | "en";
+  captionPl: string;
+  captionEn: string;
+  ratio?: string; // CSS aspect-ratio value, e.g. "4 / 3", "16 / 9", "1 / 1"
+}
+
+const { lang, captionPl, captionEn, ratio = "4 / 3" } = Astro.props;
+const caption = lang === "en" ? captionEn : captionPl;
+---
+
+<div class="placeholder-image" style={`aspect-ratio: ${ratio};`}>
+	<svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+		<rect x="3" y="5" width="18" height="14" rx="2" />
+		<circle cx="9" cy="10.5" r="1.75" />
+		<path d="M21 16l-5.5-5-4 4-2.5-2L3 17" />
+	</svg>
+	<p>{caption}</p>
+</div>
+
+<style>
+	.placeholder-image {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-2);
+		width: 100%;
+		background: var(--color-bg-raised);
+		border: 2px dashed var(--color-border);
+		border-radius: var(--radius-soft);
+		color: var(--color-ink-soft);
+		text-align: center;
+		padding: var(--space-3);
+	}
+
+	.placeholder-image p {
+		margin: 0;
+		max-width: 22ch;
+		font-size: var(--text-sm);
+	}
+</style>

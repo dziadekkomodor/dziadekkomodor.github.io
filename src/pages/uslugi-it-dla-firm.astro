@@ -1,0 +1,84 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBlock from '../components/TrustBlock.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const svc = services.find((s) => s.slug === "uslugi-it-dla-firm")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
+	<Hero
+		lang={lang}
+		eyebrow="Usługi IT dla firm — Piła i Bydgoszcz"
+		headline="Wsparcie IT, na którym Twoja firma może polegać."
+		subhead="Serwis break/fix, szybki czas reakcji i sprzęt poleasingowy — żeby awaria sprzętu nie zatrzymywała pracy Twojego zespołu."
+		ctaLabel="Zapytaj o ofertę"
+		ctaHref={localePath(lang, "kontakt")}
+		photoCaptionPl="Zdjęcie serwisu sprzętu firmowego — do dodania"
+		photoCaptionEn="Photo of business hardware service — to be added"
+	/>
+
+	<section class="container services-list" data-animate="reveal">
+		<h2>Jak możemy pomóc Twojej firmie</h2>
+		<ul>
+			<li>Serwis break/fix — szybka naprawa awarii sprzętu biurowego i stacji roboczych.</li>
+			<li>Wsparcie na miejscu, w Twojej firmie, jeśli to wygodniejsze niż transport sprzętu.</li>
+			<li>Sourcing i przygotowanie sprzętu poleasingowego — tańsza alternatywa dla nowego sprzętu.</li>
+			<li>Migracja danych i konfiguracja nowych stanowisk pracy.</li>
+			<li>Regularna konserwacja sprzętu, żeby ograniczyć liczbę awarii.</li>
+		</ul>
+		<p class="services-list__note">
+			Obsługujemy małe firmy i mikroprzedsiębiorstwa w Pile, Bydgoszczy i okolicy — rozumiemy,
+			że przestój sprzętu to przestój w pracy.
+		</p>
+	</section>
+
+	<TrustBlock lang={lang} heading="Wiemy, o co się martwisz" />
+
+	<ProcessSteps lang={lang} heading="Jak wygląda współpraca krok po kroku" />
+
+	<CtaBanner
+		heading="Porozmawiajmy o wsparciu IT dla Twojej firmy"
+		body="Odpowiemy szybko i dopasujemy zakres usług do Twoich potrzeb."
+		ctaLabel="Zapytaj o ofertę"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.services-list {
+		padding-block: var(--space-7);
+	}
+
+	.services-list ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 60ch;
+	}
+
+	.services-list li {
+		font-size: var(--text-lg);
+	}
+
+	.services-list__note {
+		margin-top: var(--space-4);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

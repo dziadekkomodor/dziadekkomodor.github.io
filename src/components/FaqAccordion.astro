@@ -1,0 +1,69 @@
+---
+// Native <details>/<summary> — free keyboard support and screen-reader semantics, no JS needed.
+import { faqItems } from '../data/faq';
+
+export interface Props {
+  lang: "pl" | "en";
+}
+
+const { lang } = Astro.props;
+---
+
+<div class="faq-accordion" data-animate="reveal">
+	{faqItems.map((item) => (
+		<details class="faq-accordion__item">
+			<summary>
+				<span>{item.question[lang]}</span>
+				<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M6 9l6 6 6-6" />
+				</svg>
+			</summary>
+			<p>{item.answer[lang]}</p>
+		</details>
+	))}
+</div>
+
+<style>
+	.faq-accordion {
+		display: flex;
+		flex-direction: column;
+		max-width: 62rem;
+	}
+
+	.faq-accordion__item {
+		border-bottom: 1px solid var(--color-border);
+		padding-block: var(--space-4);
+	}
+
+	.faq-accordion__item summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-3);
+		cursor: pointer;
+		list-style: none;
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		font-size: var(--text-lg);
+	}
+
+	.faq-accordion__item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-accordion__item summary svg {
+		flex-shrink: 0;
+		transition: transform var(--duration-fast) var(--ease-out);
+		color: var(--color-accent);
+	}
+
+	.faq-accordion__item[open] summary svg {
+		transform: rotate(180deg);
+	}
+
+	.faq-accordion__item p {
+		margin: var(--space-3) 0 0;
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

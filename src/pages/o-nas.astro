@@ -1,0 +1,78 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import TeamCard from '../components/TeamCard.astro';
+import PlaceholderImage from '../components/PlaceholderImage.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { team } from '../data/team';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const title = "O nas";
+const description = "Poznaj Alberta i Mikołaja — dwóch założycieli Dziadka Komodora, serwisu komputerowego w Pile i Bydgoszczy.";
+---
+
+<PageLayout lang={lang} slug="o-nas" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>O nas</h1>
+		<p class="page-hero__lead">
+			Dziadek Komodor to nie korporacja — to dwóch ludzi, którzy naprawiają sprzęt osobiście,
+			od diagnozy po test końcowy. Działamy jako niezarejestrowana działalność (w rozumieniu
+			polskich przepisów o działalności nierejestrowanej) — to nie zmienia jakości naprawy,
+			ale oznacza, że na razie nie wystawiamy faktur VAT.
+		</p>
+	</section>
+
+	<section class="container">
+		<PlaceholderImage
+			lang={lang}
+			captionPl="Zdjęcie warsztatu — do dodania"
+			captionEn="Workshop photo — to be added"
+			ratio="21 / 9"
+		/>
+	</section>
+
+	<section class="container team-full" data-animate="reveal">
+		{team.map((member) => (
+			<TeamCard
+				lang={lang}
+				name={member.name}
+				age={member.age}
+				role={member.role[lang]}
+				bio={member.bio[lang]}
+				yearsExperience={member.yearsExperience}
+			/>
+		))}
+	</section>
+
+	<CtaBanner
+		heading="Chcesz, żebyśmy zajęli się Twoim sprzętem?"
+		body="Bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji."
+		ctaLabel="Darmowa wycena"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 68ch;
+	}
+
+	.team-full {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-6);
+		padding-block: var(--space-7);
+	}
+
+	@media (min-width: 800px) {
+		.team-full {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

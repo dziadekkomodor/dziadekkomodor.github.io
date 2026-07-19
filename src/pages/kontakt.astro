@@ -1,0 +1,127 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+
+const lang = "pl" as const;
+const title = "Kontakt";
+const description = "Skontaktuj się z Dziadkiem Komodorem — telefon, formularz zgłoszeniowy, godziny otwarcia. Obsługujemy Piłę, Bydgoszcz i okolice.";
+---
+
+<PageLayout lang={lang} slug="kontakt" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Kontakt</h1>
+		<p class="page-hero__lead">
+			Zadzwoń, napisz albo wypełnij formularz poniżej — odpowiadamy szybko.
+		</p>
+	</section>
+
+	<section class="container kontakt-grid">
+		<div class="kontakt-info" data-animate="reveal">
+			<h2>Dane kontaktowe</h2>
+			<dl>
+				<div>
+					<dt>Telefon</dt>
+					<dd><a href={site.phone.href}>{site.phone.display}</a></dd>
+				</div>
+				<div>
+					<dt>E-mail</dt>
+					<dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+				</div>
+				<div>
+					<dt>Obszar działania</dt>
+					<dd>{site.serviceAreasNote[lang]}</dd>
+				</div>
+				<div>
+					<dt>Godziny</dt>
+					<dd>{site.hoursDisplay[lang]}</dd>
+				</div>
+			</dl>
+			<div class="kontakt-area-note">
+				<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+					<path d="M12 21s-7-6.5-7-11.5A7 7 0 0119 9.5C19 14.5 12 21 12 21z" />
+					<circle cx="12" cy="9.5" r="2.5" />
+				</svg>
+				<p>
+					Działamy w formule serwisu obsługującego obszar — bez stacjonarnego punktu z jawnym adresem.
+					Odbiór, dostawa lub wizyta na miejscu do ustalenia telefonicznie.
+				</p>
+			</div>
+		</div>
+
+		<div data-animate="reveal">
+			<h2>Formularz zgłoszeniowy</h2>
+			<ContactForm lang={lang} />
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+
+	.kontakt-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-7);
+		padding-block: var(--space-6) var(--space-8);
+	}
+
+	.kontakt-info dl {
+		display: grid;
+		gap: var(--space-4);
+		margin: var(--space-4) 0 var(--space-5);
+	}
+
+	.kontakt-info dt {
+		font-size: var(--text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-ink-soft);
+	}
+
+	.kontakt-info dd {
+		margin: 0;
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		font-size: var(--text-lg);
+	}
+
+	.kontakt-info dd a {
+		color: var(--color-ink);
+		text-decoration: none;
+	}
+
+	.kontakt-area-note {
+		display: flex;
+		gap: var(--space-3);
+		align-items: flex-start;
+		padding: var(--space-4);
+		background: var(--color-bg-raised);
+		border-radius: var(--radius-soft);
+		color: var(--color-ink-soft);
+	}
+
+	.kontakt-area-note svg {
+		flex-shrink: 0;
+		color: var(--color-accent);
+	}
+
+	.kontakt-area-note p {
+		margin: 0;
+		font-size: var(--text-sm);
+	}
+
+	@media (min-width: 900px) {
+		.kontakt-grid {
+			grid-template-columns: 1fr 1.3fr;
+		}
+	}
+</style>

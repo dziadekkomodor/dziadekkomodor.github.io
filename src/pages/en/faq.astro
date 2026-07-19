@@ -1,0 +1,54 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { faqItems } from '../../data/faq';
+import { site } from '../../data/site';
+import { localePath } from '../../data/nav';
+
+const lang = "en" as const;
+const title = "Frequently asked questions";
+const description = "Answers to the most common questions about computer, laptop, and phone repair: turnaround time, warranty, on-site visits, data recovery.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question[lang],
+    acceptedAnswer: { "@type": "Answer", text: item.answer[lang] },
+  })),
+};
+---
+
+<PageLayout lang={lang} slug="faq" title={title} description={description} jsonLd={jsonLd}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Frequently asked questions</h1>
+		<p class="page-hero__lead">
+			Didn't find your answer? Call {site.phone.display} — we're happy to help.
+		</p>
+	</section>
+
+	<section class="container">
+		<FaqAccordion lang={lang} />
+	</section>
+
+	<CtaBanner
+		heading="Have another question?"
+		body="Call, message, or fill out the contact form."
+		ctaLabel="Contact"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

@@ -1,0 +1,91 @@
+---
+import { processSteps } from '../data/process';
+
+export interface Props {
+  lang: "pl" | "en";
+  heading: string;
+}
+
+const { lang, heading } = Astro.props;
+---
+
+<section class="process container" data-animate="reveal">
+	<h2>{heading}</h2>
+	<ol class="process__list">
+		{processSteps.map((step, i) => (
+			<li>
+				<span class="process__node">{i + 1}</span>
+				<p class="process__label">{step.label[lang]}</p>
+				<p class="process__desc">{step.description[lang]}</p>
+			</li>
+		))}
+	</ol>
+</section>
+
+<style>
+	.process {
+		padding-block: var(--space-7);
+	}
+
+	.process__list {
+		list-style: none;
+		margin: var(--space-6) 0 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-5);
+		position: relative;
+	}
+
+	.process__list li {
+		position: relative;
+		padding-left: var(--space-6);
+	}
+
+	.process__node {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 2.25rem;
+		height: 2.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-accent);
+		color: var(--color-accent-ink);
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-black);
+		border-radius: var(--radius-pill);
+	}
+
+	.process__label {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		font-size: var(--text-lg);
+		margin: 0 0 var(--space-1);
+	}
+
+	.process__desc {
+		margin: 0;
+		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+	}
+
+	@media (min-width: 900px) {
+		.process__list {
+			grid-template-columns: repeat(5, 1fr);
+			gap: var(--space-4);
+		}
+
+		.process__list::before {
+			content: '';
+			position: absolute;
+			top: 1.1rem;
+			left: 2.25rem;
+			right: 2.25rem;
+			height: 2px;
+			background: var(--color-border);
+			z-index: -1;
+		}
+	}
+</style>

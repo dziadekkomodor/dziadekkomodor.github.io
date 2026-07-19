@@ -1,0 +1,90 @@
+---
+import { trustPoints } from '../data/trust';
+
+export interface Props {
+  lang: "pl" | "en";
+  heading: string;
+  intro?: string;
+}
+
+const { lang, heading, intro } = Astro.props;
+---
+
+<section class="trust-block container" data-animate="reveal">
+	<h2>{heading}</h2>
+	{intro && <p class="trust-block__intro">{intro}</p>}
+	<ol class="trust-block__list">
+		{trustPoints.map((point, i) => (
+			<li style={`--offset: ${i % 2 === 1 ? '3rem' : '0'};`}>
+				<span class="trust-block__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+				<div>
+					<p class="trust-block__fear">{point.fear[lang]}</p>
+					<p class="trust-block__answer">{point.answer[lang]}</p>
+				</div>
+			</li>
+		))}
+	</ol>
+</section>
+
+<style>
+	.trust-block {
+		padding-block: var(--space-7);
+	}
+
+	.trust-block__intro {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+
+	.trust-block__list {
+		list-style: none;
+		margin: var(--space-6) 0 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.trust-block__list li {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: var(--space-4);
+		align-items: baseline;
+		padding-block: var(--space-5);
+		border-top: 1px solid var(--color-border);
+		margin-left: var(--offset, 0);
+		max-width: 62rem;
+	}
+
+	.trust-block__list li:last-child {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.trust-block__index {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-black);
+		font-size: var(--text-2xl);
+		color: var(--color-accent);
+		line-height: 1;
+	}
+
+	.trust-block__fear {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		font-size: var(--text-xl);
+		margin: 0 0 var(--space-2);
+	}
+
+	.trust-block__answer {
+		margin: 0;
+		color: var(--color-ink-soft);
+		max-width: 56ch;
+	}
+
+	@media (max-width: 640px) {
+		.trust-block__list li {
+			grid-template-columns: 1fr;
+			margin-left: 0;
+		}
+	}
+</style>

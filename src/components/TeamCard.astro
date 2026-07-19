@@ -1,0 +1,51 @@
+---
+import PlaceholderImage from './PlaceholderImage.astro';
+
+export interface Props {
+  lang: "pl" | "en";
+  name: string;
+  age: number;
+  role: string;
+  bio: string;
+  yearsExperience: number;
+  compact?: boolean;
+}
+
+const { lang, name, age, role, bio, yearsExperience, compact = false } = Astro.props;
+const yearsLabel = lang === "en"
+  ? `${yearsExperience}+ years of experience`
+  : `${yearsExperience}+ lat doświadczenia`;
+const ageLabel = lang === "en" ? `${age} years old` : `${age} lat`;
+---
+
+<article class="team-card">
+	<PlaceholderImage lang={lang} captionPl={`Zdjęcie: ${name}`} captionEn={`Photo: ${name}`} ratio="1 / 1" />
+	<h3>{name}</h3>
+	<p class="team-card__meta">{role} · {ageLabel} · {yearsLabel}</p>
+	{!compact && <p class="team-card__bio">{bio}</p>}
+</article>
+
+<style>
+	.team-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.team-card h3 {
+		margin: 0;
+		font-size: var(--text-xl);
+	}
+
+	.team-card__meta {
+		margin: 0;
+		font-size: var(--text-sm);
+		font-weight: var(--weight-body-bold);
+		color: var(--color-accent);
+	}
+
+	.team-card__bio {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+</style>

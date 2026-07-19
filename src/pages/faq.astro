@@ -1,0 +1,56 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { faqItems } from '../data/faq';
+import { site } from '../data/site';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const title = "Najczęściej zadawane pytania";
+const description = "Odpowiedzi na najczęstsze pytania o naprawę komputerów, laptopów i telefonów: czas naprawy, gwarancja, dojazd do klienta, odzyskiwanie danych.";
+
+// FAQPage JSON-LD — text here must match FaqAccordion's visible text exactly (both read from
+// the same faqItems array), a Google requirement for FAQPage rich results.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question[lang],
+    acceptedAnswer: { "@type": "Answer", text: item.answer[lang] },
+  })),
+};
+---
+
+<PageLayout lang={lang} slug="faq" title={title} description={description} jsonLd={jsonLd}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Najczęściej zadawane pytania</h1>
+		<p class="page-hero__lead">
+			Nie znalazłeś odpowiedzi? Zadzwoń pod {site.phone.display} — chętnie odpowiemy.
+		</p>
+	</section>
+
+	<section class="container">
+		<FaqAccordion lang={lang} />
+	</section>
+
+	<CtaBanner
+		heading="Masz inne pytanie?"
+		body="Zadzwoń, napisz albo wypełnij formularz kontaktowy."
+		ctaLabel="Kontakt"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

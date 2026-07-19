@@ -1,0 +1,75 @@
+---
+import PlaceholderImage from './PlaceholderImage.astro';
+import { site } from '../data/site';
+
+export interface Props {
+  lang: "pl" | "en";
+  eyebrow: string;
+  headline: string;
+  subhead: string;
+  ctaLabel: string;
+  ctaHref: string;
+  photoCaptionPl: string;
+  photoCaptionEn: string;
+}
+
+const { lang, eyebrow, headline, subhead, ctaLabel, ctaHref, photoCaptionPl, photoCaptionEn } = Astro.props;
+---
+
+<section class="hero container">
+	<div class="hero__text">
+		<p class="hero__eyebrow" data-animate="hero">{eyebrow}</p>
+		<h1 data-animate="hero">{headline}</h1>
+		<p class="hero__subhead" data-animate="hero">{subhead}</p>
+		<div class="hero__actions" data-animate="hero">
+			<a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
+			<a href={site.phone.href} class="btn btn-secondary">{site.phone.display}</a>
+		</div>
+	</div>
+	<div class="hero__media" data-animate="hero">
+		<PlaceholderImage lang={lang} captionPl={photoCaptionPl} captionEn={photoCaptionEn} ratio="4 / 3" />
+	</div>
+</section>
+
+<style>
+	.hero {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-6);
+		padding-block: var(--space-6) var(--space-7);
+		align-items: center;
+	}
+
+	.hero__eyebrow {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		color: var(--color-accent);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: var(--text-sm);
+		margin: 0 0 var(--space-3);
+	}
+
+	.hero h1 {
+		max-width: 16ch;
+	}
+
+	.hero__subhead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 48ch;
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: var(--space-3);
+		flex-wrap: wrap;
+		margin-top: var(--space-4);
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: 1.1fr 0.9fr;
+		}
+	}
+</style>

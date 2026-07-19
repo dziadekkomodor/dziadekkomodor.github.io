@@ -1,0 +1,75 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/Hero.astro';
+import TrustBlock from '../../components/TrustBlock.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+import { localePath } from '../../data/nav';
+
+const lang = "en" as const;
+const svc = services.find((s) => s.slug === "naprawa-komputerow-bydgoszcz")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
+	<Hero
+		lang={lang}
+		eyebrow="Computer repair — Bydgoszcz"
+		headline="Computer repair in Bydgoszcz, no hidden costs."
+		subhead="The same transparent process as in Piła — free diagnosis, a clear quote, repair only after you approve it."
+		ctaLabel="Free quote"
+		ctaHref={localePath(lang, "kontakt")}
+		photoCaptionPl="Zdjęcie naprawianego komputera stacjonarnego — do dodania"
+		photoCaptionEn="Photo of a desktop computer being repaired — to be added"
+	/>
+
+	<section class="container services-list" data-animate="reveal">
+		<h2>What we repair most often</h2>
+		<ul>
+			<li>Interior case cleaning and thermal paste replacement.</li>
+			<li>HDD/SSD replacement and system migration without data loss.</li>
+			<li>Motherboard power-circuit repair and BGA soldering.</li>
+			<li>BIOS diagnostics and repair.</li>
+			<li>Operating system installation and configuration.</li>
+			<li>Data recovery — basic in-house, complex cases handled with an external lab partner.</li>
+		</ul>
+	</section>
+
+	<TrustBlock lang={lang} heading="We know what you're worried about" />
+
+	<ProcessSteps lang={lang} heading="How a repair works, step by step" />
+
+	<CtaBanner
+		heading="Ask for a computer repair quote"
+		body="Free diagnosis, a written quote, a 5-month warranty on the repair."
+		ctaLabel="Free quote"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.services-list {
+		padding-block: var(--space-7);
+	}
+
+	.services-list ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 60ch;
+	}
+
+	.services-list li {
+		font-size: var(--text-lg);
+	}
+</style>

@@ -1,0 +1,107 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import PlaceholderImage from '../components/PlaceholderImage.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd} theme="gaming">
+	<Hero
+		lang={lang}
+		eyebrow="Komputery gamingowe — Bydgoszcz i Piła"
+		headline="Boutique builder, jakiego w Bydgoszczy jeszcze nie było."
+		subhead="Budowy na zamówienie, upgrade'y GPU i chłodzenia, naprawy komponentowe — z realnym zrozumieniem podzespołów, nie tylko wymianą części."
+		ctaLabel="Wyceń build lub naprawę"
+		ctaHref={localePath(lang, "kontakt")}
+		photoCaptionPl="Zdjęcie zbudowanego PC gamingowego — do dodania"
+		photoCaptionEn="Photo of a completed gaming PC build — to be added"
+	/>
+
+	<section class="container gaming-specs" data-animate="reveal">
+		<h2>Co robimy</h2>
+		<div class="gaming-specs__grid">
+			<div>
+				<h3>Budowy na zamówienie</h3>
+				<p>Dobór podzespołów pod budżet i konkretne gry — z doradztwem, nie tylko listą części.</p>
+			</div>
+			<div>
+				<h3>Upgrade GPU i chłodzenia</h3>
+				<p>Wymiana karty graficznej, przejście na chłodzenie wodne, optymalizacja przepływu powietrza.</p>
+			</div>
+			<div>
+				<h3>Naprawy komponentowe</h3>
+				<p>Lutowanie BGA, naprawa układów zasilania płyty głównej, diagnostyka BIOS.</p>
+			</div>
+			<div>
+				<h3>Serwis laptopów gamingowych</h3>
+				<p>Czyszczenie i wymiana pasty termoprzewodzącej dla laptopów, które grzeją się pod obciążeniem.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="container gaming-portfolio" data-animate="reveal">
+		<h2>Portfolio buildów</h2>
+		<p>Realizacje pojawią się tutaj, gdy tylko będziemy mieli pierwsze udokumentowane projekty.</p>
+		<PlaceholderImage lang={lang} captionPl="Zdjęcia zrealizowanych buildów — do dodania" captionEn="Photos of completed builds — to be added" ratio="16 / 9" />
+	</section>
+
+	<ProcessSteps lang={lang} heading="Jak wygląda zlecenie krok po kroku" />
+
+	<CtaBanner
+		heading="Masz w głowie build albo problem ze sprzętem?"
+		body="Napisz, jakich komponentów szukasz albo co się psuje — odezwiemy się z konkretami."
+		ctaLabel="Wyceń build lub naprawę"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.gaming-specs,
+	.gaming-portfolio {
+		padding-block: var(--space-7);
+	}
+
+	.gaming-specs__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-5);
+		margin-top: var(--space-5);
+	}
+
+	.gaming-specs__grid h3 {
+		color: var(--color-accent);
+		font-size: var(--text-lg);
+		margin-bottom: var(--space-2);
+	}
+
+	.gaming-specs__grid p {
+		color: var(--color-ink-soft);
+		margin: 0;
+	}
+
+	.gaming-portfolio p {
+		color: var(--color-ink-soft);
+		margin-bottom: var(--space-4);
+	}
+
+	@media (min-width: 800px) {
+		.gaming-specs__grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

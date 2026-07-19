@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  lang: "pl" | "en";
+  title: string;
+  description: string;
+  /** Locale-agnostic slug, e.g. "cennik" or "" for the homepage. */
+  slug: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  theme?: "gaming";
+  density?: "comfortable";
+}
+
+const { lang, title, description, slug, jsonLd, theme, density } = Astro.props;
+---
+
+<BaseLayout lang={lang} title={title} description={description} slug={slug} jsonLd={jsonLd} theme={theme} density={density}>
+	<Header lang={lang} slug={slug} />
+	<main id="main-content">
+		<slot />
+	</main>
+	<Footer lang={lang} />
+</BaseLayout>

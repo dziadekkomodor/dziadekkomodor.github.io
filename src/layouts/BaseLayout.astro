@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+export interface Props {
+  lang: "pl" | "en";
+  title: string;
+  description: string;
+  /** Locale-agnostic slug, e.g. "cennik" or "" for the homepage — used to build hreflang alternates. */
+  slug: string;
+  /** One JSON-LD object, or an array of them (each gets its own <script> tag). */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  theme?: "gaming";
+  density?: "comfortable";
+}
+
+const { lang, title, description, slug, jsonLd, theme, density } = Astro.props;
+
+const plPath = slug ? `/${slug}` : "/";
+const enPath = slug ? `/en/${slug}` : "/en/";
+const canonicalPath = lang === "en" ? enPath : plPath;
+const canonicalUrl = new URL(canonicalPath, site.url).toString();
+const plUrl = new URL(plPath, site.url).toString();
+const enUrl = new URL(enPath, site.url).toString();
+
+const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang={lang} data-theme={theme} data-density={density}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/favicon.svg`} />
+		<title>{title} — {site.brandName}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="pl" href={plUrl} />
+		<link rel="alternate" hreflang="en" href={enUrl} />
+		<link rel="alternate" hreflang="x-default" href={plUrl} />
+		<meta property="og:title" content={`${title} — ${site.brandName}`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		{jsonLdBlocks.map((block) => (
+			<script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />
+		))}
+	</head>
+	<body>
+		<a href="#main-content" class="skip-link">
+			{lang === "en" ? "Skip to content" : "Przejdź do treści"}
+		</a>
+		<slot />
+		<script src="/src/scripts/motion.js"></script>
+	</body>
+</html>

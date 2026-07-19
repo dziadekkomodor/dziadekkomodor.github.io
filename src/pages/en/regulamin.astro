@@ -1,0 +1,83 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { site } from '../../data/site';
+
+const lang = "en" as const;
+const title = "Terms & warranty policy";
+const description = "Dziadek Komodor's terms of service — the repair process, warranty terms, and liability.";
+---
+
+<PageLayout lang={lang} slug="regulamin" title={title} description={description}>
+	<section class="container legal-page" data-animate="reveal">
+		<h1>Terms & warranty policy</h1>
+
+		<p class="legal-page__notice">
+			<strong>Working draft.</strong> This text describes the terms we actually operate under —
+			it is not yet a finished legal document. Before the site goes live, this text should be
+			reviewed by a lawyer, as the project brief itself notes.
+		</p>
+
+		<h2>Who we are</h2>
+		<p>
+			{site.brandName} operates as unregistered small-scale activity under Polish law — we are not
+			a registered company and do not issue VAT invoices. Services are provided personally, by
+			two private individuals.
+		</p>
+
+		<h2>The repair process</h2>
+		<p>Every job goes through the same stages:</p>
+		<ol>
+			<li><strong>Diagnosis</strong> — we check what's wrong, free of charge.</li>
+			<li><strong>Quote</strong> — we give you the repair cost in writing.</li>
+			<li><strong>Repair</strong> — we start only after you approve the quote.</li>
+			<li><strong>Testing</strong> — we verify the device works correctly.</li>
+			<li><strong>Warranty</strong> — a {site.warrantyMonths}-month warranty on the completed repair.</li>
+		</ol>
+
+		<h2>Warranty</h2>
+		<p>
+			We provide a {site.warrantyMonths}-month warranty on completed repairs, starting from the
+			day you collect the device. The warranty covers only the fault that was repaired, and does
+			not cover new faults unrelated to the service performed or mechanical damage occurring
+			after collection.
+		</p>
+
+		<h2>Liability</h2>
+		<p>
+			Before any repair that involves the drive, we tell you about the risk of data loss. We
+			recommend backing up your data before handing over the device — where possible, we also
+			back it up ourselves, but we are not liable for data that wasn't secured before the repair
+			started.
+		</p>
+
+		<h2>Uncollected devices</h2>
+		<p>
+			Devices left uncollected for {site.warrantyMonths + 1} months after the repair is finished
+			are considered abandoned, and we'll notify you beforehand at the contact details you provided.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.legal-page {
+		padding-block: var(--space-6) var(--space-8);
+		max-width: 68ch;
+	}
+
+	.legal-page__notice {
+		padding: var(--space-4);
+		background: var(--color-bg-raised);
+		border-left: 3px solid var(--color-accent);
+		border-radius: var(--radius-sharp);
+		color: var(--color-ink-soft);
+	}
+
+	.legal-page h2 {
+		margin-top: var(--space-6);
+	}
+
+	.legal-page ol {
+		display: grid;
+		gap: var(--space-2);
+	}
+</style>

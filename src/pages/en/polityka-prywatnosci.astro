@@ -1,0 +1,71 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { site } from '../../data/site';
+
+const lang = "en" as const;
+const title = "Privacy policy";
+const description = "Dziadek Komodor's privacy policy — what data we collect through the contact form, why, and how long we keep it.";
+---
+
+<PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
+	<section class="container legal-page" data-animate="reveal">
+		<h1>Privacy policy</h1>
+
+		<p class="legal-page__notice">
+			<strong>Working draft.</strong> This text describes the actual mechanics of how the form on
+			this site handles data — it is not yet a finished legal document. Before the site goes
+			live, this text should be reviewed by a lawyer, as the project brief itself notes.
+		</p>
+
+		<h2>What data we collect</h2>
+		<p>
+			The contact form at <code>/kontakt</code> collects: your name, contact details (phone or
+			email), device type, a description of the problem, and — optionally — a photo of the
+			device. Submissions are sent directly to a private channel we use to manage requests.
+		</p>
+
+		<h2>Why we process this data</h2>
+		<p>
+			Solely to respond to your request, prepare a quote, and — if you decide to proceed — carry
+			out the repair. We do not share this data with third parties for marketing purposes.
+		</p>
+
+		<h2>How long we keep it</h2>
+		<p>
+			We keep request data for no longer than {site.warrantyMonths + 7} months after our last
+			contact (covering the warranty period plus a margin for potential claims), then delete it.
+			If you'd like us to delete your data sooner, email {site.email}.
+		</p>
+
+		<h2>Your rights</h2>
+		<p>
+			You have the right to access, correct, delete, restrict the processing of, and port your
+			data. To exercise any of these rights, email {site.email}.
+		</p>
+
+		<h2>Consent</h2>
+		<p>
+			By submitting the contact form, you consent to the processing of the data above for the
+			purpose described. This consent is voluntary but necessary for us to handle your request.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.legal-page {
+		padding-block: var(--space-6) var(--space-8);
+		max-width: 68ch;
+	}
+
+	.legal-page__notice {
+		padding: var(--space-4);
+		background: var(--color-bg-raised);
+		border-left: 3px solid var(--color-accent);
+		border-radius: var(--radius-sharp);
+		color: var(--color-ink-soft);
+	}
+
+	.legal-page h2 {
+		margin-top: var(--space-6);
+	}
+</style>

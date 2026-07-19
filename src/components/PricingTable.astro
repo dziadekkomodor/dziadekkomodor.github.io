@@ -1,0 +1,105 @@
+---
+import { pricingCategories, pricingDisclaimer } from '../data/pricing';
+import { site } from '../data/site';
+
+export interface Props {
+  lang: "pl" | "en";
+}
+
+const { lang } = Astro.props;
+const warrantyNote = lang === "en"
+  ? `All repairs come with a ${site.warrantyMonths}-month warranty.`
+  : `Na wszystkie naprawy udzielamy ${site.warrantyMonths} miesięcy gwarancji.`;
+---
+
+<div class="pricing-table" data-animate="reveal">
+	{pricingCategories.map((category) => (
+		<section class="pricing-table__category">
+			<h3>{category.title[lang]}</h3>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">{lang === "en" ? "Service" : "Usługa"}</th>
+						<th scope="col">{lang === "en" ? "Price" : "Cena"}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{category.rows.map((row) => (
+						<tr>
+							<th scope="row">
+								{row.name[lang]}
+								{row.note && <span class="pricing-table__note">{row.note[lang]}</span>}
+							</th>
+							<td>{row.price[lang]}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</section>
+	))}
+	<p class="pricing-table__warranty">{warrantyNote}</p>
+	<p class="pricing-table__disclaimer">{pricingDisclaimer[lang]}</p>
+</div>
+
+<style>
+	.pricing-table {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.pricing-table__category h3 {
+		margin-bottom: var(--space-3);
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		background: var(--color-bg-raised);
+	}
+
+	th, td {
+		text-align: left;
+		padding: var(--space-3);
+		border-bottom: 1px solid var(--color-border);
+		font-weight: var(--weight-body-regular);
+	}
+
+	thead th {
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--color-ink-soft);
+	}
+
+	tbody th {
+		font-weight: var(--weight-body-regular);
+	}
+
+	td {
+		font-weight: var(--weight-body-bold);
+		white-space: nowrap;
+	}
+
+	.pricing-table__note {
+		display: block;
+		font-size: var(--text-xs);
+		color: var(--color-ink-soft);
+		font-weight: var(--weight-body-regular);
+		margin-top: var(--space-1);
+	}
+
+	.pricing-table__warranty {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-bold);
+		font-size: var(--text-lg);
+		color: var(--color-accent);
+	}
+
+	.pricing-table__disclaimer {
+		font-size: var(--text-sm);
+		color: var(--color-ink-soft);
+		max-width: 70ch;
+	}
+</style>

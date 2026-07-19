@@ -1,0 +1,255 @@
+---
+import { localePath } from '../data/nav';
+
+export interface Props {
+  lang: "pl" | "en";
+}
+
+const { lang } = Astro.props;
+const privacyHref = localePath(lang, "polityka-prywatnosci");
+
+const t = lang === "en"
+  ? {
+      name: "Full name",
+      contact: "Phone or email",
+      device: "Device type",
+      deviceOptions: ["Laptop", "Desktop computer", "Phone", "Gaming PC", "Other"],
+      problem: "Briefly describe the problem",
+      photo: "Photo (optional)",
+      consentPre: "I agree to the processing of my data per the ",
+      consentLink: "privacy policy",
+      consentPost: ".",
+      submit: "Send request",
+      submitting: "Sending…",
+      required: "Required",
+      success: "Thanks — we've received your request and will get back to you shortly. If it's urgent, just call us.",
+      error: "Something went wrong sending the form. Please call or email us directly instead.",
+      testMode: "Contact form is in test mode during local development — submissions aren't sent anywhere yet.",
+    }
+  : {
+      name: "Imię i nazwisko",
+      contact: "Telefon lub e-mail",
+      device: "Rodzaj urządzenia",
+      deviceOptions: ["Laptop", "Komputer stacjonarny", "Telefon", "Komputer gamingowy", "Inne"],
+      problem: "Krótko opisz problem",
+      photo: "Zdjęcie (opcjonalnie)",
+      consentPre: "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
+      consentLink: "polityką prywatności",
+      consentPost: ".",
+      submit: "Wyślij zgłoszenie",
+      submitting: "Wysyłanie…",
+      required: "Pole wymagane",
+      success: "Dziękujemy — otrzymaliśmy Twoje zgłoszenie i wkrótce się odezwiemy. Jeśli sprawa jest pilna, po prostu zadzwoń.",
+      error: "Coś poszło nie tak przy wysyłce formularza. Zadzwoń lub napisz do nas bezpośrednio.",
+      testMode: "Formularz kontaktowy działa w trybie testowym podczas lokalnego developmentu — zgłoszenia nie są jeszcze nigdzie wysyłane.",
+    };
+---
+
+<form class="contact-form" id="contact-form" novalidate data-lang={lang}>
+	<div class="contact-form__field">
+		<label for="cf-name">{t.name} <span aria-hidden="true">*</span></label>
+		<input id="cf-name" name="name" type="text" required autocomplete="name" />
+	</div>
+
+	<div class="contact-form__field">
+		<label for="cf-contact">{t.contact} <span aria-hidden="true">*</span></label>
+		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" />
+	</div>
+
+	<div class="contact-form__field">
+		<label for="cf-device">{t.device}</label>
+		<select id="cf-device" name="device">
+			{t.deviceOptions.map((opt) => <option value={opt}>{opt}</option>)}
+		</select>
+	</div>
+
+	<div class="contact-form__field">
+		<label for="cf-problem">{t.problem} <span aria-hidden="true">*</span></label>
+		<textarea id="cf-problem" name="problem" rows="4" required></textarea>
+	</div>
+
+	<div class="contact-form__field">
+		<label for="cf-photo">{t.photo}</label>
+		<input id="cf-photo" name="photo" type="file" accept="image/*" />
+	</div>
+
+	<!-- Honeypot: real users never see or fill this. Off-screen (not display:none — some bots
+	     skip display:none but still fill off-screen fields, so this catches more of them), never
+	     reachable by keyboard, hidden from screen readers. -->
+	<div class="hp-field" aria-hidden="true">
+		<label for="cf-website">Website</label>
+		<input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+	</div>
+
+	<div class="contact-form__field contact-form__consent">
+		<input id="cf-consent" name="consent" type="checkbox" required />
+		<label for="cf-consent">
+			{t.consentPre}<a href={privacyHref}>{t.consentLink}</a>{t.consentPost}
+		</label>
+	</div>
+
+	<button type="submit" class="btn btn-primary">{t.submit}</button>
+
+	<p class="contact-form__status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		max-width: 34rem;
+	}
+
+	.contact-form__field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.contact-form label {
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+	}
+
+	.contact-form input[type="text"],
+	.contact-form input[type="file"],
+	.contact-form select,
+	.contact-form textarea {
+		padding: var(--space-3);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sharp);
+		background: var(--color-bg-raised);
+		color: var(--color-ink);
+	}
+
+	.contact-form__consent {
+		flex-direction: row;
+		align-items: flex-start;
+		gap: var(--space-3);
+	}
+
+	.contact-form__consent label {
+		font-weight: var(--weight-body-regular);
+	}
+
+	.contact-form__consent input {
+		margin-top: 0.3em;
+	}
+
+	.contact-form button {
+		align-self: flex-start;
+	}
+
+	.contact-form__status {
+		margin: 0;
+		font-weight: var(--weight-body-bold);
+	}
+
+	.contact-form__status[data-state="success"] {
+		color: #2E7D32;
+	}
+
+	.contact-form__status[data-state="error"] {
+		color: #B3261E;
+	}
+</style>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement | null;
+
+	if (form) {
+		const lang = form.dataset.lang === 'en' ? 'en' : 'pl';
+		const status = form.querySelector<HTMLParagraphElement>('.contact-form__status');
+		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+		const webhookUrl = import.meta.env.PUBLIC_DISCORD_WEBHOOK_URL as string | undefined;
+
+		const messages = lang === 'en'
+			? {
+					submitting: 'Sending…',
+					submit: 'Send request',
+					success: "Thanks — we've received your request and will get back to you shortly. If it's urgent, just call us.",
+					error: 'Something went wrong sending the form. Please call or email us directly instead.',
+					testMode: "Contact form is in test mode during local development — submissions aren't sent anywhere yet.",
+				}
+			: {
+					submitting: 'Wysyłanie…',
+					submit: 'Wyślij zgłoszenie',
+					success: 'Dziękujemy — otrzymaliśmy Twoje zgłoszenie i wkrótce się odezwiemy. Jeśli sprawa jest pilna, po prostu zadzwoń.',
+					error: 'Coś poszło nie tak przy wysyłce formularza. Zadzwoń lub napisz do nas bezpośrednio.',
+					testMode: 'Formularz kontaktowy działa w trybie testowym podczas lokalnego developmentu — zgłoszenia nie są jeszcze nigdzie wysyłane.',
+				};
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			if (!form.checkValidity()) {
+				form.reportValidity();
+				return;
+			}
+
+			// Honeypot: if filled, a bot did it — silently drop without revealing anything.
+			const honeypot = form.querySelector<HTMLInputElement>('#cf-website');
+			if (honeypot && honeypot.value) {
+				return;
+			}
+
+			if (submitBtn) {
+				submitBtn.disabled = true;
+				submitBtn.textContent = messages.submitting;
+			}
+
+			// Stage 1: no real webhook exists yet (created in Stage 2 once Discord is set up).
+			// Handle that gracefully instead of throwing a confusing fetch error against an empty URL.
+			if (!webhookUrl) {
+				if (status) {
+					status.textContent = messages.testMode;
+					status.dataset.state = 'success';
+				}
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.textContent = messages.submit;
+				}
+				return;
+			}
+
+			const name = (form.querySelector<HTMLInputElement>('#cf-name')?.value ?? '').trim();
+			const contact = (form.querySelector<HTMLInputElement>('#cf-contact')?.value ?? '').trim();
+			const device = form.querySelector<HTMLSelectElement>('#cf-device')?.value ?? '';
+			const problem = (form.querySelector<HTMLTextAreaElement>('#cf-problem')?.value ?? '').trim();
+			const photoInput = form.querySelector<HTMLInputElement>('#cf-photo');
+			const photo = photoInput?.files?.[0];
+
+			// multipart/form-data (not JSON) so a photo attachment can ride along — Discord webhooks
+			// accept file uploads this way via payload_json + file fields.
+			const body = new FormData();
+			body.append(
+				'payload_json',
+				JSON.stringify({
+					content: `**Nowe zgłoszenie — ${name}**\nKontakt: ${contact}\nUrządzenie: ${device}\nProblem: ${problem}`,
+				})
+			);
+			if (photo) {
+				body.append('files[0]', photo, photo.name);
+			}
+
+			try {
+				const res = await fetch(webhookUrl, { method: 'POST', body });
+				if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
+				form.hidden = true;
+				if (status) {
+					status.textContent = messages.success;
+					status.dataset.state = 'success';
+				}
+			} catch {
+				if (status) {
+					status.textContent = messages.error;
+					status.dataset.state = 'error';
+				}
+				if (submitBtn) {
+					submitBtn.disabled = false;
+					submitBtn.textContent = messages.submit;
+				}
+			}
+		});
+	}
+</script>

@@ -1,0 +1,65 @@
+---
+// Repeatable primary-CTA block — the brief wants the main CTA repeated top/mid/bottom of every
+// page. Locale-agnostic: caller passes already-resolved strings, this just lays them out.
+
+import { site } from '../data/site';
+
+export interface Props {
+  heading: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { heading, body, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="cta-banner container">
+	<div class="cta-banner__text">
+		<h2>{heading}</h2>
+		<p>{body}</p>
+	</div>
+	<div class="cta-banner__actions">
+		<a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
+		<a href={site.phone.href} class="btn btn-secondary">{site.phone.display}</a>
+	</div>
+</section>
+
+<style>
+	.cta-banner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		margin-block: var(--space-7);
+		padding: var(--space-6);
+		background: var(--color-ink);
+		border-radius: var(--radius-soft);
+	}
+
+	.cta-banner h2,
+	.cta-banner p {
+		color: var(--color-bg);
+	}
+
+	.cta-banner h2 {
+		margin-bottom: var(--space-2);
+	}
+
+	.cta-banner p {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+
+	.cta-banner__actions {
+		display: flex;
+		gap: var(--space-3);
+		flex-wrap: wrap;
+	}
+
+	.cta-banner .btn-secondary {
+		color: var(--color-bg);
+		border-color: var(--color-bg);
+	}
+</style>

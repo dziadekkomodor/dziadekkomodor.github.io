@@ -1,0 +1,13 @@
+/* Gaming-persona variant — used ONLY on /komputery-gamingowe-bydgoszcz (and its /en sibling) via
+   a data-theme="gaming" attribute on <body>. Same two fonts, same token names, different values —
+   never a separate stylesheet or a site-wide toggle. Static at build time, zero runtime cost. */
+
+[data-theme="gaming"] {
+  --color-bg: #12181C;           /* charcoal-navy, not purple */
+  --color-bg-raised: #1B2329;
+  --color-ink: #ECEDEE;          /* off-white */
+  --color-ink-soft: #9AA5AB;
+  --color-accent: #4AF2A1;       /* phosphor green — CRT terminal nod, distinct from the amber system */
+  --color-accent-ink: #0A0F11;   /* dark text on the bright green accent */
+  --color-border: #2B363D;
+}

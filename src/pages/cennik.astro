@@ -1,0 +1,43 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import PricingTable from '../components/PricingTable.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const title = "Cennik napraw";
+const description = "Orientacyjny cennik napraw komputerów, laptopów i telefonów w Pile i Bydgoszczy. Bezpłatna diagnoza, jasna wycena przed każdą naprawą.";
+---
+
+<PageLayout lang={lang} slug="cennik" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Cennik</h1>
+		<p class="page-hero__lead">
+			Poniżej znajdziesz orientacyjne ceny najczęstszych napraw. Dokładną kwotę zawsze podajemy
+			po bezpłatnej wstępnej diagnozie — na piśmie, przed rozpoczęciem jakiejkolwiek pracy.
+		</p>
+	</section>
+
+	<section class="container">
+		<PricingTable lang={lang} />
+	</section>
+
+	<CtaBanner
+		heading="Nie widzisz swojej usługi na liście?"
+		body="Zadzwoń albo napisz — powiemy Ci od razu, ile orientacyjnie będzie kosztować naprawa."
+		ctaLabel="Darmowa wycena"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

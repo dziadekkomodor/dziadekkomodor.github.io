@@ -1,0 +1,42 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PlaceholderReviews from '../../components/PlaceholderReviews.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { localePath } from '../../data/nav';
+
+const lang = "en" as const;
+const title = "Reviews";
+const description = "Customer reviews of Dziadek Komodor — a computer repair shop in Piła and Bydgoszcz.";
+---
+
+<PageLayout lang={lang} slug="opinie" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Reviews</h1>
+		<p class="page-hero__lead">
+			We don't publish anything we can't verify — only real reviews from real customers.
+		</p>
+	</section>
+
+	<section class="container">
+		<PlaceholderReviews lang={lang} />
+	</section>
+
+	<CtaBanner
+		heading="Be one of our first customers"
+		body="Help us build our review list — leave one after your repair."
+		ctaLabel="Free quote"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+		max-width: 60ch;
+	}
+</style>

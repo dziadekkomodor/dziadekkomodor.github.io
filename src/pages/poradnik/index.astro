@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { localePath } from '../../data/nav';
+
+const lang = "pl" as const;
+const posts = (await getCollection('poradnik', (entry) => entry.id.startsWith(`${lang}/`)))
+  .map((post) => ({ ...post, slug: post.id.slice(lang.length + 1) }))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const title = "Poradnik";
+const description = "Praktyczne porady o naprawie i konserwacji komputerów, laptopów i telefonów.";
+---
+
+<PageLayout lang={lang} slug="poradnik" title={title} description={description}>
+	<section class="container page-hero" data-animate="reveal">
+		<h1>Poradnik</h1>
+		<p class="page-hero__lead">Praktyczne porady, zanim jeszcze coś się zepsuje.</p>
+	</section>
+
+	<section class="container poradnik-list" data-animate="reveal">
+		{posts.length === 0 ? (
+			<p>Pierwsze wpisy pojawią się tutaj wkrótce.</p>
+		) : (
+			<ul>
+				{posts.map((post) => (
+					<li>
+						<a href={`${localePath(lang, "poradnik")}/${post.slug}`}>
+							<h2>{post.data.title}</h2>
+							<p>{post.data.description}</p>
+						</a>
+					</li>
+				))}
+			</ul>
+		)}
+	</section>
+</PageLayout>
+
+<style>
+	.page-hero {
+		padding-block: var(--space-6) var(--space-5);
+	}
+
+	.page-hero__lead {
+		font-size: var(--text-lg);
+		color: var(--color-ink-soft);
+	}
+
+	.poradnik-list {
+		padding-block: var(--space-6) var(--space-8);
+	}
+
+	.poradnik-list ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: var(--space-4);
+		max-width: 62rem;
+	}
+
+	.poradnik-list a {
+		display: block;
+		padding: var(--space-4);
+		text-decoration: none;
+		color: var(--color-ink);
+		background: var(--color-bg-raised);
+		border-radius: var(--radius-sharp);
+		border-left: 3px solid var(--color-accent);
+	}
+
+	.poradnik-list h2 {
+		font-size: var(--text-lg);
+		margin: 0 0 var(--space-2);
+	}
+
+	.poradnik-list p {
+		margin: 0;
+		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+	}
+</style>

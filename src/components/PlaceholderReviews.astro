@@ -1,0 +1,50 @@
+---
+// Reviews placeholder — the brief is explicit: never fabricate ratings or pad with fake reviews.
+// Real Google reviews get embedded here post-launch (Stage 3, brief §16); until then this is an
+// honest empty state, not a fake 5-star wall.
+
+export interface Props {
+  lang: "pl" | "en";
+}
+
+const { lang } = Astro.props;
+---
+
+<div class="placeholder-reviews">
+	<svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+		<path d="M12 17.3l-5.4 3 1.4-6-4.6-4 6-.5L12 4l2.6 5.8 6 .5-4.6 4 1.4 6z" />
+	</svg>
+	{lang === "en" ? (
+		<>
+			<p><strong>We haven't collected Google reviews yet</strong> — we're a brand-new shop.</p>
+			<p>We'll publish real reviews here as soon as we have them. No fabricated ratings, ever.</p>
+		</>
+	) : (
+		<>
+			<p><strong>Nie mamy jeszcze zebranych opinii Google</strong> — dopiero zaczynamy.</p>
+			<p>Prawdziwe opinie pojawią się tutaj, gdy tylko je zbierzemy. Nigdy nie publikujemy fałszywych ocen.</p>
+		</>
+	)}
+</div>
+
+<style>
+	.placeholder-reviews {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-2);
+		text-align: center;
+		padding: var(--space-6) var(--space-4);
+		background: var(--color-bg-raised);
+		border: 2px dashed var(--color-border);
+		border-radius: var(--radius-soft);
+		color: var(--color-ink-soft);
+	}
+
+	.placeholder-reviews p {
+		margin: 0;
+		max-width: 42ch;
+		font-size: var(--text-sm);
+	}
+</style>

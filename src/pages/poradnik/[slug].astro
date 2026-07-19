@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { localePath } from '../../data/nav';
+
+const lang = "pl" as const;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('poradnik', (entry) => entry.id.startsWith('pl/'));
+  return posts.map((post) => ({
+    params: { slug: post.id.slice('pl/'.length) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const baseSlug = post.id.slice('pl/'.length);
+---
+
+<PageLayout lang={lang} slug={`poradnik/${baseSlug}`} title={post.data.title} description={post.data.description}>
+	<article class="container post" data-animate="reveal">
+		<h1>{post.data.title}</h1>
+		<div class="post__content">
+			<Content />
+		</div>
+	</article>
+
+	<CtaBanner
+		heading="Rozpoznajesz ten problem u siebie?"
+		body="Umów bezpłatną diagnozę — sprawdzimy, co faktycznie jest nie tak."
+		ctaLabel="Darmowa wycena"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.post {
+		padding-block: var(--space-6) var(--space-7);
+		max-width: 68ch;
+	}
+
+	.post__content {
+		font-size: var(--text-lg);
+		line-height: var(--leading-relaxed);
+	}
+
+	.post__content :global(h2) {
+		font-size: var(--text-xl);
+		margin-top: var(--space-6);
+	}
+
+	.post__content :global(a) {
+		color: var(--color-accent);
+	}
+</style>

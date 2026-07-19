@@ -1,0 +1,107 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/Hero.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import PlaceholderImage from '../../components/PlaceholderImage.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+import { localePath } from '../../data/nav';
+
+const lang = "en" as const;
+const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd} theme="gaming">
+	<Hero
+		lang={lang}
+		eyebrow="Gaming PCs — Bydgoszcz & Piła"
+		headline="The boutique builder Bydgoszcz hasn't had yet."
+		subhead="Custom builds, GPU and cooling upgrades, component-level repairs — with real component-level understanding, not just parts-swapping."
+		ctaLabel="Get a build or repair quote"
+		ctaHref={localePath(lang, "kontakt")}
+		photoCaptionPl="Zdjęcie zbudowanego PC gamingowego — do dodania"
+		photoCaptionEn="Photo of a completed gaming PC build — to be added"
+	/>
+
+	<section class="container gaming-specs" data-animate="reveal">
+		<h2>What we do</h2>
+		<div class="gaming-specs__grid">
+			<div>
+				<h3>Custom builds</h3>
+				<p>Component selection built around your budget and the specific games you play — advice included, not just a parts list.</p>
+			</div>
+			<div>
+				<h3>GPU & cooling upgrades</h3>
+				<p>Graphics card swaps, moving to liquid cooling, airflow optimization.</p>
+			</div>
+			<div>
+				<h3>Component-level repairs</h3>
+				<p>BGA soldering, motherboard power-circuit repair, BIOS diagnostics.</p>
+			</div>
+			<div>
+				<h3>Gaming laptop service</h3>
+				<p>Cleaning and thermal paste replacement for laptops that heat up under load.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="container gaming-portfolio" data-animate="reveal">
+		<h2>Build portfolio</h2>
+		<p>Real builds will show up here as soon as we have our first documented projects.</p>
+		<PlaceholderImage lang={lang} captionPl="Zdjęcia zrealizowanych buildów — do dodania" captionEn="Photos of completed builds — to be added" ratio="16 / 9" />
+	</section>
+
+	<ProcessSteps lang={lang} heading="How a job works, step by step" />
+
+	<CtaBanner
+		heading="Got a build in mind, or a hardware problem?"
+		body="Tell us what parts you're after or what's acting up — we'll get back to you with specifics."
+		ctaLabel="Get a build or repair quote"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.gaming-specs,
+	.gaming-portfolio {
+		padding-block: var(--space-7);
+	}
+
+	.gaming-specs__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-5);
+		margin-top: var(--space-5);
+	}
+
+	.gaming-specs__grid h3 {
+		color: var(--color-accent);
+		font-size: var(--text-lg);
+		margin-bottom: var(--space-2);
+	}
+
+	.gaming-specs__grid p {
+		color: var(--color-ink-soft);
+		margin: 0;
+	}
+
+	.gaming-portfolio p {
+		color: var(--color-ink-soft);
+		margin-bottom: var(--space-4);
+	}
+
+	@media (min-width: 800px) {
+		.gaming-specs__grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

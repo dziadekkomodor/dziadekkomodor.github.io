@@ -1,0 +1,83 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+
+const lang = "pl" as const;
+const title = "Regulamin";
+const description = "Regulamin usług Dziadka Komodora — proces naprawy, warunki gwarancji i odpowiedzialność.";
+---
+
+<PageLayout lang={lang} slug="regulamin" title={title} description={description}>
+	<section class="container legal-page" data-animate="reveal">
+		<h1>Regulamin</h1>
+
+		<p class="legal-page__notice">
+			<strong>Wersja robocza.</strong> Ten tekst opisuje zasady, na jakich faktycznie działamy —
+			nie jest to jednak gotowy dokument prawny. Przed publikacją strony należy skonsultować tę
+			treść z prawnikiem, tak jak zakłada brief projektu.
+		</p>
+
+		<h2>Kim jesteśmy</h2>
+		<p>
+			{site.brandName} to działalność nierejestrowana w rozumieniu polskich przepisów — nie
+			jesteśmy spółką ani zarejestrowanym przedsiębiorstwem, nie wystawiamy faktur VAT. Usługi
+			świadczymy osobiście, jako dwie osoby fizyczne.
+		</p>
+
+		<h2>Proces naprawy</h2>
+		<p>Każde zlecenie przechodzi przez te same etapy:</p>
+		<ol>
+			<li><strong>Diagnoza</strong> — bezpłatnie sprawdzamy, co jest nie tak.</li>
+			<li><strong>Wycena</strong> — przedstawiamy koszt naprawy na piśmie.</li>
+			<li><strong>Naprawa</strong> — zaczynamy dopiero po Twojej akceptacji wyceny.</li>
+			<li><strong>Testy</strong> — sprawdzamy, czy urządzenie działa poprawnie.</li>
+			<li><strong>Gwarancja</strong> — {site.warrantyMonths} miesięcy gwarancji na wykonaną naprawę.</li>
+		</ol>
+
+		<h2>Gwarancja</h2>
+		<p>
+			Na wykonane naprawy udzielamy {site.warrantyMonths} miesięcy gwarancji, licząc od dnia
+			odbioru sprzętu. Gwarancja obejmuje wyłącznie usterkę, która była przedmiotem naprawy, i nie
+			obejmuje nowych awarii niezwiązanych z wykonaną usługą ani uszkodzeń mechanicznych
+			powstałych po odbiorze sprzętu.
+		</p>
+
+		<h2>Odpowiedzialność</h2>
+		<p>
+			Przed każdą naprawą ingerującą w dysk informujemy o ryzyku utraty danych. Rekomendujemy
+			wykonanie kopii zapasowej przed przekazaniem sprzętu — jeśli to możliwe, wykonujemy ją
+			również we własnym zakresie, ale nie ponosimy odpowiedzialności za dane, które nie zostały
+			zabezpieczone przed rozpoczęciem naprawy.
+		</p>
+
+		<h2>Odbiór sprzętu</h2>
+		<p>
+			Sprzęt nieodebrany przez {site.warrantyMonths + 1} miesiące od zakończenia naprawy uznajemy
+			za porzucony, o czym poinformujemy Cię wcześniej na podany kontakt.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.legal-page {
+		padding-block: var(--space-6) var(--space-8);
+		max-width: 68ch;
+	}
+
+	.legal-page__notice {
+		padding: var(--space-4);
+		background: var(--color-bg-raised);
+		border-left: 3px solid var(--color-accent);
+		border-radius: var(--radius-sharp);
+		color: var(--color-ink-soft);
+	}
+
+	.legal-page h2 {
+		margin-top: var(--space-6);
+	}
+
+	.legal-page ol {
+		display: grid;
+		gap: var(--space-2);
+	}
+</style>

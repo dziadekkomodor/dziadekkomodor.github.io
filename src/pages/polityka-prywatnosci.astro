@@ -1,0 +1,74 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { site } from '../data/site';
+
+const lang = "pl" as const;
+const title = "Polityka prywatności";
+const description = "Polityka prywatności Dziadka Komodora — jakie dane zbieramy przez formularz kontaktowy, dlaczego i jak długo je przechowujemy.";
+---
+
+<PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
+	<section class="container legal-page" data-animate="reveal">
+		<h1>Polityka prywatności</h1>
+
+		<p class="legal-page__notice">
+			<strong>Wersja robocza.</strong> Ten tekst opisuje mechanikę przetwarzania danych zgodnie z
+			tym, jak faktycznie działa formularz na tej stronie — nie jest to jednak gotowy dokument
+			prawny. Przed publikacją strony należy skonsultować tę treść z prawnikiem, tak jak zakłada
+			brief projektu.
+		</p>
+
+		<h2>Jakie dane zbieramy</h2>
+		<p>
+			Formularz kontaktowy na stronie <code>/kontakt</code> zbiera: imię i nazwisko, dane kontaktowe
+			(telefon lub e-mail), rodzaj urządzenia, opis problemu oraz — opcjonalnie — zdjęcie
+			urządzenia. Dane są wysyłane bezpośrednio do prywatnego kanału, z którego korzystamy do
+			obsługi zgłoszeń.
+		</p>
+
+		<h2>Dlaczego przetwarzamy te dane</h2>
+		<p>
+			Wyłącznie po to, żeby odpowiedzieć na Twoje zgłoszenie, przygotować wycenę i, jeśli się na
+			nią zdecydujesz, wykonać naprawę. Nie przekazujemy tych danych podmiotom trzecim w celach
+			marketingowych.
+		</p>
+
+		<h2>Jak długo przechowujemy dane</h2>
+		<p>
+			Dane ze zgłoszeń przechowujemy nie dłużej niż {site.warrantyMonths + 7} miesięcy od ostatniego
+			kontaktu (co obejmuje okres gwarancji plus zapas czasu na ewentualne reklamacje), a następnie
+			usuwamy. Jeśli chcesz, żebyśmy usunęli Twoje dane wcześniej, napisz na {site.email}.
+		</p>
+
+		<h2>Twoje prawa</h2>
+		<p>
+			Masz prawo do dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia
+			przetwarzania oraz przenoszenia danych. W tej sprawie napisz na {site.email}.
+		</p>
+
+		<h2>Zgoda</h2>
+		<p>
+			Wysyłając formularz kontaktowy, wyrażasz zgodę na przetwarzanie powyższych danych w celu
+			opisanym powyżej. Zgoda jest dobrowolna, ale niezbędna do obsługi zgłoszenia.
+		</p>
+	</section>
+</PageLayout>
+
+<style>
+	.legal-page {
+		padding-block: var(--space-6) var(--space-8);
+		max-width: 68ch;
+	}
+
+	.legal-page__notice {
+		padding: var(--space-4);
+		background: var(--color-bg-raised);
+		border-left: 3px solid var(--color-accent);
+		border-radius: var(--radius-sharp);
+		color: var(--color-ink-soft);
+	}
+
+	.legal-page h2 {
+		margin-top: var(--space-6);
+	}
+</style>

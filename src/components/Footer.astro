@@ -1,0 +1,134 @@
+---
+import { site } from '../data/site';
+import { primaryNav, footerLegalNav, contactNav, localePath } from '../data/nav';
+
+export interface Props {
+  lang: "pl" | "en";
+}
+
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container site-footer__grid">
+		<div class="site-footer__brand">
+			<p class="site-footer__brandname">{site.brandName}</p>
+			<p>{site.tagline[lang]}</p>
+		</div>
+
+		<div>
+			<h3>{lang === "en" ? "Contact" : "Kontakt"}</h3>
+			<ul class="site-footer__list">
+				<li><a href={site.phone.href}>{site.phone.display}</a></li>
+				<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+				<li>{site.serviceAreasNote[lang]}</li>
+				<li>{site.hoursDisplay[lang]}</li>
+			</ul>
+		</div>
+
+		<div>
+			<h3>{lang === "en" ? "Pages" : "Strony"}</h3>
+			<ul class="site-footer__list">
+				{primaryNav.map((item) => (
+					<li><a href={localePath(lang, item.slug)}>{item.label[lang]}</a></li>
+				))}
+				<li><a href={localePath(lang, contactNav.slug)}>{contactNav.label[lang]}</a></li>
+			</ul>
+		</div>
+
+		<div>
+			<h3>{lang === "en" ? "Legal" : "Informacje prawne"}</h3>
+			<ul class="site-footer__list">
+				{footerLegalNav.map((item) => (
+					<li><a href={localePath(lang, item.slug)}>{item.label[lang]}</a></li>
+				))}
+			</ul>
+			<a href={site.socials.facebook} class="site-footer__social">Facebook</a>
+		</div>
+	</div>
+
+	<div class="container site-footer__bottom">
+		<p>© {year} {site.brandName}</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: var(--space-8);
+		background: var(--color-ink);
+		color: var(--color-bg);
+	}
+
+	.site-footer__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-5);
+		padding-block: var(--space-7);
+	}
+
+	.site-footer h3 {
+		color: var(--color-bg);
+		font-size: var(--text-sm);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin-bottom: var(--space-3);
+	}
+
+	.site-footer__brandname {
+		font-family: var(--font-headline);
+		font-weight: var(--weight-headline-black);
+		font-size: var(--text-xl);
+		color: var(--color-bg);
+		margin: 0 0 var(--space-2);
+	}
+
+	.site-footer p {
+		color: var(--color-ink-soft);
+	}
+
+	.site-footer__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	.site-footer__list a,
+	.site-footer__social {
+		color: var(--color-bg);
+		text-decoration: none;
+	}
+
+	.site-footer__list a:hover,
+	.site-footer__social:hover {
+		/* Underline rather than a color swap — the accent hue doesn't clear 4.5:1 on this dark
+		   footer background, and underline sidesteps that without needing a third color. */
+		text-decoration: underline;
+	}
+
+	.site-footer__social {
+		display: inline-block;
+		margin-top: var(--space-3);
+		font-weight: var(--weight-body-bold);
+	}
+
+	.site-footer__bottom {
+		border-top: 1px solid color-mix(in srgb, var(--color-bg) 15%, transparent);
+		padding-block: var(--space-4);
+	}
+
+	.site-footer__bottom p {
+		margin: 0;
+		font-size: var(--text-xs);
+		color: var(--color-ink-soft);
+	}
+
+	@media (min-width: 700px) {
+		.site-footer__grid {
+			grid-template-columns: 1.4fr 1fr 1fr 1fr;
+		}
+	}
+</style>

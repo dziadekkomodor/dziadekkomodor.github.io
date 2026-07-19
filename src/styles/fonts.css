@@ -1,0 +1,14 @@
+/* Self-hosted fonts (Fontsource). Both packages ship latin + latin-ext unicode-range subsets,
+   so Polish diacritics (ą ć ę ł ń ó ś ź ż) load correctly without extra configuration. */
+
+/* Fraunces — headline font. "soft" build: full variable weight axis (100–900) with the SOFT
+   axis maxed for warmer, rounder terminals — distinct from a generic display serif, still reads
+   as trustworthy rather than editorial/eccentric (that's the "wonk" build, not used here). */
+@import '@fontsource-variable/fraunces/soft.css';
+
+/* Atkinson Hyperlegible — body font. Designed by the Braille Institute for maximum legibility;
+   directly serves the senior persona and the WCAG AA requirement. Only 400/700 weights exist
+   (no variable axis), which is fine — body text doesn't need extreme weight contrast. */
+@import '@fontsource/atkinson-hyperlegible/400.css';
+@import '@fontsource/atkinson-hyperlegible/400-italic.css';
+@import '@fontsource/atkinson-hyperlegible/700.css';
