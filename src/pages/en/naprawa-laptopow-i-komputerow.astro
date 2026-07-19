@@ -11,6 +11,8 @@ import heroPhoto from '../../assets/photos/hero-laptop.jpg';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "naprawa-laptopow-i-komputerow")!;
+// Pre-select "Laptop" on the contact form — the more common of the two device types this page covers.
+const contactHref = `${localePath(lang, "kontakt")}?device=laptop`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,7 +30,7 @@ const jsonLd = {
 		headline="Your device, working the way it should again."
 		subhead="Laptops and desktops — we serve Piła, Bydgoszcz, and the surrounding area equally. Free diagnosis and a clear quote to start."
 		ctaLabel="Free quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 		photoCaptionPl="Zdjęcie naprawianego sprzętu — do dodania"
 		photoCaptionEn="Photo of a device being repaired — to be added"
 		photo={heroPhoto}
@@ -57,7 +59,7 @@ const jsonLd = {
 		heading="Drop off your device or send us a request"
 		body="Free diagnosis, a written quote, a 5-month warranty on the repair."
 		ctaLabel="Free quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 	/>
 </PageLayout>
 

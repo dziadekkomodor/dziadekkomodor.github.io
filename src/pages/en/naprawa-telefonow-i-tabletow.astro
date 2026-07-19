@@ -11,6 +11,8 @@ import heroPhoto from '../../assets/photos/hero-phone.png';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "naprawa-telefonow-i-tabletow")!;
+// Pre-select "Phone" on the contact form — more common than tablets on this page.
+const contactHref = `${localePath(lang, "kontakt")}?device=phone`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,7 +30,7 @@ const jsonLd = {
 		headline="A cracked screen isn't the end of your phone."
 		subhead="Glass, display, and battery replacement, charging port repair — with a free diagnosis and a clear quote to start."
 		ctaLabel="Free quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 		photoCaptionPl="Zdjęcie naprawianego telefonu — do dodania"
 		photoCaptionEn="Photo of a phone being repaired — to be added"
 		photo={heroPhoto}
@@ -57,7 +59,7 @@ const jsonLd = {
 		heading="Drop off your phone or send us a request"
 		body="Free diagnosis, a written quote, a 5-month warranty on the repair."
 		ctaLabel="Free quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 	/>
 </PageLayout>
 

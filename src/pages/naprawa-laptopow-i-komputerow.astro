@@ -11,6 +11,8 @@ import heroPhoto from '../assets/photos/hero-laptop.jpg';
 
 const lang = "pl" as const;
 const svc = services.find((s) => s.slug === "naprawa-laptopow-i-komputerow")!;
+// Pre-select "Laptop" on the contact form — the more common of the two device types this page covers.
+const contactHref = `${localePath(lang, "kontakt")}?device=laptop`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,7 +30,7 @@ const jsonLd = {
 		headline="Twój sprzęt znowu będzie działał, jak powinien."
 		subhead="Laptopy i komputery stacjonarne — obsługujemy Piłę, Bydgoszcz i okolicę jednakowo. Bezpłatna diagnoza i jasna wycena na start."
 		ctaLabel="Darmowa wycena"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 		photoCaptionPl="Zdjęcie naprawianego sprzętu — do dodania"
 		photoCaptionEn="Photo of a device being repaired — to be added"
 		photo={heroPhoto}
@@ -57,7 +59,7 @@ const jsonLd = {
 		heading="Przynieś sprzęt albo wyślij zapytanie"
 		body="Bezpłatna diagnoza, wycena na piśmie, 5 miesięcy gwarancji na naprawę."
 		ctaLabel="Darmowa wycena"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 	/>
 </PageLayout>
 

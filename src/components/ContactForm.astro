@@ -23,7 +23,14 @@ const t = lang === "en"
       locationOtherLabel: "Which town?",
       locationOtherPlaceholder: "e.g. Wyrzysk",
       device: "Device type",
-      deviceOptions: ["Not sure", "Laptop", "Desktop computer", "Phone", "Gaming PC", "Other"],
+      deviceOptions: [
+        { key: "not-sure", label: "Not sure" },
+        { key: "laptop", label: "Laptop" },
+        { key: "desktop", label: "Desktop computer" },
+        { key: "phone", label: "Phone" },
+        { key: "gaming-pc", label: "Gaming PC" },
+        { key: "other", label: "Other" },
+      ],
       problem: "Briefly describe the problem",
       problemPlaceholder: "e.g. the laptop overheats and runs loudly",
       transport: "How will the device get to us?",
@@ -56,7 +63,14 @@ const t = lang === "en"
       locationOtherLabel: "Jaka miejscowość?",
       locationOtherPlaceholder: "np. Wyrzysk",
       device: "Rodzaj urządzenia",
-      deviceOptions: ["Nie jestem pewien/pewna", "Laptop", "Komputer stacjonarny", "Telefon", "Komputer gamingowy", "Inne"],
+      deviceOptions: [
+        { key: "not-sure", label: "Nie jestem pewien/pewna" },
+        { key: "laptop", label: "Laptop" },
+        { key: "desktop", label: "Komputer stacjonarny" },
+        { key: "phone", label: "Telefon" },
+        { key: "gaming-pc", label: "Komputer gamingowy" },
+        { key: "other", label: "Inne" },
+      ],
       problem: "Krótko opisz problem",
       problemPlaceholder: "np. laptop się przegrzewa i głośno pracuje",
       transport: "Jak sprzęt do nas trafi?",
@@ -107,7 +121,7 @@ const t = lang === "en"
 	<div class="contact-form__field">
 		<label for="cf-device">{t.device} <span aria-hidden="true">*</span></label>
 		<select id="cf-device" name="device" required>
-			{t.deviceOptions.map((opt) => <option value={opt}>{opt}</option>)}
+			{t.deviceOptions.map((opt) => <option value={opt.label} data-key={opt.key}>{opt.label}</option>)}
 		</select>
 	</div>
 
@@ -168,6 +182,14 @@ const t = lang === "en"
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
+	}
+
+	/* Author styles always beat the browser's own [hidden]{display:none} default at equal
+	   specificity/importance — without this, .contact-form__field's own `display: flex` silently
+	   wins and the hidden attribute stops doing anything visually, even though the DOM property
+	   is set correctly. This is what was making the "Jaka miejscowość?" field stay visible. */
+	.contact-form__field[hidden] {
+		display: none;
 	}
 
 	.contact-form label,
@@ -303,6 +325,18 @@ const t = lang === "en"
 
 	if (form) {
 		const lang = form.dataset.lang === 'en' ? 'en' : 'pl';
+
+		// Pre-select the device dropdown when arriving from a persona page's "Darmowa wycena" CTA
+		// (e.g. /kontakt?device=laptop) — a plain URL param since this is a static multi-page site,
+		// not a hidden default: the user can still change it, this just saves the obvious pick.
+		const deviceHint = new URLSearchParams(location.search).get('device');
+		if (deviceHint) {
+			const deviceSelect = document.getElementById('cf-device') as HTMLSelectElement | null;
+			const match = deviceSelect?.querySelector<HTMLOptionElement>(`option[data-key="${deviceHint}"]`);
+			if (deviceSelect && match) {
+				deviceSelect.value = match.value;
+			}
+		}
 
 		// Reveal a free-text "which town?" field only when "Okolica/Nearby" is picked — required
 		// only while it's actually visible, so it never blocks submission when hidden.

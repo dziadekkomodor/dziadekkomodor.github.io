@@ -14,6 +14,7 @@ import portfolioPhoto3 from '../../assets/photos/gaming-portfolio-3.png';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
+const contactHref = `${localePath(lang, "kontakt")}?device=gaming-pc`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -31,7 +32,7 @@ const jsonLd = {
 		headline="The boutique builder Bydgoszcz hasn't had yet."
 		subhead="Custom builds, GPU and cooling upgrades, component-level repairs — with real component-level understanding, not just parts-swapping."
 		ctaLabel="Get a build or repair quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 		photoCaptionPl="Zdjęcie zbudowanego PC gamingowego — do dodania"
 		photoCaptionEn="Photo of a completed gaming PC build — to be added"
 		photo={heroPhoto}
@@ -75,7 +76,7 @@ const jsonLd = {
 		heading="Got a build in mind, or a hardware problem?"
 		body="Tell us what parts you're after or what's acting up — we'll get back to you with specifics."
 		ctaLabel="Get a build or repair quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaHref={contactHref}
 	/>
 </PageLayout>
 
