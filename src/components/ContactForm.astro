@@ -11,34 +11,50 @@ const privacyHref = localePath(lang, "polityka-prywatnosci");
 const t = lang === "en"
   ? {
       name: "Full name",
+      namePlaceholder: "Jane Smith",
       contact: "Phone or email",
-      device: "Device type",
-      deviceOptions: ["Laptop", "Desktop computer", "Phone", "Gaming PC", "Other"],
-      problem: "Briefly describe the problem",
+      contactPlaceholder: "500 000 000 or you@email.com",
+      location: "Where are you located? (optional)",
+      locationOptions: [
+        { value: "pila", label: "Piła" },
+        { value: "bydgoszcz", label: "Bydgoszcz" },
+        { value: "okolica", label: "Nearby" },
+      ],
+      device: "Device type (optional)",
+      deviceOptions: ["Not sure", "Laptop", "Desktop computer", "Phone", "Gaming PC", "Other"],
+      problem: "Briefly describe the problem (optional)",
+      problemPlaceholder: "e.g. the laptop overheats and runs loudly",
       photo: "Photo (optional)",
       consentPre: "I agree to the processing of my data per the ",
       consentLink: "privacy policy",
       consentPost: ".",
       submit: "Send request",
       submitting: "Sending…",
-      required: "Required",
       success: "Thanks — we've received your request and will get back to you shortly. If it's urgent, just call us.",
       error: "Something went wrong sending the form. Please call or email us directly instead.",
       testMode: "Contact form is in test mode during local development — submissions aren't sent anywhere yet.",
     }
   : {
       name: "Imię i nazwisko",
+      namePlaceholder: "Jan Kowalski",
       contact: "Telefon lub e-mail",
-      device: "Rodzaj urządzenia",
-      deviceOptions: ["Laptop", "Komputer stacjonarny", "Telefon", "Komputer gamingowy", "Inne"],
-      problem: "Krótko opisz problem",
+      contactPlaceholder: "500 000 000 lub ty@email.com",
+      location: "Gdzie jesteś? (opcjonalnie)",
+      locationOptions: [
+        { value: "pila", label: "Piła" },
+        { value: "bydgoszcz", label: "Bydgoszcz" },
+        { value: "okolica", label: "Okolica" },
+      ],
+      device: "Rodzaj urządzenia (opcjonalnie)",
+      deviceOptions: ["Nie jestem pewien/pewna", "Laptop", "Komputer stacjonarny", "Telefon", "Komputer gamingowy", "Inne"],
+      problem: "Krótko opisz problem (opcjonalnie)",
+      problemPlaceholder: "np. laptop się przegrzewa i głośno pracuje",
       photo: "Zdjęcie (opcjonalnie)",
       consentPre: "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
       consentLink: "polityką prywatności",
       consentPost: ".",
       submit: "Wyślij zgłoszenie",
       submitting: "Wysyłanie…",
-      required: "Pole wymagane",
       success: "Dziękujemy — otrzymaliśmy Twoje zgłoszenie i wkrótce się odezwiemy. Jeśli sprawa jest pilna, po prostu zadzwoń.",
       error: "Coś poszło nie tak przy wysyłce formularza. Zadzwoń lub napisz do nas bezpośrednio.",
       testMode: "Formularz kontaktowy działa w trybie testowym podczas lokalnego developmentu — zgłoszenia nie są jeszcze nigdzie wysyłane.",
@@ -48,12 +64,24 @@ const t = lang === "en"
 <form class="contact-form" id="contact-form" novalidate data-lang={lang}>
 	<div class="contact-form__field">
 		<label for="cf-name">{t.name} <span aria-hidden="true">*</span></label>
-		<input id="cf-name" name="name" type="text" required autocomplete="name" />
+		<input id="cf-name" name="name" type="text" required autocomplete="name" placeholder={t.namePlaceholder} />
 	</div>
 
 	<div class="contact-form__field">
 		<label for="cf-contact">{t.contact} <span aria-hidden="true">*</span></label>
-		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" />
+		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" placeholder={t.contactPlaceholder} />
+	</div>
+
+	<div class="contact-form__field">
+		<span class="contact-form__group-label">{t.location}</span>
+		<div class="contact-form__pills" role="radiogroup" aria-label={t.location}>
+			{t.locationOptions.map((opt) => (
+				<div class="contact-form__pill">
+					<input type="radio" name="location" id={`cf-location-${opt.value}`} value={opt.label} />
+					<label for={`cf-location-${opt.value}`}>{opt.label}</label>
+				</div>
+			))}
+		</div>
 	</div>
 
 	<div class="contact-form__field">
@@ -64,8 +92,8 @@ const t = lang === "en"
 	</div>
 
 	<div class="contact-form__field">
-		<label for="cf-problem">{t.problem} <span aria-hidden="true">*</span></label>
-		<textarea id="cf-problem" name="problem" rows="4" required></textarea>
+		<label for="cf-problem">{t.problem}</label>
+		<textarea id="cf-problem" name="problem" rows="3" placeholder={t.problemPlaceholder}></textarea>
 	</div>
 
 	<div class="contact-form__field">
@@ -107,7 +135,8 @@ const t = lang === "en"
 		gap: var(--space-2);
 	}
 
-	.contact-form label {
+	.contact-form label,
+	.contact-form__group-label {
 		font-weight: var(--weight-body-bold);
 		font-size: var(--text-sm);
 	}
@@ -121,6 +150,48 @@ const t = lang === "en"
 		border-radius: var(--radius-sharp);
 		background: var(--color-bg-raised);
 		color: var(--color-ink);
+	}
+
+	.contact-form input[type="text"]::placeholder,
+	.contact-form textarea::placeholder {
+		color: var(--color-ink-soft);
+	}
+
+	.contact-form__pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+	}
+
+	.contact-form__pill input {
+		position: absolute;
+		opacity: 0;
+		width: 1px;
+		height: 1px;
+	}
+
+	.contact-form__pill label {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.55em 1.1em;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+		cursor: pointer;
+		background: var(--color-bg-raised);
+		transition: background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+	}
+
+	.contact-form__pill input:checked + label {
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+		color: var(--color-accent-ink);
+	}
+
+	.contact-form__pill input:focus-visible + label {
+		outline: 3px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 
 	.contact-form__consent {
@@ -171,6 +242,7 @@ const t = lang === "en"
 					success: "Thanks — we've received your request and will get back to you shortly. If it's urgent, just call us.",
 					error: 'Something went wrong sending the form. Please call or email us directly instead.',
 					testMode: "Contact form is in test mode during local development — submissions aren't sent anywhere yet.",
+					notProvided: 'not provided',
 				}
 			: {
 					submitting: 'Wysyłanie…',
@@ -178,6 +250,7 @@ const t = lang === "en"
 					success: 'Dziękujemy — otrzymaliśmy Twoje zgłoszenie i wkrótce się odezwiemy. Jeśli sprawa jest pilna, po prostu zadzwoń.',
 					error: 'Coś poszło nie tak przy wysyłce formularza. Zadzwoń lub napisz do nas bezpośrednio.',
 					testMode: 'Formularz kontaktowy działa w trybie testowym podczas lokalnego developmentu — zgłoszenia nie są jeszcze nigdzie wysyłane.',
+					notProvided: 'nie podano',
 				};
 
 		form.addEventListener('submit', async (e) => {
@@ -214,6 +287,7 @@ const t = lang === "en"
 
 			const name = (form.querySelector<HTMLInputElement>('#cf-name')?.value ?? '').trim();
 			const contact = (form.querySelector<HTMLInputElement>('#cf-contact')?.value ?? '').trim();
+			const location = form.querySelector<HTMLInputElement>('input[name="location"]:checked')?.value ?? '';
 			const device = form.querySelector<HTMLSelectElement>('#cf-device')?.value ?? '';
 			const problem = (form.querySelector<HTMLTextAreaElement>('#cf-problem')?.value ?? '').trim();
 			const photoInput = form.querySelector<HTMLInputElement>('#cf-photo');
@@ -225,7 +299,7 @@ const t = lang === "en"
 			body.append(
 				'payload_json',
 				JSON.stringify({
-					content: `**Nowe zgłoszenie — ${name}**\nKontakt: ${contact}\nUrządzenie: ${device}\nProblem: ${problem}`,
+					content: `**Nowe zgłoszenie — ${name}**\nKontakt: ${contact}\nLokalizacja: ${location || messages.notProvided}\nUrządzenie: ${device || messages.notProvided}\nProblem: ${problem || messages.notProvided}`,
 				})
 			);
 			if (photo) {
