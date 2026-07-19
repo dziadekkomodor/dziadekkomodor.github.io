@@ -1,10 +1,11 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import TeamCard from '../../components/TeamCard.astro';
-import PlaceholderImage from '../../components/PlaceholderImage.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import { Image } from 'astro:assets';
 import { team } from '../../data/team';
 import { localePath } from '../../data/nav';
+import workshopPhoto from '../../assets/photos/workshop-wide.jpg';
 
 const lang = "en" as const;
 const title = "About us";
@@ -23,11 +24,13 @@ const description = "Meet Albert and Mikołaj — the two founders of Dziadek Ko
 	</section>
 
 	<section class="container">
-		<PlaceholderImage
-			lang={lang}
-			captionPl="Zdjęcie warsztatu — do dodania"
-			captionEn="Workshop photo — to be added"
-			ratio="21 / 9"
+		<Image
+			src={workshopPhoto}
+			alt="The Dziadek Komodor workshop"
+			width={1400}
+			height={600}
+			format="webp"
+			class="workshop-photo"
 		/>
 	</section>
 
@@ -40,6 +43,7 @@ const description = "Meet Albert and Mikołaj — the two founders of Dziadek Ko
 				role={member.role[lang]}
 				bio={member.bio[lang]}
 				yearsExperience={member.yearsExperience}
+				photo={member.photo}
 			/>
 		))}
 	</section>
@@ -61,6 +65,14 @@ const description = "Meet Albert and Mikołaj — the two founders of Dziadek Ko
 		font-size: var(--text-lg);
 		color: var(--color-ink-soft);
 		max-width: 68ch;
+	}
+
+	.workshop-photo {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 21 / 9;
+		object-fit: cover;
+		border-radius: var(--radius-soft);
 	}
 
 	.team-full {

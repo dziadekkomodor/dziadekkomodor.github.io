@@ -7,6 +7,7 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import { services } from '../../data/services';
 import { site } from '../../data/site';
 import { localePath } from '../../data/nav';
+import heroPhoto from '../../assets/photos/hero-gaming-build.jpg';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
@@ -30,6 +31,7 @@ const jsonLd = {
 		ctaHref={localePath(lang, "kontakt")}
 		photoCaptionPl="Zdjęcie zbudowanego PC gamingowego — do dodania"
 		photoCaptionEn="Photo of a completed gaming PC build — to be added"
+		photo={heroPhoto}
 	/>
 
 	<section class="container gaming-specs" data-animate="reveal">

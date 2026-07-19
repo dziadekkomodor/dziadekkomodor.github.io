@@ -11,6 +11,7 @@ import { services } from '../../data/services';
 import { team } from '../../data/team';
 import { homeCopy } from '../../data/copy/index';
 import { localePath } from '../../data/nav';
+import heroPhoto from '../../assets/photos/hero-team.jpg';
 
 const lang = "en" as const;
 const c = homeCopy;
@@ -51,6 +52,7 @@ const jsonLd = {
 		ctaHref={localePath(lang, "kontakt")}
 		photoCaptionPl="Zdjęcie Alberta, Mikołaja i warsztatu — do dodania"
 		photoCaptionEn="Photo of Albert, Mikołaj, and the workshop — to be added"
+		photo={heroPhoto}
 	/>
 
 	<section class="container routing" data-animate="reveal">
@@ -86,6 +88,7 @@ const jsonLd = {
 					role={member.role[lang]}
 					bio={member.bio[lang]}
 					yearsExperience={member.yearsExperience}
+					photo={member.photo}
 					compact
 				/>
 			))}

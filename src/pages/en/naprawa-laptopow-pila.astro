@@ -7,6 +7,7 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import { services } from '../../data/services';
 import { site } from '../../data/site';
 import { localePath } from '../../data/nav';
+import heroPhoto from '../../assets/photos/hero-laptop.jpg';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "naprawa-laptopow-pila")!;
@@ -30,6 +31,7 @@ const jsonLd = {
 		ctaHref={localePath(lang, "kontakt")}
 		photoCaptionPl="Zdjęcie naprawianego laptopa — do dodania"
 		photoCaptionEn="Photo of a laptop being repaired — to be added"
+		photo={heroPhoto}
 	/>
 
 	<section class="container services-list" data-animate="reveal">

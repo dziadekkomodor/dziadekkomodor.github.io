@@ -5,6 +5,7 @@ import ProcessSteps from '../../components/ProcessSteps.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import { services } from '../../data/services';
 import { site } from '../../data/site';
+import heroPhoto from '../../assets/photos/hero-senior.jpg';
 
 const lang = "en" as const;
 const svc = services.find((s) => s.slug === "pomoc-komputerowa-seniorzy")!;
@@ -28,6 +29,7 @@ const jsonLd = {
 		ctaHref={site.phone.href}
 		photoCaptionPl="Zdjęcie: pomoc komputerowa u seniora w domu — do dodania"
 		photoCaptionEn="Photo: helping a senior with a computer at home — to be added"
+		photo={heroPhoto}
 	/>
 
 	<section class="container senior-help" data-animate="reveal">

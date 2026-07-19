@@ -1,9 +1,12 @@
+import albertPhoto from '../assets/photos/albert.jpg';
+import mikolajPhoto from '../assets/photos/mikolaj.jpg';
+
 export const team = [
   {
     slug: "albert",
     name: "Albert Cynarzewski",
     age: 22,
-    photo: "team-albert", // PlaceholderImage id — swap for a real photo before publish
+    photo: albertPhoto,
     role: {
       pl: "Współzałożyciel — specjalista od oprogramowania i diagnostyki",
       en: "Co-founder — software & diagnostics specialist",
@@ -18,7 +21,7 @@ export const team = [
     slug: "mikolaj",
     name: "Mikołaj Knioła",
     age: 21,
-    photo: "team-mikolaj",
+    photo: mikolajPhoto,
     role: {
       pl: "Współzałożyciel — specjalista od sprzętu i napraw komponentowych",
       en: "Co-founder — hardware & component-level repair specialist",

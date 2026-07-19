@@ -7,6 +7,7 @@ import CtaBanner from '../components/CtaBanner.astro';
 import { services } from '../data/services';
 import { site } from '../data/site';
 import { localePath } from '../data/nav';
+import heroPhoto from '../assets/photos/hero-business.jpg';
 
 const lang = "pl" as const;
 const svc = services.find((s) => s.slug === "uslugi-it-dla-firm")!;
@@ -30,6 +31,7 @@ const jsonLd = {
 		ctaHref={localePath(lang, "kontakt")}
 		photoCaptionPl="Zdjęcie serwisu sprzętu firmowego — do dodania"
 		photoCaptionEn="Photo of business hardware service — to be added"
+		photo={heroPhoto}
 	/>
 
 	<section class="container services-list" data-animate="reveal">
