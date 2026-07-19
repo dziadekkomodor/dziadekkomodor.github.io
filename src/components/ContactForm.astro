@@ -33,6 +33,7 @@ const t = lang === "en"
       ],
       problem: "Briefly describe the problem",
       problemPlaceholder: "e.g. the laptop overheats and runs loudly",
+      progressLabel: "Form progress",
       transport: "How will the device get to us?",
       transportOptions: [
         { value: "wysylka", label: "I'll send it", note: "You cover the shipping cost." },
@@ -73,6 +74,7 @@ const t = lang === "en"
       ],
       problem: "Krótko opisz problem",
       problemPlaceholder: "np. laptop się przegrzewa i głośno pracuje",
+      progressLabel: "Postęp wypełniania formularza",
       transport: "Jak sprzęt do nas trafi?",
       transportOptions: [
         { value: "wysylka", label: "Wyślę sam/a", note: "Koszt przesyłki jest po Twojej stronie." },
@@ -92,14 +94,18 @@ const t = lang === "en"
 ---
 
 <form class="contact-form" id="contact-form" novalidate data-lang={lang}>
+	<div class="contact-form__progress-track" role="progressbar" aria-label={t.progressLabel} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="cf-progress">
+		<div class="contact-form__progress-fill" id="cf-progress-fill"></div>
+	</div>
+
 	<div class="contact-form__field">
 		<label for="cf-name">{t.name} <span aria-hidden="true">*</span></label>
-		<input id="cf-name" name="name" type="text" required autocomplete="name" placeholder={t.namePlaceholder} />
+		<input id="cf-name" name="name" type="text" required autocomplete="name" maxlength="100" placeholder={t.namePlaceholder} />
 	</div>
 
 	<div class="contact-form__field">
 		<label for="cf-contact">{t.contact} <span aria-hidden="true">*</span></label>
-		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" placeholder={t.contactPlaceholder} />
+		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" maxlength="100" placeholder={t.contactPlaceholder} />
 	</div>
 
 	<div class="contact-form__field">
@@ -114,7 +120,7 @@ const t = lang === "en"
 		</div>
 		<div class="contact-form__field contact-form__conditional" id="cf-location-other-wrap" hidden>
 			<label for="cf-location-other">{t.locationOtherLabel}</label>
-			<input id="cf-location-other" name="location-other" type="text" placeholder={t.locationOtherPlaceholder} />
+			<input id="cf-location-other" name="location-other" type="text" maxlength="60" placeholder={t.locationOtherPlaceholder} />
 		</div>
 	</div>
 
@@ -126,8 +132,11 @@ const t = lang === "en"
 	</div>
 
 	<div class="contact-form__field">
-		<label for="cf-problem">{t.problem} <span aria-hidden="true">*</span></label>
-		<textarea id="cf-problem" name="problem" rows="3" required placeholder={t.problemPlaceholder}></textarea>
+		<div class="contact-form__label-row">
+			<label for="cf-problem">{t.problem} <span aria-hidden="true">*</span></label>
+			<span class="contact-form__counter" id="cf-problem-counter" aria-hidden="true">0/500</span>
+		</div>
+		<textarea id="cf-problem" name="problem" rows="3" required maxlength="500" placeholder={t.problemPlaceholder}></textarea>
 	</div>
 
 	<div class="contact-form__field">
@@ -176,6 +185,35 @@ const t = lang === "en"
 		flex-direction: column;
 		gap: var(--space-4);
 		max-width: 34rem;
+	}
+
+	.contact-form__progress-track {
+		height: 8px;
+		border-radius: var(--radius-pill);
+		background: var(--color-border);
+		overflow: hidden;
+	}
+
+	.contact-form__progress-fill {
+		height: 100%;
+		width: 0%;
+		background: var(--color-accent);
+		border-radius: var(--radius-pill);
+		transition: width var(--duration-base) var(--ease-out);
+	}
+
+	.contact-form__label-row {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-3);
+	}
+
+	.contact-form__counter {
+		font-size: var(--text-xs);
+		color: var(--color-ink-soft);
+		font-weight: var(--weight-body-regular);
+		white-space: nowrap;
 	}
 
 	.contact-form__field {
@@ -356,6 +394,61 @@ const t = lang === "en"
 
 		locationRadios.forEach((radio) => radio.addEventListener('change', syncLocationOther));
 		syncLocationOther();
+
+		// Live character count on the problem field only (per its own maxlength) — the other
+		// maxlength attributes (name/contact/location-other) just cap length quietly, keeping a
+		// stray paste or a spam attempt from blowing up the Discord message.
+		const problemField = document.getElementById('cf-problem') as HTMLTextAreaElement | null;
+		const problemCounter = document.getElementById('cf-problem-counter');
+
+		function updateProblemCounter() {
+			if (problemField && problemCounter) {
+				problemCounter.textContent = `${problemField.value.length}/${problemField.maxLength}`;
+			}
+		}
+
+		problemField?.addEventListener('input', updateProblemCounter);
+		updateProblemCounter();
+
+		// Fun little completion meter — one "step" per required field/group, filling as each is
+		// satisfied. Purely cosmetic, doesn't gate submission (native validation already does that).
+		const progressFill = document.getElementById('cf-progress-fill');
+		const progressTrack = document.getElementById('cf-progress');
+
+		function updateProgress() {
+			if (!form) return;
+			const requiredEls = Array.from(form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]'));
+			const seenRadioGroups = new Set<string>();
+			let total = 0;
+			let satisfied = 0;
+
+			for (const el of requiredEls) {
+				if (el.closest('[hidden]')) continue;
+
+				if (el instanceof HTMLInputElement && el.type === 'radio') {
+					if (seenRadioGroups.has(el.name)) continue;
+					seenRadioGroups.add(el.name);
+					total++;
+					if (form.querySelector(`input[name="${el.name}"]:checked`)) satisfied++;
+					continue;
+				}
+
+				total++;
+				if (el instanceof HTMLInputElement && el.type === 'checkbox') {
+					if (el.checked) satisfied++;
+				} else if (el.value.trim()) {
+					satisfied++;
+				}
+			}
+
+			const pct = total ? Math.round((satisfied / total) * 100) : 0;
+			if (progressFill) progressFill.style.width = `${pct}%`;
+			if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+		}
+
+		form.addEventListener('input', updateProgress);
+		form.addEventListener('change', updateProgress);
+		updateProgress();
 
 		const status = form.querySelector<HTMLParagraphElement>('.contact-form__status');
 		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
