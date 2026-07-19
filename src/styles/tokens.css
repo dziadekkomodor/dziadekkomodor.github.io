@@ -7,7 +7,16 @@
   --color-bg: #F6F0E4;           /* warm cream */
   --color-bg-raised: #FFFFFF;    /* cards/panels sitting above the base */
   --color-ink: #241712;          /* warm espresso-brown, primary text */
-  --color-ink-soft: #5A4A3F;     /* secondary text, still warm, lower contrast on purpose */
+  --color-ink-soft: #5A4A3F;     /* secondary text ON LIGHT backgrounds (7.4:1 on cream) */
+
+  /* Fixed dark contrast panel (CtaBanner, Footer) — deliberately NOT theme-dependent. These use
+     --color-ink as a *background*, but --color-ink is a text-color token that the gaming theme
+     correctly flips to off-white for its own dark page — reusing it for a panel background would
+     invert the panel to a near-white box with broken contrast on that page. A panel is a fixed
+     design choice ("always a dark accent block"), not page text, so it stays constant everywhere. */
+  --color-panel: #241712;
+  --color-panel-ink: #F6F0E4;
+  --color-panel-ink-soft: #C9B8A8;
   --color-accent: #B84315;       /* burnt rust-amber — CTAs, links, highlights (4.5:1+ on cream) */
   --color-accent-ink: #FFFFFF;   /* text on accent-colored buttons (5.4:1 on accent) */
   --color-border: #E1D5C0;       /* warm hairline border, not cool gray */
