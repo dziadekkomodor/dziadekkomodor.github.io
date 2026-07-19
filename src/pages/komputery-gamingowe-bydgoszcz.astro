@@ -7,8 +7,10 @@ import { Image } from 'astro:assets';
 import { services } from '../data/services';
 import { site } from '../data/site';
 import { localePath } from '../data/nav';
-import heroPhoto from '../assets/photos/hero-gaming-build.jpg';
-import portfolioPhoto from '../assets/photos/gaming-portfolio-1.jpg';
+import heroPhoto from '../assets/photos/hero-gaming-build.png';
+import portfolioPhoto1 from '../assets/photos/gaming-portfolio-2.png';
+import portfolioPhoto2 from '../assets/photos/gaming-portfolio-1.jpg';
+import portfolioPhoto3 from '../assets/photos/gaming-portfolio-3.png';
 
 const lang = "pl" as const;
 const svc = services.find((s) => s.slug === "komputery-gamingowe-bydgoszcz")!;
@@ -59,8 +61,12 @@ const jsonLd = {
 
 	<section class="container gaming-portfolio" data-animate="reveal">
 		<h2>Portfolio buildów</h2>
-		<p>Jedna z naszych ostatnich realizacji — więcej zdjęć pojawi się tutaj wraz z kolejnymi projektami.</p>
-		<Image src={portfolioPhoto} alt="Zbudowany komputer gamingowy z chłodzeniem wodnym i podświetleniem RGB" width={1200} height={675} format="webp" class="gaming-portfolio__photo" />
+		<p>Kilka naszych ostatnich realizacji — więcej zdjęć pojawi się tutaj wraz z kolejnymi projektami.</p>
+		<div class="gaming-portfolio__gallery">
+			<Image src={portfolioPhoto1} alt="Build z białą obudową, chłodzeniem wodnym i podświetleniem RGB" width={900} height={1000} format="webp" class="gaming-portfolio__photo gaming-portfolio__photo--featured" />
+			<Image src={portfolioPhoto2} alt="Zbudowany komputer gamingowy z kartą GeForce RTX" width={800} height={520} format="webp" class="gaming-portfolio__photo" />
+			<Image src={portfolioPhoto3} alt="Skonfigurowany laptop gamingowy z monitorem wydajności" width={800} height={520} format="webp" class="gaming-portfolio__photo" />
+		</div>
 	</section>
 
 	<ProcessSteps lang={lang} heading="Jak wygląda zlecenie krok po kroku" />
@@ -102,6 +108,12 @@ const jsonLd = {
 		margin-bottom: var(--space-4);
 	}
 
+	.gaming-portfolio__gallery {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-4);
+	}
+
 	.gaming-portfolio__photo {
 		width: 100%;
 		height: auto;
@@ -110,9 +122,24 @@ const jsonLd = {
 		border-radius: var(--radius-soft);
 	}
 
+	.gaming-portfolio__photo--featured {
+		aspect-ratio: 4 / 3;
+	}
+
 	@media (min-width: 800px) {
 		.gaming-specs__grid {
 			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.gaming-portfolio__gallery {
+			grid-template-columns: 1.1fr 1fr;
+			grid-template-rows: repeat(2, 1fr);
+		}
+
+		.gaming-portfolio__photo--featured {
+			grid-row: 1 / 3;
+			height: 100%;
+			aspect-ratio: auto;
 		}
 	}
 </style>
