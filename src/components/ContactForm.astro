@@ -49,8 +49,6 @@ const t = lang === "en"
       success: "Thanks — we've received your request and will get back to you shortly. If it's urgent, just call us.",
       error: "Something went wrong sending the form. Please call or email us directly instead.",
       testMode: "Contact form is in test mode during local development — submissions aren't sent anywhere yet.",
-      photoTooLarge: "That photo is over 8 MB — please pick a smaller one or leave it out.",
-      tooSoon: "You've just sent a request — please wait a bit before sending another.",
     }
   : {
       name: "Imię i nazwisko",
@@ -107,7 +105,8 @@ const t = lang === "en"
 
 	<div class="contact-form__field">
 		<label for="cf-contact">{t.contact} <span aria-hidden="true">*</span></label>
-		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" maxlength="100" placeholder={t.contactPlaceholder} />
+		<input id="cf-contact" name="contact" type="text" required autocomplete="tel" maxlength="100" aria-describedby="cf-contact-error" placeholder={t.contactPlaceholder} />
+		<span class="contact-form__error" id="cf-contact-error" role="alert"></span>
 	</div>
 
 	<div class="contact-form__field">
@@ -216,6 +215,16 @@ const t = lang === "en"
 		color: var(--color-ink-soft);
 		font-weight: var(--weight-body-regular);
 		white-space: nowrap;
+	}
+
+	.contact-form__error {
+		font-size: var(--text-xs);
+		font-weight: var(--weight-body-bold);
+		color: #B3261E;
+	}
+
+	.contact-form__error:empty {
+		display: none;
 	}
 
 	.contact-form__field {
@@ -466,6 +475,7 @@ const t = lang === "en"
 					notProvided: 'not provided',
 					photoTooLarge: "That photo is over 8 MB — please pick a smaller one or leave it out.",
 					tooSoon: "You've just sent a request — please wait a bit before sending another.",
+					invalidContact: 'Please enter a valid Polish phone number or email address.',
 				}
 			: {
 					submitting: 'Wysyłanie…',
@@ -476,7 +486,32 @@ const t = lang === "en"
 					notProvided: 'nie podano',
 					photoTooLarge: 'To zdjęcie waży ponad 8 MB — wybierz mniejsze albo pomiń załącznik.',
 					tooSoon: 'Właśnie wysłałeś/aś zgłoszenie — odczekaj chwilę przed kolejnym.',
+					invalidContact: 'Podaj prawidłowy polski numer telefonu albo adres e-mail.',
 				};
+
+		// Accepts a Polish phone number in pretty much any grouping (500 000 000, 500-000-000,
+		// 500000000, +48 500 000 000, 0048500000000, ...) or an email address, and normalizes
+		// the phone case to a single consistent "+48 XXX XXX XXX" format before it's sent — so
+		// whoever reads the Discord message can just tap-to-call it, however the visitor typed it.
+		function normalizeContact(raw: string): string | null {
+			const value = raw.trim();
+			if (!value) return null;
+
+			if (value.includes('@')) {
+				// Deliberately loose — full RFC 5322 validation isn't worth it here, this just
+				// catches obvious typos ("jan@" or "@x.com") rather than gatekeeping edge cases.
+				const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				return emailPattern.test(value) ? value : null;
+			}
+
+			let digits = value.replace(/[\s-()]/g, '');
+			if (digits.startsWith('+48')) digits = digits.slice(3);
+			else if (digits.startsWith('0048')) digits = digits.slice(4);
+			else if (digits.startsWith('48') && digits.length === 11) digits = digits.slice(2);
+
+			if (!/^\d{9}$/.test(digits)) return null;
+			return `+48 ${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6, 9)}`;
+		}
 
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
@@ -504,6 +539,21 @@ const t = lang === "en"
 				}
 				return;
 			}
+
+			// Validate + normalize the phone-or-email field so however someone types their number
+			// (spaces, dashes, +48, a leading 0, none of the above), the business always sees one
+			// consistent, tappable format — and obvious typos get caught before they ever reach Discord.
+			const contactField = form.querySelector<HTMLInputElement>('#cf-contact');
+			const contactErrorEl = document.getElementById('cf-contact-error');
+			const normalizedContact = contactField ? normalizeContact(contactField.value) : null;
+			if (!normalizedContact) {
+				if (contactErrorEl) contactErrorEl.textContent = messages.invalidContact;
+				contactField?.setAttribute('aria-invalid', 'true');
+				contactField?.focus();
+				return;
+			}
+			if (contactErrorEl) contactErrorEl.textContent = '';
+			contactField?.removeAttribute('aria-invalid');
 
 			// Discord webhooks reject attachments over 8 MB (25 MB only on boosted servers) — check
 			// client-side first so a large photo fails fast with a clear message instead of a
@@ -538,7 +588,7 @@ const t = lang === "en"
 			}
 
 			const name = (form.querySelector<HTMLInputElement>('#cf-name')?.value ?? '').trim();
-			const contact = (form.querySelector<HTMLInputElement>('#cf-contact')?.value ?? '').trim();
+			const contact = normalizedContact;
 			const locationChecked = form.querySelector<HTMLInputElement>('input[name="location"]:checked');
 			const locationOther = (document.getElementById('cf-location-other') as HTMLInputElement | null)?.value.trim();
 			const location = locationChecked?.dataset.value === 'okolica' && locationOther
