@@ -1,0 +1,84 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBlock from '../components/TrustBlock.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+import { localePath } from '../data/nav';
+
+const lang = "pl" as const;
+const svc = services.find((s) => s.slug === "naprawa-telefonow-i-tabletow")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: svc.serviceType[lang],
+  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+};
+---
+
+<PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
+	<Hero
+		lang={lang}
+		eyebrow="Naprawa telefonów i tabletów — Piła i Bydgoszcz"
+		headline="Pęknięty ekran to nie koniec telefonu."
+		subhead="Wymiana szybki, wyświetlacza i baterii, naprawa portu ładowania — z bezpłatną diagnozą i jasną wyceną na start."
+		ctaLabel="Darmowa wycena"
+		ctaHref={localePath(lang, "kontakt")}
+		photoCaptionPl="Zdjęcie naprawianego telefonu — do dodania"
+		photoCaptionEn="Photo of a phone being repaired — to be added"
+	/>
+
+	<section class="container services-list" data-animate="reveal">
+		<h2>Co najczęściej naprawiamy</h2>
+		<ul>
+			<li>Wymiana szybki — pęknięte lub porysowane szkło ochronne ekranu.</li>
+			<li>Wymiana wyświetlacza — uszkodzony obraz, martwe piksele, brak dotyku.</li>
+			<li>Wymiana baterii — telefon szybko się rozładowuje albo się wyłącza.</li>
+			<li>Naprawa portu ładowania — telefon nie ładuje się lub trzeba trzymać kabel pod kątem.</li>
+			<li>Ratowanie danych i czyszczenie po zalaniu.</li>
+			<li>Naprawy tabletów — te same usterki, ten sam proces.</li>
+		</ul>
+		<p class="services-list__note">
+			Ceny wymiany szybki, wyświetlacza i baterii znajdziesz na <a href={localePath(lang, "cennik")}>stronie z cennikiem</a> — dokładna kwota zależy od modelu urządzenia i jest potwierdzana po bezpłatnej diagnozie.
+		</p>
+	</section>
+
+	<TrustBlock lang={lang} heading="Wiemy, o co się martwisz" />
+
+	<ProcessSteps lang={lang} heading="Jak wygląda naprawa krok po kroku" />
+
+	<CtaBanner
+		heading="Przynieś telefon albo wyślij zapytanie"
+		body="Bezpłatna diagnoza, wycena na piśmie, 5 miesięcy gwarancji na naprawę."
+		ctaLabel="Darmowa wycena"
+		ctaHref={localePath(lang, "kontakt")}
+	/>
+</PageLayout>
+
+<style>
+	.services-list {
+		padding-block: var(--space-7);
+	}
+
+	.services-list ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 60ch;
+	}
+
+	.services-list li {
+		font-size: var(--text-lg);
+	}
+
+	.services-list__note {
+		margin-top: var(--space-4);
+		color: var(--color-ink-soft);
+		max-width: 62ch;
+	}
+</style>

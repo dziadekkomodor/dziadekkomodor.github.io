@@ -28,6 +28,20 @@ export const services: ServiceEntry[] = [
     },
   },
   {
+    slug: "naprawa-telefonow-i-tabletow",
+    persona: { pl: "Właściciele telefonów i tabletów", en: "Phone & tablet owners" },
+    title: { pl: "Naprawa telefonów i tabletów", en: "Phone and tablet repair" },
+    short: {
+      pl: "Wymiana szybki, wyświetlacza i baterii, naprawa portu ładowania, ratowanie danych po zalaniu.",
+      en: "Glass, display, and battery replacement, charging port repair, data rescue after liquid damage.",
+    },
+    serviceType: { pl: "Naprawa telefonów i tabletów", en: "Phone and tablet repair" },
+    metaDescription: {
+      pl: "Naprawa telefonów i tabletów w Pile i Bydgoszczy — wymiana szybki, wyświetlacza, baterii. Bezpłatna diagnoza, 5 miesięcy gwarancji.",
+      en: "Phone and tablet repair in Piła and Bydgoszcz — glass, display, and battery replacement. Free diagnosis, 5-month warranty.",
+    },
+  },
+  {
     slug: "komputery-gamingowe-bydgoszcz",
     persona: { pl: "Gracze PC — Bydgoszcz i Piła", en: "PC gamers — Bydgoszcz & Piła" },
     title: { pl: "Komputery gamingowe — budowa i naprawa", en: "Gaming PCs — builds and repair" },
