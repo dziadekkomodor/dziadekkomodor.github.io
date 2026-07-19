@@ -47,10 +47,12 @@ const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 		))}
 	</head>
 	<body>
+		<div id="page-progress" aria-hidden="true"></div>
 		<a href="#main-content" class="skip-link">
 			{lang === "en" ? "Skip to content" : "Przejdź do treści"}
 		</a>
 		<slot />
 		<script src="/src/scripts/motion.js"></script>
+		<script src="/src/scripts/page-loading.js"></script>
 	</body>
 </html>

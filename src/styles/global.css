@@ -126,6 +126,44 @@ ul, ol {
   scroll-margin-top: calc(var(--header-height) + var(--space-3));
 }
 
+/* Top progress bar shown briefly while navigating to another page (src/scripts/page-loading.js
+   toggles .is-active and the width — this is static HTML, not an SPA, so it's just a short-lived
+   visual cue, not a real progress value). */
+#page-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--color-accent);
+  z-index: 200;
+  opacity: 0;
+  transition: width 0.3s var(--ease-out), opacity 0.2s var(--ease-out);
+  pointer-events: none;
+}
+
+#page-progress.is-active {
+  opacity: 1;
+}
+
+/* Images still loading get a plain gray placeholder instead of a blank gap, then fade in.
+   page-loading.js only ever ADDS this class to images it has confirmed are still in flight —
+   nothing is hidden by default here, so a script failure can never hide content. */
+img {
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+img.is-loading {
+  opacity: 0;
+  background-color: var(--color-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #page-progress {
+    transition: none;
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
