@@ -14,31 +14,17 @@ export type ServiceEntry = {
 
 export const services: ServiceEntry[] = [
   {
-    slug: "naprawa-laptopow-pila",
-    persona: { pl: "Rodziny i klienci indywidualni — Piła", en: "Families & individuals — Piła" },
-    title: { pl: "Naprawa laptopów w Pile", en: "Laptop repair in Piła" },
+    slug: "naprawa-laptopow-i-komputerow",
+    persona: { pl: "Rodziny i klienci indywidualni", en: "Families & individuals" },
+    title: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
     short: {
-      pl: "Czyszczenie, wymiana dysku, matrycy i naprawy płyty głównej — z jasną wyceną przed każdą naprawą.",
-      en: "Cleaning, drive swaps, screen replacement, and motherboard repairs — with a clear quote before we touch anything.",
+      pl: "Laptopy i komputery stacjonarne, w Pile i w Bydgoszczy — czyszczenie, wymiana dysku, matrycy, naprawy płyty głównej.",
+      en: "Laptops and desktops, in both Piła and Bydgoszcz — cleaning, drive swaps, screen replacement, motherboard repairs.",
     },
     serviceType: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
     metaDescription: {
-      pl: "Naprawa laptopów w Pile — bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji. Czyszczenie, wymiana dysku i matrycy, naprawy płyty głównej.",
-      en: "Laptop repair in Piła — free diagnosis, clear pricing, 5-month warranty. Cleaning, drive and screen replacement, motherboard repairs.",
-    },
-  },
-  {
-    slug: "naprawa-komputerow-bydgoszcz",
-    persona: { pl: "Rodziny i klienci indywidualni — Bydgoszcz", en: "Families & individuals — Bydgoszcz" },
-    title: { pl: "Naprawa komputerów w Bydgoszczy", en: "Computer repair in Bydgoszcz" },
-    short: {
-      pl: "Ten sam transparentny proces naprawy — teraz też dla mieszkańców Bydgoszczy.",
-      en: "The same transparent repair process — now for Bydgoszcz residents too.",
-    },
-    serviceType: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
-    metaDescription: {
-      pl: "Naprawa komputerów i laptopów w Bydgoszczy — bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji.",
-      en: "Computer and laptop repair in Bydgoszcz — free diagnosis, clear pricing, 5-month warranty.",
+      pl: "Naprawa laptopów i komputerów w Pile i Bydgoszczy — bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji.",
+      en: "Laptop and computer repair in Piła and Bydgoszcz — free diagnosis, clear pricing, 5-month warranty.",
     },
   },
   {

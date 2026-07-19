@@ -7,10 +7,10 @@ import CtaBanner from '../components/CtaBanner.astro';
 import { services } from '../data/services';
 import { site } from '../data/site';
 import { localePath } from '../data/nav';
-import heroPhoto from '../assets/photos/hero-desktop.jpg';
+import heroPhoto from '../assets/photos/hero-laptop.jpg';
 
 const lang = "pl" as const;
-const svc = services.find((s) => s.slug === "naprawa-komputerow-bydgoszcz")!;
+const svc = services.find((s) => s.slug === "naprawa-laptopow-i-komputerow")!;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -24,24 +24,27 @@ const jsonLd = {
 <PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
 	<Hero
 		lang={lang}
-		eyebrow="Naprawa komputerów — Bydgoszcz"
-		headline="Naprawa komputerów w Bydgoszczy, bez ukrytych kosztów."
-		subhead="Ten sam transparentny proces co w Pile — bezpłatna diagnoza, jasna wycena, naprawa dopiero po Twojej akceptacji."
+		eyebrow="Naprawa laptopów i komputerów — Piła i Bydgoszcz"
+		headline="Twój sprzęt znowu będzie działał, jak powinien."
+		subhead="Laptopy i komputery stacjonarne — obsługujemy Piłę, Bydgoszcz i okolicę jednakowo. Bezpłatna diagnoza i jasna wycena na start."
 		ctaLabel="Darmowa wycena"
 		ctaHref={localePath(lang, "kontakt")}
-		photoCaptionPl="Zdjęcie naprawianego komputera stacjonarnego — do dodania"
-		photoCaptionEn="Photo of a desktop computer being repaired — to be added"
+		photoCaptionPl="Zdjęcie naprawianego sprzętu — do dodania"
+		photoCaptionEn="Photo of a device being repaired — to be added"
 		photo={heroPhoto}
 	/>
 
 	<section class="container services-list" data-animate="reveal">
 		<h2>Co najczęściej naprawiamy</h2>
+		<p class="services-list__note">Ten sam zakres usług i ten sam transparentny proces — niezależnie od tego, czy przyjeżdżasz z Piły, Bydgoszczy czy okolicy, i czy chodzi o laptopa, czy komputer stacjonarny.</p>
 		<ul>
-			<li>Czyszczenie wnętrza obudowy i wymiana pasty termoprzewodzącej.</li>
-			<li>Wymiana dysku HDD/SSD i migracja systemu bez utraty danych.</li>
+			<li>Czyszczenie z kurzu i wymiana pasty termoprzewodzącej — sprzęt się przegrzewa lub głośno pracuje.</li>
+			<li>Wymiana dysku HDD/SSD — poprawa szybkości działania lub awaria dysku.</li>
+			<li>Wymiana matrycy laptopa — pęknięty lub uszkodzony ekran.</li>
 			<li>Naprawa układu zasilania płyty głównej i lutowanie BGA.</li>
-			<li>Diagnostyka i naprawa BIOS.</li>
-			<li>Instalacja i konfiguracja systemu operacyjnego.</li>
+			<li>Naprawa zawiasów i obudowy laptopa — luźna lub pęknięta obudowa.</li>
+			<li>Instalacja systemu operacyjnego od podstaw.</li>
+			<li>Czyszczenie po zalaniu — im szybciej przyniesiesz sprzęt, tym większa szansa na pełną naprawę.</li>
 			<li>Odzyskiwanie danych — podstawowe na miejscu, złożone przypadki we współpracy z zewnętrznym laboratorium.</li>
 		</ul>
 	</section>
@@ -51,7 +54,7 @@ const jsonLd = {
 	<ProcessSteps lang={lang} heading="Jak wygląda naprawa krok po kroku" />
 
 	<CtaBanner
-		heading="Zapytaj o wycenę naprawy komputera"
+		heading="Przynieś sprzęt albo wyślij zapytanie"
 		body="Bezpłatna diagnoza, wycena na piśmie, 5 miesięcy gwarancji na naprawę."
 		ctaLabel="Darmowa wycena"
 		ctaHref={localePath(lang, "kontakt")}
@@ -61,6 +64,12 @@ const jsonLd = {
 <style>
 	.services-list {
 		padding-block: var(--space-7);
+	}
+
+	.services-list__note {
+		color: var(--color-ink-soft);
+		max-width: 62ch;
+		margin-top: var(--space-3);
 	}
 
 	.services-list ul {

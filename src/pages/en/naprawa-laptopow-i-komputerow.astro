@@ -7,10 +7,10 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import { services } from '../../data/services';
 import { site } from '../../data/site';
 import { localePath } from '../../data/nav';
-import heroPhoto from '../../assets/photos/hero-desktop.jpg';
+import heroPhoto from '../../assets/photos/hero-laptop.jpg';
 
 const lang = "en" as const;
-const svc = services.find((s) => s.slug === "naprawa-komputerow-bydgoszcz")!;
+const svc = services.find((s) => s.slug === "naprawa-laptopow-i-komputerow")!;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -24,24 +24,27 @@ const jsonLd = {
 <PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
 	<Hero
 		lang={lang}
-		eyebrow="Computer repair — Bydgoszcz"
-		headline="Computer repair in Bydgoszcz, no hidden costs."
-		subhead="The same transparent process as in Piła — free diagnosis, a clear quote, repair only after you approve it."
+		eyebrow="Laptop & computer repair — Piła and Bydgoszcz"
+		headline="Your device, working the way it should again."
+		subhead="Laptops and desktops — we serve Piła, Bydgoszcz, and the surrounding area equally. Free diagnosis and a clear quote to start."
 		ctaLabel="Free quote"
 		ctaHref={localePath(lang, "kontakt")}
-		photoCaptionPl="Zdjęcie naprawianego komputera stacjonarnego — do dodania"
-		photoCaptionEn="Photo of a desktop computer being repaired — to be added"
+		photoCaptionPl="Zdjęcie naprawianego sprzętu — do dodania"
+		photoCaptionEn="Photo of a device being repaired — to be added"
 		photo={heroPhoto}
 	/>
 
 	<section class="container services-list" data-animate="reveal">
 		<h2>What we repair most often</h2>
+		<p class="services-list__note">The same range of services and the same transparent process — whether you're coming from Piła, Bydgoszcz, or nearby, and whether it's a laptop or a desktop.</p>
 		<ul>
-			<li>Interior case cleaning and thermal paste replacement.</li>
-			<li>HDD/SSD replacement and system migration without data loss.</li>
+			<li>Dust cleaning and thermal paste replacement — your device overheats or runs loudly.</li>
+			<li>HDD/SSD replacement — faster performance or a failing drive.</li>
+			<li>Laptop screen replacement — a cracked or damaged display.</li>
 			<li>Motherboard power-circuit repair and BGA soldering.</li>
-			<li>BIOS diagnostics and repair.</li>
-			<li>Operating system installation and configuration.</li>
+			<li>Laptop hinge and case repair — a loose or cracked chassis.</li>
+			<li>Clean operating system installs.</li>
+			<li>Liquid-damage cleaning — the sooner you bring it in, the better the odds of a full recovery.</li>
 			<li>Data recovery — basic in-house, complex cases handled with an external lab partner.</li>
 		</ul>
 	</section>
@@ -51,7 +54,7 @@ const jsonLd = {
 	<ProcessSteps lang={lang} heading="How a repair works, step by step" />
 
 	<CtaBanner
-		heading="Ask for a computer repair quote"
+		heading="Drop off your device or send us a request"
 		body="Free diagnosis, a written quote, a 5-month warranty on the repair."
 		ctaLabel="Free quote"
 		ctaHref={localePath(lang, "kontakt")}
@@ -61,6 +64,12 @@ const jsonLd = {
 <style>
 	.services-list {
 		padding-block: var(--space-7);
+	}
+
+	.services-list__note {
+		color: var(--color-ink-soft);
+		max-width: 62ch;
+		margin-top: var(--space-3);
 	}
 
 	.services-list ul {
