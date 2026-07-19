@@ -14,16 +14,24 @@ const t = lang === "en"
       namePlaceholder: "Jane Smith",
       contact: "Phone or email",
       contactPlaceholder: "500 000 000 or you@email.com",
-      location: "Where are you located? (optional)",
+      location: "Where are you located?",
       locationOptions: [
         { value: "pila", label: "Piła" },
         { value: "bydgoszcz", label: "Bydgoszcz" },
         { value: "okolica", label: "Nearby" },
       ],
-      device: "Device type (optional)",
+      locationOtherLabel: "Which town?",
+      locationOtherPlaceholder: "e.g. Wyrzysk",
+      device: "Device type",
       deviceOptions: ["Not sure", "Laptop", "Desktop computer", "Phone", "Gaming PC", "Other"],
-      problem: "Briefly describe the problem (optional)",
+      problem: "Briefly describe the problem",
       problemPlaceholder: "e.g. the laptop overheats and runs loudly",
+      transport: "How will the device get to us?",
+      transportOptions: [
+        { value: "wysylka", label: "I'll send it", note: "You cover the shipping cost." },
+        { value: "dowoz", label: "I'll drop it off (Wyrzysk)", note: "Free — we'll share the exact address once we're in touch." },
+        { value: "odbior", label: "You pick it up", note: "Fuel cost there-and-back + 25 zł. We confirm availability after contact — not always possible right away." },
+      ],
       photo: "Photo (optional)",
       consentPre: "I agree to the processing of my data per the ",
       consentLink: "privacy policy",
@@ -39,16 +47,24 @@ const t = lang === "en"
       namePlaceholder: "Jan Kowalski",
       contact: "Telefon lub e-mail",
       contactPlaceholder: "500 000 000 lub ty@email.com",
-      location: "Gdzie jesteś? (opcjonalnie)",
+      location: "Gdzie jesteś?",
       locationOptions: [
         { value: "pila", label: "Piła" },
         { value: "bydgoszcz", label: "Bydgoszcz" },
         { value: "okolica", label: "Okolica" },
       ],
-      device: "Rodzaj urządzenia (opcjonalnie)",
+      locationOtherLabel: "Jaka miejscowość?",
+      locationOtherPlaceholder: "np. Wyrzysk",
+      device: "Rodzaj urządzenia",
       deviceOptions: ["Nie jestem pewien/pewna", "Laptop", "Komputer stacjonarny", "Telefon", "Komputer gamingowy", "Inne"],
-      problem: "Krótko opisz problem (opcjonalnie)",
+      problem: "Krótko opisz problem",
       problemPlaceholder: "np. laptop się przegrzewa i głośno pracuje",
+      transport: "Jak sprzęt do nas trafi?",
+      transportOptions: [
+        { value: "wysylka", label: "Wyślę sam/a", note: "Koszt przesyłki jest po Twojej stronie." },
+        { value: "dowoz", label: "Dowiozę osobiście (Wyrzysk)", note: "Bezpłatnie — dokładny adres podamy po kontakcie." },
+        { value: "odbior", label: "Odbierzcie ode mnie", note: "Koszt paliwa (dojazd i powrót) + 25 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest możliwe od razu." },
+      ],
       photo: "Zdjęcie (opcjonalnie)",
       consentPre: "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
       consentLink: "polityką prywatności",
@@ -73,27 +89,46 @@ const t = lang === "en"
 	</div>
 
 	<div class="contact-form__field">
-		<span class="contact-form__group-label">{t.location}</span>
+		<span class="contact-form__group-label">{t.location} <span aria-hidden="true">*</span></span>
 		<div class="contact-form__pills" role="radiogroup" aria-label={t.location}>
 			{t.locationOptions.map((opt) => (
 				<div class="contact-form__pill">
-					<input type="radio" name="location" id={`cf-location-${opt.value}`} value={opt.label} />
+					<input type="radio" name="location" id={`cf-location-${opt.value}`} value={opt.label} data-value={opt.value} required />
 					<label for={`cf-location-${opt.value}`}>{opt.label}</label>
 				</div>
 			))}
 		</div>
+		<div class="contact-form__field contact-form__conditional" id="cf-location-other-wrap" hidden>
+			<label for="cf-location-other">{t.locationOtherLabel}</label>
+			<input id="cf-location-other" name="location-other" type="text" placeholder={t.locationOtherPlaceholder} />
+		</div>
 	</div>
 
 	<div class="contact-form__field">
-		<label for="cf-device">{t.device}</label>
-		<select id="cf-device" name="device">
+		<label for="cf-device">{t.device} <span aria-hidden="true">*</span></label>
+		<select id="cf-device" name="device" required>
 			{t.deviceOptions.map((opt) => <option value={opt}>{opt}</option>)}
 		</select>
 	</div>
 
 	<div class="contact-form__field">
-		<label for="cf-problem">{t.problem}</label>
-		<textarea id="cf-problem" name="problem" rows="3" placeholder={t.problemPlaceholder}></textarea>
+		<label for="cf-problem">{t.problem} <span aria-hidden="true">*</span></label>
+		<textarea id="cf-problem" name="problem" rows="3" required placeholder={t.problemPlaceholder}></textarea>
+	</div>
+
+	<div class="contact-form__field">
+		<span class="contact-form__group-label">{t.transport} <span aria-hidden="true">*</span></span>
+		<div class="contact-form__pills contact-form__pills--stack" role="radiogroup" aria-label={t.transport}>
+			{t.transportOptions.map((opt) => (
+				<div class="contact-form__pill contact-form__pill--wide">
+					<input type="radio" name="transport" id={`cf-transport-${opt.value}`} value={opt.label} required />
+					<label for={`cf-transport-${opt.value}`}>
+						<span class="contact-form__pill-title">{opt.label}</span>
+						<span class="contact-form__pill-note">{opt.note}</span>
+					</label>
+				</div>
+			))}
+		</div>
 	</div>
 
 	<div class="contact-form__field">
@@ -157,10 +192,19 @@ const t = lang === "en"
 		color: var(--color-ink-soft);
 	}
 
+	.contact-form__conditional {
+		margin-top: var(--space-2);
+	}
+
 	.contact-form__pills {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
+	}
+
+	.contact-form__pills--stack {
+		flex-direction: column;
+		align-items: stretch;
 	}
 
 	.contact-form__pill input {
@@ -192,6 +236,34 @@ const t = lang === "en"
 	.contact-form__pill input:focus-visible + label {
 		outline: 3px solid var(--color-accent);
 		outline-offset: 2px;
+	}
+
+	.contact-form__pill--wide label {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.25em;
+		border-radius: var(--radius-soft);
+		padding: var(--space-3);
+		width: 100%;
+	}
+
+	.contact-form__pill-title {
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+	}
+
+	.contact-form__pill-note {
+		font-weight: var(--weight-body-regular);
+		font-size: var(--text-xs);
+	}
+
+	.contact-form__pill--wide input:checked + label .contact-form__pill-note {
+		color: var(--color-accent-ink);
+		opacity: 0.9;
+	}
+
+	.contact-form__pill--wide input:not(:checked) + label .contact-form__pill-note {
+		color: var(--color-ink-soft);
 	}
 
 	.contact-form__consent {
@@ -231,6 +303,26 @@ const t = lang === "en"
 
 	if (form) {
 		const lang = form.dataset.lang === 'en' ? 'en' : 'pl';
+
+		// Reveal a free-text "which town?" field only when "Okolica/Nearby" is picked — required
+		// only while it's actually visible, so it never blocks submission when hidden.
+		const locationRadios = form.querySelectorAll<HTMLInputElement>('input[name="location"]');
+		const otherWrap = document.getElementById('cf-location-other-wrap') as HTMLDivElement | null;
+		const otherInput = document.getElementById('cf-location-other') as HTMLInputElement | null;
+
+		function syncLocationOther() {
+			const checked = form!.querySelector<HTMLInputElement>('input[name="location"]:checked');
+			const isOkolica = checked?.dataset.value === 'okolica';
+			if (otherWrap) otherWrap.hidden = !isOkolica;
+			if (otherInput) {
+				otherInput.required = !!isOkolica;
+				if (!isOkolica) otherInput.value = '';
+			}
+		}
+
+		locationRadios.forEach((radio) => radio.addEventListener('change', syncLocationOther));
+		syncLocationOther();
+
 		const status = form.querySelector<HTMLParagraphElement>('.contact-form__status');
 		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 		const webhookUrl = import.meta.env.PUBLIC_DISCORD_WEBHOOK_URL as string | undefined;
@@ -287,9 +379,14 @@ const t = lang === "en"
 
 			const name = (form.querySelector<HTMLInputElement>('#cf-name')?.value ?? '').trim();
 			const contact = (form.querySelector<HTMLInputElement>('#cf-contact')?.value ?? '').trim();
-			const location = form.querySelector<HTMLInputElement>('input[name="location"]:checked')?.value ?? '';
+			const locationChecked = form.querySelector<HTMLInputElement>('input[name="location"]:checked');
+			const locationOther = (document.getElementById('cf-location-other') as HTMLInputElement | null)?.value.trim();
+			const location = locationChecked?.dataset.value === 'okolica' && locationOther
+				? `${locationChecked.value} (${locationOther})`
+				: (locationChecked?.value ?? '');
 			const device = form.querySelector<HTMLSelectElement>('#cf-device')?.value ?? '';
 			const problem = (form.querySelector<HTMLTextAreaElement>('#cf-problem')?.value ?? '').trim();
+			const transport = form.querySelector<HTMLInputElement>('input[name="transport"]:checked')?.value ?? '';
 			const photoInput = form.querySelector<HTMLInputElement>('#cf-photo');
 			const photo = photoInput?.files?.[0];
 
@@ -299,7 +396,7 @@ const t = lang === "en"
 			body.append(
 				'payload_json',
 				JSON.stringify({
-					content: `**Nowe zgłoszenie — ${name}**\nKontakt: ${contact}\nLokalizacja: ${location || messages.notProvided}\nUrządzenie: ${device || messages.notProvided}\nProblem: ${problem || messages.notProvided}`,
+					content: `**Nowe zgłoszenie — ${name}**\nKontakt: ${contact}\nLokalizacja: ${location || messages.notProvided}\nUrządzenie: ${device || messages.notProvided}\nTransport: ${transport || messages.notProvided}\nProblem: ${problem || messages.notProvided}`,
 				})
 			);
 			if (photo) {
