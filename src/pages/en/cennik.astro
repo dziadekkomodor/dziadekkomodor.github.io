@@ -22,6 +22,21 @@ const description = "Indicative prices for computer, laptop, and phone repairs i
 		<PricingTable lang={lang} />
 	</section>
 
+	<section class="container transport" data-animate="reveal">
+		<h2>Getting your device to us</h2>
+		<ul>
+			<li>
+				<strong>Send it yourself</strong> — you cover the shipping cost.
+			</li>
+			<li>
+				<strong>Drop it off yourself</strong> in Wyrzysk — free, we'll share the exact address once we're in touch.
+			</li>
+			<li>
+				<strong>We pick it up</strong> — fuel cost (there and back) + 25 zł. We confirm availability after contact — not always possible right away.
+			</li>
+		</ul>
+	</section>
+
 	<CtaBanner
 		heading="Don't see your service listed?"
 		body="Call or message us — we'll tell you right away roughly how much the repair will cost."
@@ -39,5 +54,18 @@ const description = "Indicative prices for computer, laptop, and phone repairs i
 		font-size: var(--text-lg);
 		color: var(--color-ink-soft);
 		max-width: 60ch;
+	}
+
+	.transport {
+		padding-block: var(--space-6);
+	}
+
+	.transport ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 62ch;
+		color: var(--color-ink-soft);
 	}
 </style>

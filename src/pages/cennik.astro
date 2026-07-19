@@ -22,6 +22,21 @@ const description = "Orientacyjny cennik napraw komputerów, laptopów i telefon
 		<PricingTable lang={lang} />
 	</section>
 
+	<section class="container transport" data-animate="reveal">
+		<h2>Jak dostarczyć sprzęt</h2>
+		<ul>
+			<li>
+				<strong>Wyślesz sam/a</strong> — koszt przesyłki jest po Twojej stronie.
+			</li>
+			<li>
+				<strong>Dowieziesz osobiście</strong> do Wyrzyska — bezpłatnie, dokładny adres podamy po kontakcie.
+			</li>
+			<li>
+				<strong>Odbierzemy sprzęt</strong> — koszt paliwa (dojazd do Ciebie i z powrotem) + 25 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest to możliwe od razu.
+			</li>
+		</ul>
+	</section>
+
 	<CtaBanner
 		heading="Nie widzisz swojej usługi na liście?"
 		body="Zadzwoń albo napisz — powiemy Ci od razu, ile orientacyjnie będzie kosztować naprawa."
@@ -39,5 +54,18 @@ const description = "Orientacyjny cennik napraw komputerów, laptopów i telefon
 		font-size: var(--text-lg);
 		color: var(--color-ink-soft);
 		max-width: 60ch;
+	}
+
+	.transport {
+		padding-block: var(--space-6);
+	}
+
+	.transport ul {
+		margin-top: var(--space-4);
+		padding-left: 1.2em;
+		display: grid;
+		gap: var(--space-3);
+		max-width: 62ch;
+		color: var(--color-ink-soft);
 	}
 </style>
