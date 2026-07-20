@@ -176,9 +176,15 @@ const t = lang === "en"
 	</div>
 
 	<button type="submit" class="btn btn-primary">{t.submit}</button>
-
-	<p class="contact-form__status" role="status" aria-live="polite"></p>
 </form>
+
+<p class="contact-form__status" id="cf-status" role="status" aria-live="polite"></p>
+<div class="contact-form__undo" id="cf-undo" hidden>
+	<button class="contact-form__undo-btn" id="cf-undo-btn" type="button">
+		{lang === "en" ? "Undo — fix my details" : "Cofnij — popraw dane"}
+		(<span id="cf-undo-countdown">10</span>s)
+	</button>
+</div>
 
 <style>
 	.contact-form {
@@ -186,6 +192,33 @@ const t = lang === "en"
 		flex-direction: column;
 		gap: var(--space-4);
 		max-width: 34rem;
+	}
+
+	/* Same fix as .contact-form__field[hidden] below — author display:flex beats [hidden]'s
+	   display:none at equal specificity, so we must re-assert it explicitly. */
+	.contact-form[hidden] {
+		display: none;
+	}
+
+	.contact-form__undo {
+		margin-top: var(--space-3);
+		max-width: 34rem;
+	}
+
+	.contact-form__undo-btn {
+		font-size: var(--text-sm);
+		color: var(--color-ink-soft);
+		background: none;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-soft);
+		padding: 0.35em 0.9em;
+		cursor: pointer;
+		transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+	}
+
+	.contact-form__undo-btn:hover {
+		color: var(--color-ink);
+		border-color: var(--color-ink-soft);
 	}
 
 	.contact-form__progress-track {
@@ -477,32 +510,33 @@ const t = lang === "en"
 			}));
 		}
 
+		function applyDraftData(d: Record<string, string>) {
+			const setVal = (id: string, val: string) => {
+				const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+				if (el && val) el.value = val;
+			};
+			setVal('cf-name', d.name);
+			setVal('cf-contact', d.contact);
+			setVal('cf-problem', d.problem);
+			setVal('cf-device', d.device);
+			if (d.location) {
+				const r = form!.querySelector<HTMLInputElement>(`input[name="location"][data-value="${d.location}"]`);
+				if (r) r.checked = true;
+			}
+			if (d.transport) {
+				const r = form!.querySelector<HTMLInputElement>(`input[name="transport"][value="${d.transport}"]`);
+				if (r) r.checked = true;
+			}
+			setVal('cf-location-other', d.locationOther);
+			syncLocationOther();
+			updateProblemCounter();
+			updateProgress();
+		}
+
 		function restoreDraft() {
 			const raw = localStorage.getItem(DRAFT_KEY);
 			if (!raw) return;
-			try {
-				const d = JSON.parse(raw);
-				const setVal = (id: string, val: string) => {
-					const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
-					if (el && val) el.value = val;
-				};
-				setVal('cf-name', d.name);
-				setVal('cf-contact', d.contact);
-				setVal('cf-problem', d.problem);
-				setVal('cf-device', d.device);
-				if (d.location) {
-					const r = form!.querySelector<HTMLInputElement>(`input[name="location"][data-value="${d.location}"]`);
-					if (r) r.checked = true;
-				}
-				if (d.transport) {
-					const r = form!.querySelector<HTMLInputElement>(`input[name="transport"][value="${d.transport}"]`);
-					if (r) r.checked = true;
-				}
-				setVal('cf-location-other', d.locationOther);
-				syncLocationOther();
-				updateProblemCounter();
-				updateProgress();
-			} catch {}
+			try { applyDraftData(JSON.parse(raw)); } catch {}
 		}
 
 		restoreDraft();
@@ -518,8 +552,11 @@ const t = lang === "en"
 			if (hasInput) e.preventDefault();
 		});
 
-		const status = form.querySelector<HTMLParagraphElement>('.contact-form__status');
+		const status = document.getElementById('cf-status') as HTMLParagraphElement | null;
 		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+		const undoWrap = document.getElementById('cf-undo') as HTMLDivElement | null;
+		const undoBtn = document.getElementById('cf-undo-btn') as HTMLButtonElement | null;
+		const undoCountdown = document.getElementById('cf-undo-countdown') as HTMLSpanElement | null;
 		const webhookUrl = import.meta.env.PUBLIC_DISCORD_WEBHOOK_URL as string | undefined;
 
 		const messages = lang === 'en'
@@ -672,6 +709,9 @@ const t = lang === "en"
 				body.append('files[0]', photo, photo.name);
 			}
 
+			// Snapshot the draft before clearing so undo can replay it without localStorage.
+			const submittedDraft = localStorage.getItem(DRAFT_KEY);
+
 			try {
 				localStorage.setItem('cf-last-submit', String(Date.now()));
 				const res = await fetch(webhookUrl, { method: 'POST', body });
@@ -681,6 +721,29 @@ const t = lang === "en"
 				if (status) {
 					status.textContent = messages.success;
 					status.dataset.state = 'success';
+				}
+
+				// Undo window: 10-second countdown, lets them reopen the form to fix a typo.
+				if (submittedDraft && undoWrap && undoBtn && undoCountdown) {
+					undoWrap.hidden = false;
+					let secs = 10;
+					const tick = setInterval(() => {
+						secs--;
+						undoCountdown.textContent = String(secs);
+						if (secs <= 0) { clearInterval(tick); undoWrap.hidden = true; }
+					}, 1000);
+
+					undoBtn.onclick = () => {
+						clearInterval(tick);
+						undoWrap.hidden = true;
+						try { applyDraftData(JSON.parse(submittedDraft)); } catch {}
+						form.hidden = false;
+						if (submitBtn) {
+							submitBtn.disabled = false;
+							submitBtn.textContent = messages.submit;
+						}
+						if (status) { status.textContent = ''; delete status.dataset.state; }
+					};
 				}
 			} catch {
 				if (status) {
