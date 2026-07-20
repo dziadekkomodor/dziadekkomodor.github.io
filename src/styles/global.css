@@ -146,6 +146,27 @@ ul, ol {
   opacity: 1;
 }
 
+.copy-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  padding: 0.55em 1.2em;
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-body-bold);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.copy-toast--visible {
+  opacity: 1;
+}
+
 /* Images still loading get a plain gray placeholder instead of a blank gap, then fade in.
    page-loading.js only ever ADDS this class to images it has confirmed are still in flight —
    nothing is hidden by default here, so a script failure can never hide content. */
