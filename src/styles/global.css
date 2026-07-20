@@ -167,6 +167,38 @@ ul, ol {
   opacity: 1;
 }
 
+.phone-card {
+  position: absolute;
+  top: var(--card-top);
+  left: var(--card-left);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-soft);
+  padding: var(--space-4);
+  box-shadow: 0 4px 24px color-mix(in srgb, var(--color-ink) 12%, transparent);
+  z-index: 9999;
+  min-width: 220px;
+}
+
+.phone-card__label {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-ink-soft);
+}
+
+.phone-card__number {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-headline);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-headline-black);
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+}
+
+.phone-card__copy {
+  width: 100%;
+}
+
 /* Images still loading get a plain gray placeholder instead of a blank gap, then fade in.
    page-loading.js only ever ADDS this class to images it has confirmed are still in flight —
    nothing is hidden by default here, so a script failure can never hide content. */

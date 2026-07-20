@@ -1,16 +1,59 @@
-// On desktop (hover-capable devices), copy tel:/mailto: links to clipboard instead of
-// trying to open a dialer or mail client that likely isn't configured.
-if (window.matchMedia('(hover: hover)').matches) {
+// Desktop-only enhancements for tel: and mailto: links (hover: hover = mouse/trackpad device).
+// Mobile keeps native behaviour (dialer, mail app).
+if (!window.matchMedia('(hover: hover)').matches) {
+  // nothing — let the browser handle tel:/mailto: natively on touch devices
+} else {
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
     if (!a) return;
     e.preventDefault();
-    const isPhone = a.href.startsWith('tel:');
-    const value = isPhone
-      ? a.href.replace('tel:', '')
-      : a.href.replace('mailto:', '');
-    navigator.clipboard.writeText(value).then(() => showToast(isPhone));
+
+    if (a.href.startsWith('tel:')) {
+      showPhoneCard(a);
+    } else {
+      const email = a.href.replace('mailto:', '');
+      copyToClipboard(email, false);
+    }
   });
+
+  // Close phone card on outside click
+  document.addEventListener('click', (e) => {
+    const card = document.getElementById('phone-card');
+    if (card && !card.contains(e.target) && !e.target.closest('a[href^="tel:"]')) {
+      card.remove();
+    }
+  });
+}
+
+function showPhoneCard(anchor) {
+  const existing = document.getElementById('phone-card');
+  if (existing) { existing.remove(); return; }
+
+  const number = anchor.href.replace('tel:', '');
+  const card = document.createElement('div');
+  card.id = 'phone-card';
+  card.className = 'phone-card';
+  card.innerHTML = `
+    <p class="phone-card__label">Zadzwoń lub wpisz numer</p>
+    <p class="phone-card__number">${anchor.textContent.trim()}</p>
+    <button class="phone-card__copy btn btn-primary" type="button">Kopiuj numer</button>
+  `;
+
+  card.querySelector('.phone-card__copy').addEventListener('click', (e) => {
+    e.stopPropagation();
+    copyToClipboard(number, true);
+    card.remove();
+  });
+
+  // Position below the anchor
+  const rect = anchor.getBoundingClientRect();
+  card.style.setProperty('--card-top', `${rect.bottom + window.scrollY + 8}px`);
+  card.style.setProperty('--card-left', `${rect.left + window.scrollX}px`);
+  document.body.appendChild(card);
+}
+
+function copyToClipboard(value, isPhone) {
+  navigator.clipboard.writeText(value).then(() => showToast(isPhone));
 }
 
 function showToast(isPhone) {
@@ -21,7 +64,6 @@ function showToast(isPhone) {
   toast.className = 'copy-toast';
   toast.textContent = isPhone ? 'Skopiowano numer!' : 'Skopiowano e-mail!';
   document.body.appendChild(toast);
-  // Force reflow so the fade-in transition fires
   toast.getBoundingClientRect();
   toast.classList.add('copy-toast--visible');
   setTimeout(() => {
