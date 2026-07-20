@@ -3,6 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import PricingTable from '../../components/PricingTable.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import { localePath } from '../../data/nav';
+import { site } from '../../data/site';
 
 const lang = "en" as const;
 const title = "Pricing";
@@ -32,7 +33,7 @@ const description = "Indicative prices for computer, laptop, and phone repairs i
 				<strong>Drop it off yourself</strong> in Wyrzysk — free, we'll share the exact address once we're in touch.
 			</li>
 			<li>
-				<strong>We pick it up</strong> — fuel cost (there and back) + 12 zł. We confirm availability after contact — not always possible right away.
+				<strong>We pick it up</strong> — fuel cost (there and back) + {site.pickupFee} zł. We confirm availability after contact — not always possible right away.
 			</li>
 		</ul>
 	</section>

@@ -41,6 +41,10 @@ export const site = {
   },
 
   warrantyMonths: 3,
+  // Pickup fee charged on top of fuel cost when we collect the device from the customer.
+  pickupFee: 12,
+  // Price range for a detailed diagnosis (deducted from repair cost if repair proceeds).
+  diagnosisDetailedFee: "60–70",
 
   hours: [
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },

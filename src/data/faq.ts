@@ -1,6 +1,4 @@
-// Single source of truth for FAQ content — both FaqAccordion.astro (visible text) and the
-// FAQPage JSON-LD builder read from this same array, so the schema always matches what's on
-// the page (a Google requirement for FAQPage rich results).
+import { site } from './site';
 
 export type FaqItem = {
   question: { pl: string; en: string };
@@ -11,8 +9,8 @@ export const faqItems: FaqItem[] = [
   {
     question: { pl: "Czy diagnoza jest darmowa?", en: "Is the diagnosis free?" },
     answer: {
-      pl: "Tak, wstępna diagnoza jest bezpłatna. Diagnoza szczegółowa kosztuje 60–70 zł, ale ta kwota jest odliczana od ceny naprawy, jeśli się na nią zdecydujesz — płacisz za nią tylko wtedy, gdy finalnie nie naprawiamy sprzętu.",
-      en: "Yes, the initial diagnosis is free. A detailed diagnosis costs 60–70 zł, but that amount is deducted from the repair cost if you go ahead — you only actually pay for it if the repair doesn't happen.",
+      pl: `Tak, wstępna diagnoza jest bezpłatna. Diagnoza szczegółowa kosztuje ${site.diagnosisDetailedFee} zł, ale ta kwota jest odliczana od ceny naprawy, jeśli się na nią zdecydujesz — płacisz za nią tylko wtedy, gdy finalnie nie naprawiamy sprzętu.`,
+      en: `Yes, the initial diagnosis is free. A detailed diagnosis costs ${site.diagnosisDetailedFee} zł, but that amount is deducted from the repair cost if you go ahead — you only actually pay for it if the repair doesn't happen.`,
     },
   },
   {
@@ -39,8 +37,8 @@ export const faqItems: FaqItem[] = [
   {
     question: { pl: "Jaka jest gwarancja na naprawę?", en: "What warranty do you offer on repairs?" },
     answer: {
-      pl: "Na wykonane naprawy dajemy 3 miesiące gwarancji. Warunki gwarancji zależą od rodzaju usterki i zawsze są jasno opisane na wycenie.",
-      en: "We give a 3-month warranty on completed repairs. The exact terms depend on the type of fault and are always spelled out clearly on your quote.",
+      pl: `Na wykonane naprawy dajemy ${site.warrantyMonths} miesiące gwarancji. Warunki gwarancji zależą od rodzaju usterki i zawsze są jasno opisane na wycenie.`,
+      en: `We give a ${site.warrantyMonths}-month warranty on completed repairs. The exact terms depend on the type of fault and are always spelled out clearly on your quote.`,
     },
   },
   {

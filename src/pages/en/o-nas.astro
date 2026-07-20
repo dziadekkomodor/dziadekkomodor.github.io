@@ -5,6 +5,7 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import { Image } from 'astro:assets';
 import { team } from '../../data/team';
 import { localePath } from '../../data/nav';
+import { site } from '../../data/site';
 import workshopPhoto from '../../assets/photos/workshop-wide.jpg';
 
 const lang = "en" as const;
@@ -50,7 +51,7 @@ const description = "Meet Albert and Mikołaj — the two founders of Dziadek Ko
 
 	<CtaBanner
 		heading="Want us to take a look at your device?"
-		body="Free diagnosis, a clear quote, a 5-month warranty."
+		body={`Free diagnosis, a clear quote, a ${site.warrantyMonths}-month warranty.`}
 		ctaLabel="Free quote"
 		ctaHref={localePath(lang, "kontakt")}
 	/>

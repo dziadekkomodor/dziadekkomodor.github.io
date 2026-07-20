@@ -3,6 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import PricingTable from '../components/PricingTable.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { localePath } from '../data/nav';
+import { site } from '../data/site';
 
 const lang = "pl" as const;
 const title = "Cennik napraw";
@@ -32,7 +33,7 @@ const description = "Orientacyjny cennik napraw komputerów, laptopów i telefon
 				<strong>Dowieziesz osobiście</strong> do Wyrzyska — bezpłatnie, dokładny adres podamy po kontakcie.
 			</li>
 			<li>
-				<strong>Odbierzemy sprzęt</strong> — koszt paliwa (dojazd do Ciebie i z powrotem) + 12 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest to możliwe od razu.
+				<strong>Odbierzemy sprzęt</strong> — koszt paliwa (dojazd do Ciebie i z powrotem) + {site.pickupFee} zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest to możliwe od razu.
 			</li>
 		</ul>
 	</section>

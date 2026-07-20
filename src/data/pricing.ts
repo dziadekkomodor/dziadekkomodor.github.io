@@ -1,6 +1,4 @@
-// Prices are local Bydgoszcz/Piła market benchmarks (research-based), not yet the shop's own
-// confirmed numbers — brief §8 open items flags this explicitly. Marked "orientacyjna"/"indicative"
-// in the UI. Update these rows once real costs are set, before Stage 2.
+import { site } from './site';
 
 export type PriceRow = {
   name: { pl: string; en: string };
@@ -25,7 +23,7 @@ export const pricingCategories: PriceCategory[] = [
       },
       {
         name: { pl: "Diagnoza szczegółowa", en: "Detailed diagnosis" },
-        price: { pl: "60–70 zł", en: "60–70 zł" },
+        price: { pl: `${site.diagnosisDetailedFee} zł`, en: `${site.diagnosisDetailedFee} zł` },
         note: {
           pl: "Kwota odliczana od ceny naprawy, jeśli zdecydujesz się na jej wykonanie.",
           en: "Waived — deducted from the repair cost if you go ahead with the repair.",

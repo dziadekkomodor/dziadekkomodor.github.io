@@ -5,6 +5,7 @@ import CtaBanner from '../components/CtaBanner.astro';
 import { Image } from 'astro:assets';
 import { team } from '../data/team';
 import { localePath } from '../data/nav';
+import { site } from '../data/site';
 import workshopPhoto from '../assets/photos/workshop-wide.jpg';
 
 const lang = "pl" as const;
@@ -50,7 +51,7 @@ const description = "Poznaj Alberta i Mikołaja — dwóch założycieli Dziadka
 
 	<CtaBanner
 		heading="Chcesz, żebyśmy zajęli się Twoim sprzętem?"
-		body="Bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji."
+		body={`Bezpłatna diagnoza, jasna wycena, ${site.warrantyMonths} miesiące gwarancji.`}
 		ctaLabel="Darmowa wycena"
 		ctaHref={localePath(lang, "kontakt")}
 	/>

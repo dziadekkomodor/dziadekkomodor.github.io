@@ -1,5 +1,4 @@
-// Diagnoza → Wycena → Naprawa → Testy → Gwarancja — the brief requires this exact process
-// stated on the homepage and every service page. Single source, reused everywhere.
+import { site } from './site';
 
 export type ProcessStep = {
   label: { pl: string; en: string };
@@ -38,8 +37,8 @@ export const processSteps: ProcessStep[] = [
   {
     label: { pl: "Gwarancja", en: "Warranty" },
     description: {
-      pl: "5 miesięcy gwarancji na wykonaną naprawę.",
-      en: "A 5-month warranty on the completed repair.",
+      pl: `${site.warrantyMonths} miesiące gwarancji na wykonaną naprawę.`,
+      en: `A ${site.warrantyMonths}-month warranty on the completed repair.`,
     },
   },
 ];

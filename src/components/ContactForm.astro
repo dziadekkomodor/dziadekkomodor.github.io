@@ -1,5 +1,6 @@
 ---
 import { localePath } from '../data/nav';
+import { site } from '../data/site';
 
 export interface Props {
   lang: "pl" | "en";
@@ -38,7 +39,7 @@ const t = lang === "en"
       transportOptions: [
         { value: "wysylka", label: "I'll send it", note: "You cover the shipping cost." },
         { value: "dowoz", label: "I'll drop it off (Wyrzysk)", note: "Free — we'll share the exact address once we're in touch." },
-        { value: "odbior", label: "You pick it up", note: "Fuel cost there-and-back + 12 zł. We confirm availability after contact — not always possible right away." },
+        { value: "odbior", label: "You pick it up", note: `Fuel cost there-and-back + ${site.pickupFee} zł. We confirm availability after contact — not always possible right away.` },
       ],
       photo: "Photo (optional)",
       consentPre: "I agree to the processing of my data per the ",
@@ -79,7 +80,7 @@ const t = lang === "en"
       transportOptions: [
         { value: "wysylka", label: "Wyślę sam/a", note: "Koszt przesyłki jest po Twojej stronie." },
         { value: "dowoz", label: "Dowiozę osobiście (Wyrzysk)", note: "Bezpłatnie — dokładny adres podamy po kontakcie." },
-        { value: "odbior", label: "Odbierzcie ode mnie", note: "Koszt paliwa (dojazd i powrót) + 12 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest możliwe od razu." },
+        { value: "odbior", label: "Odbierzcie ode mnie", note: `Koszt paliwa (dojazd i powrót) + ${site.pickupFee} zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest możliwe od razu.` },
       ],
       photo: "Zdjęcie (opcjonalnie)",
       consentPre: "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
