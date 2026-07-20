@@ -39,8 +39,8 @@ export const faqItems: FaqItem[] = [
   {
     question: { pl: "Jaka jest gwarancja na naprawę?", en: "What warranty do you offer on repairs?" },
     answer: {
-      pl: "Na wykonane naprawy dajemy 5 miesięcy gwarancji. Warunki gwarancji zależą od rodzaju usterki i zawsze są jasno opisane na wycenie.",
-      en: "We give a 5-month warranty on completed repairs. The exact terms depend on the type of fault and are always spelled out clearly on your quote.",
+      pl: "Na wykonane naprawy dajemy 3 miesiące gwarancji. Warunki gwarancji zależą od rodzaju usterki i zawsze są jasno opisane na wycenie.",
+      en: "We give a 3-month warranty on completed repairs. The exact terms depend on the type of fault and are always spelled out clearly on your quote.",
     },
   },
   {
