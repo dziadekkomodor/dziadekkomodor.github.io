@@ -12,7 +12,11 @@ if (!window.matchMedia('(hover: hover)').matches) {
       showPhoneCard(a);
     } else {
       const email = a.href.replace('mailto:', '');
-      copyToClipboard(email, false);
+      const original = a.textContent;
+      navigator.clipboard.writeText(email).then(() => {
+        a.textContent = 'Skopiowano!';
+        setTimeout(() => { a.textContent = original; }, 1500);
+      });
     }
   });
 
