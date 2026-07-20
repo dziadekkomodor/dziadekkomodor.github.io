@@ -167,6 +167,26 @@ ul, ol {
   opacity: 1;
 }
 
+@keyframes copy-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.is-copied {
+  color: #2d8a4e !important;
+  transition: color 0.15s ease;
+  animation: copy-pop 0.3s var(--ease-out) forwards;
+  display: inline-block;
+}
+
+.phone-card__copy.is-copied {
+  background: #2d8a4e;
+  border-color: #2d8a4e;
+  color: #fff !important;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
 .phone-card {
   position: absolute;
   top: var(--card-top);

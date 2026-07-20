@@ -14,8 +14,12 @@ if (!window.matchMedia('(hover: hover)').matches) {
       const email = a.href.replace('mailto:', '');
       const original = a.textContent;
       navigator.clipboard.writeText(email).then(() => {
-        a.textContent = 'Skopiowano!';
-        setTimeout(() => { a.textContent = original; }, 1500);
+        a.textContent = '✓ Skopiowano!';
+        a.classList.add('is-copied');
+        setTimeout(() => {
+          a.textContent = original;
+          a.classList.remove('is-copied');
+        }, 1500);
       });
     }
   });
@@ -47,7 +51,8 @@ function showPhoneCard(anchor) {
   copyBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     navigator.clipboard.writeText(number).then(() => {
-      copyBtn.textContent = 'Skopiowano!';
+      copyBtn.textContent = '✓ Skopiowano!';
+      copyBtn.classList.add('is-copied');
       setTimeout(() => card.remove(), 900);
     });
   });
