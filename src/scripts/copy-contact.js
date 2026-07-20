@@ -39,10 +39,13 @@ function showPhoneCard(anchor) {
     <button class="phone-card__copy btn btn-primary" type="button">Kopiuj numer</button>
   `;
 
-  card.querySelector('.phone-card__copy').addEventListener('click', (e) => {
+  const copyBtn = card.querySelector('.phone-card__copy');
+  copyBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    copyToClipboard(number, true);
-    card.remove();
+    navigator.clipboard.writeText(number).then(() => {
+      copyBtn.textContent = 'Skopiowano!';
+      setTimeout(() => card.remove(), 900);
+    });
   });
 
   // Position below the anchor
