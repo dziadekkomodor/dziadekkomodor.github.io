@@ -17,6 +17,4 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-# Domain is a Stage-1 placeholder (dziadekkomodor.pl) — keep in sync with astro.config.mjs and
-# src/data/site.ts when the real domain is chosen in Stage 3.
 Sitemap: https://dziadekkomodor.pl/sitemap-index.xml

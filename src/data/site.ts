@@ -1,9 +1,5 @@
-// Single source of truth for business facts. Every page, component, and JSON-LD block should
-// import from here rather than hardcoding — this is the one place to edit before Stage 2/3
-// when real values (domain, phone, webhook) replace these placeholders.
-//
-// astro.config.mjs's `site:` field and public/robots.txt's sitemap line duplicate the domain
-// string below (Astro can't import runtime data into build config) — keep all three in sync.
+// Single source of truth for business facts. Every page, component, and JSON-LD block imports
+// from here. Phone number is the only remaining placeholder — swap once confirmed.
 
 export const site = {
   brandName: "Dziadek Komodor",
@@ -17,8 +13,8 @@ export const site = {
   url: "https://dziadekkomodor.pl",
 
   phone: {
-    display: "+48 000 000 000",
-    href: "tel:+48000000000",
+    display: "+48 607 318 412",
+    href: "tel:+48607318412",
   },
   email: "kontakt@dziadekkomodor.pl",
 

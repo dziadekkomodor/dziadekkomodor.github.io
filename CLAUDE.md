@@ -22,8 +22,17 @@ not plain CSS fade-ins. Motion should feel deliberate and premium, not decorativ
 
 ## Overall Direction
 Take a real aesthetic risk that fits a trustworthy local repair business — not a generic SaaS template.
-Reference: this project also has a full business/content brief in website_build_brief.md — use it for
-copy, page structure, and persona targeting, not just visuals.
+
+## Content & Business Context
+Don't preload the full brief. Read only the file relevant to the current task, on demand:
+- `brief/personas-pricing.md` — business context, target personas, customer objections, required page
+  content (pricing, warranty, process, FAQ, contact form), competitive landscape, open items. Read this
+  when writing copy, structuring pages, or targeting a specific persona.
+- `brief/design-tech.md` — design direction detail, technical requirements (performance, accessibility,
+  security, GDPR, JSON-LD schema templates, AI/answer-engine content structuring). Read this when
+  implementing a page template, schema markup, or a compliance-related feature.
+- `brief/launch-checklist.md` — Stage 2/3 steps (GitHub Pages, domain, email, Discord webhook, Google
+  Business Profile, directories). Only relevant during actual launch tasks, not normal coding sessions.
 
 ## Stack
 Astro (static output), plain CSS with custom-property design tokens, no UI framework. Bilingual
@@ -32,17 +41,14 @@ for the full architecture.
 
 ## Development
 When starting the dev server, use background mode:
-
 ```
 astro dev --background
 ```
-
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
 ## Documentation
-Full documentation: https://docs.astro.build
-
-Consult these guides before working on related tasks:
+Astro docs: https://docs.astro.build — fetch a specific guide only when the current task needs it,
+don't preload these:
 - [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
 - [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
