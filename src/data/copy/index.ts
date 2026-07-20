@@ -1,11 +1,9 @@
-// Homepage-specific prose. Structured data (services, trust, process, team, pricing) lives in
-// sibling files under src/data/ and is reused across pages — this file is only for copy that's
-// unique to the homepage itself.
+import { site } from './site';
 
 export const homeCopy = {
   metaDescription: {
-    pl: "Dziadek Komodor — naprawa komputerów, laptopów i telefonów w Pile, Bydgoszczy i okolicach. Bezpłatna diagnoza, jasna wycena, 3 miesiące gwarancji.",
-    en: "Dziadek Komodor — computer, laptop, and phone repair in Piła, Bydgoszcz, and surrounding towns. Free diagnosis, clear pricing, 3-month warranty.",
+    pl: `Dziadek Komodor — naprawa komputerów, laptopów i telefonów w Pile, Bydgoszczy i okolicach. Bezpłatna diagnoza, jasna wycena, ${site.warrantyMonths} miesiące gwarancji.`,
+    en: `Dziadek Komodor — computer, laptop, and phone repair in Piła, Bydgoszcz, and surrounding towns. Free diagnosis, clear pricing, ${site.warrantyMonths}-month warranty.`,
   },
   hero: {
     eyebrow: {

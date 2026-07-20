@@ -1,6 +1,4 @@
-// Metadata for the five persona/service landing pages — drives the homepage routing section,
-// each page's <title>/meta description, and its Service JSON-LD (serviceType + description feed
-// the schema directly, so keep this copy-accurate, not just a label).
+import { site } from './site';
 
 export type ServiceEntry = {
   slug: string; // matches the .astro filename under src/pages/ (and src/pages/en/)
@@ -23,8 +21,8 @@ export const services: ServiceEntry[] = [
     },
     serviceType: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
     metaDescription: {
-      pl: "Naprawa laptopów i komputerów w Pile, Bydgoszczy i okolicach — bezpłatna diagnoza, jasna wycena, 3 miesiące gwarancji.",
-      en: "Laptop and computer repair in Piła, Bydgoszcz, and surrounding towns — free diagnosis, clear pricing, 3-month warranty.",
+      pl: `Naprawa laptopów i komputerów w Pile, Bydgoszczy i okolicach — bezpłatna diagnoza, jasna wycena, ${site.warrantyMonths} miesiące gwarancji.`,
+      en: `Laptop and computer repair in Piła, Bydgoszcz, and surrounding towns — free diagnosis, clear pricing, ${site.warrantyMonths}-month warranty.`,
     },
   },
   {
@@ -37,8 +35,8 @@ export const services: ServiceEntry[] = [
     },
     serviceType: { pl: "Naprawa telefonów i tabletów", en: "Phone and tablet repair" },
     metaDescription: {
-      pl: "Naprawa telefonów i tabletów w Pile, Bydgoszczy i okolicach — wymiana szybki, wyświetlacza, baterii. Bezpłatna diagnoza, 3 miesiące gwarancji.",
-      en: "Phone and tablet repair in Piła, Bydgoszcz, and surrounding towns — glass, display, and battery replacement. Free diagnosis, 3-month warranty.",
+      pl: `Naprawa telefonów i tabletów w Pile, Bydgoszczy i okolicach — wymiana szybki, wyświetlacza, baterii. Bezpłatna diagnoza, ${site.warrantyMonths} miesiące gwarancji.`,
+      en: `Phone and tablet repair in Piła, Bydgoszcz, and surrounding towns — glass, display, and battery replacement. Free diagnosis, ${site.warrantyMonths}-month warranty.`,
     },
   },
   {
