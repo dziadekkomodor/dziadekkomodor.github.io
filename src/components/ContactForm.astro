@@ -721,6 +721,7 @@ const t = lang === "en"
 				if (status) {
 					status.textContent = messages.success;
 					status.dataset.state = 'success';
+					status.scrollIntoView({ behavior: 'smooth', block: 'center' });
 				}
 
 				// Undo window: 10-second countdown, lets them reopen the form to fix a typo.
