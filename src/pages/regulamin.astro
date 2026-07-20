@@ -4,57 +4,105 @@ import { site } from '../data/site';
 
 const lang = "pl" as const;
 const title = "Regulamin";
-const description = "Regulamin usług Dziadka Komodora — proces naprawy, warunki gwarancji i odpowiedzialność.";
+const description = "Regulamin usług Dziadka Komodora — proces naprawy, gwarancja, odpowiedzialność za dane i warunki odbioru sprzętu.";
+const updated = "2026-07-20";
 ---
 
 <PageLayout lang={lang} slug="regulamin" title={title} description={description}>
 	<section class="container legal-page" data-animate="reveal">
 		<h1>Regulamin</h1>
+		<p class="legal-page__meta">Obowiązuje od: {updated}</p>
 
-		<p class="legal-page__notice">
-			<strong>Wersja robocza.</strong> Ten tekst opisuje zasady, na jakich faktycznie działamy —
-			nie jest to jednak gotowy dokument prawny. Przed publikacją strony należy skonsultować tę
-			treść z prawnikiem, tak jak zakłada brief projektu.
-		</p>
-
-		<h2>Kim jesteśmy</h2>
+		<h2>§1 — Kim jesteśmy</h2>
 		<p>
-			{site.brandName} to działalność nierejestrowana w rozumieniu polskich przepisów — nie
-			jesteśmy spółką ani zarejestrowanym przedsiębiorstwem, nie wystawiamy faktur VAT. Usługi
-			świadczymy osobiście, jako dwie osoby fizyczne.
+			{site.brandName} to działalność prowadzona przez dwie osoby fizyczne na podstawie
+			przepisów o działalności nierejestrowanej (art. 5 ust. 1 ustawy z dnia 6 marca 2018 r.
+			Prawo przedsiębiorców). Nie jesteśmy wpisani do rejestru przedsiębiorców (KRS ani CEIDG),
+			nie posiadamy numeru NIP ani REGON i nie wystawiamy faktur VAT. Usługi świadczymy
+			osobiście, jako dwie osoby fizyczne.
+		</p>
+		<p>
+			Kontakt: <a href={`mailto:${site.email}`}>{site.email}</a> &bull; <a href={site.phone.href}>{site.phone.display}</a>
 		</p>
 
-		<h2>Proces naprawy</h2>
-		<p>Każde zlecenie przechodzi przez te same etapy:</p>
+		<h2>§2 — Zgłoszenie i wycena</h2>
 		<ol>
-			<li><strong>Diagnoza</strong> — bezpłatnie sprawdzamy, co jest nie tak.</li>
-			<li><strong>Wycena</strong> — przedstawiamy koszt naprawy na piśmie.</li>
-			<li><strong>Naprawa</strong> — zaczynamy dopiero po Twojej akceptacji wyceny.</li>
-			<li><strong>Testy</strong> — sprawdzamy, czy urządzenie działa poprawnie.</li>
-			<li><strong>Gwarancja</strong> — {site.warrantyMonths} miesięcy gwarancji na wykonaną naprawę.</li>
+			<li>Zlecenie można złożyć przez formularz kontaktowy na stronie, telefonicznie lub mailowo.</li>
+			<li>Diagnoza wstępna jest <strong>bezpłatna</strong>. Jeśli wymagana jest diagnoza szczegółowa (demontaż, pomiary), jej koszt jest podawany z góry i odliczany od ceny naprawy w razie akceptacji wyceny.</li>
+			<li>Wycena naprawy jest przedstawiana na piśmie (e-mail lub wiadomość) przed rozpoczęciem jakichkolwiek prac.</li>
+			<li><strong>Naprawa jest rozpoczynana wyłącznie po wyraźnej akceptacji wyceny przez Klienta.</strong></li>
+			<li>Akceptacja wyceny może być przekazana e-mailem, wiadomością lub ustnie. W przypadku akceptacji ustnej, potwierdzamy ją wiadomością tekstową.</li>
 		</ol>
 
-		<h2>Gwarancja</h2>
+		<h2>§3 — Realizacja naprawy</h2>
+		<ol>
+			<li>Po przyjęciu zlecenia potwierdzamy jego odbiór i szacowany czas realizacji.</li>
+			<li>Jeśli w trakcie naprawy ujawnią się dodatkowe usterki lub zmieni się zakres prac, informujemy o tym i przedstawiamy zaktualizowaną wycenę. Dalsze prace są kontynuowane dopiero po akceptacji zmiany.</li>
+			<li>Przed odbiorem sprzętu sprawdzamy jego poprawne działanie w zakresie wykonanej usługi.</li>
+		</ol>
+
+		<h2>§4 — Gwarancja</h2>
+		<ol>
+			<li>Na wykonane naprawy udzielamy <strong>{site.warrantyMonths}-miesięcznej gwarancji</strong> (gwarancja dobrowolna), liczonej od dnia odbioru sprzętu przez Klienta.</li>
+			<li>Gwarancja obejmuje wyłącznie usterkę będącą przedmiotem naprawy.</li>
+			<li>
+				Gwarancja <strong>nie obejmuje</strong>:
+				<ul>
+					<li>nowych awarii niezwiązanych z wykonaną usługą,</li>
+					<li>uszkodzeń mechanicznych, zalania lub nieprawidłowej eksploatacji powstałych po odbiorze sprzętu,</li>
+					<li>części zużywalnych (baterie, wentylatory, dyski HDD),</li>
+					<li>uszkodzeń powstałych wskutek działania złośliwego oprogramowania lub nieautoryzowanych modyfikacji po naprawie.</li>
+				</ul>
+			</li>
+			<li>Reklamację gwarancyjną należy zgłosić mailem na <a href={`mailto:${site.email}`}>{site.email}</a>. Rozpatrzymy sprawę niezwłocznie, nie później niż w ciągu 14 dni.</li>
+		</ol>
+
+		<h2>§5 — Ochrona danych i backup</h2>
+		<ol>
+			<li>Przed każdą naprawą ingerującą w dysk lub oprogramowanie (reinstalacja systemu, naprawa płyty głównej, odzyskiwanie danych) informujemy o ryzyku utraty danych.</li>
+			<li>Zdecydowanie rekomendujemy wykonanie kopii zapasowej przed przekazaniem sprzętu.</li>
+			<li>Gdzie to możliwe i uzgodnione z Klientem, sami wykonujemy backup przed przystąpieniem do pracy — jednak <strong>nie ponosimy odpowiedzialności za utratę danych, które nie zostały zabezpieczone przed przekazaniem urządzenia</strong>, chyba że szkoda wynikła z naszego niedbalstwa.</li>
+			<li>Nie przeglądamy zawartości plików wykraczającej poza to, co niezbędne do wykonania usługi.</li>
+		</ol>
+
+		<h2>§6 — Dostawa i odbiór sprzętu</h2>
+		<p>Sprzęt może do nas trafić na trzy sposoby:</p>
+		<ul>
+			<li><strong>Dostawa własna</strong> (punkt odbioru w Wyrzysku) — bezpłatna; dokładny adres podajemy po kontakcie.</li>
+			<li><strong>Wysyłka kurierska</strong> — koszt przesyłki leży po stronie Klienta (zarówno do nas, jak i z powrotem).</li>
+			<li><strong>Odbiór u Klienta</strong> — dostępny w okolicach Piły i Bydgoszczy po wcześniejszym uzgodnieniu; koszt dojazdu (tam i z powrotem) + 12 zł. Dostępność potwierdzamy indywidualnie — nie zawsze możliwy od razu.</li>
+		</ul>
+
+		<h2>§7 — Ceny i płatności</h2>
+		<ol>
+			<li>Ceny podawane są w złotych polskich (PLN). W ramach działalności nierejestrowanej nie jesteśmy płatnikami VAT — podane kwoty są kwotami brutto do zapłaty.</li>
+			<li>Akceptujemy płatność gotówką przy odbiorze oraz przelewem bankowym.</li>
+			<li>Przy przesyłkach kurierskich możliwe jest pobranie lub przelew przed odesłaniem sprzętu — ustalamy to indywidualnie.</li>
+		</ol>
+
+		<h2>§8 — Sprzęt nieodebrany</h2>
 		<p>
-			Na wykonane naprawy udzielamy {site.warrantyMonths} miesięcy gwarancji, licząc od dnia
-			odbioru sprzętu. Gwarancja obejmuje wyłącznie usterkę, która była przedmiotem naprawy, i nie
-			obejmuje nowych awarii niezwiązanych z wykonaną usługą ani uszkodzeń mechanicznych
-			powstałych po odbiorze sprzętu.
+			Sprzęt nieodebrany przez <strong>{site.warrantyMonths + 1} miesiące</strong> od
+			poinformowania Klienta o zakończeniu naprawy lub diagnozy jest traktowany jako
+			porzucony w rozumieniu art. 180 Kodeksu cywilnego. O zbliżaniu się tego terminu
+			poinformujemy Cię z wyprzedzeniem na podane dane kontaktowe. Wszelkie koszty
+			przechowywania powyżej 30 dni od zakończenia naprawy mogą być naliczane w wysokości
+			5 zł/dobę — o czym poinformujemy z wyprzedzeniem.
 		</p>
 
-		<h2>Odpowiedzialność</h2>
-		<p>
-			Przed każdą naprawą ingerującą w dysk informujemy o ryzyku utraty danych. Rekomendujemy
-			wykonanie kopii zapasowej przed przekazaniem sprzętu — jeśli to możliwe, wykonujemy ją
-			również we własnym zakresie, ale nie ponosimy odpowiedzialności za dane, które nie zostały
-			zabezpieczone przed rozpoczęciem naprawy.
-		</p>
+		<h2>§9 — Reklamacje</h2>
+		<ol>
+			<li>Wszelkie reklamacje dotyczące wykonanej usługi należy kierować na <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+			<li>Reklamację rozpatrzymy w terminie 14 dni kalendarzowych od jej wpłynięcia.</li>
+			<li>Jeśli reklamacja jest zasadna, według naszej możliwości: wykonamy naprawę ponownie, zwrócimy część wynagrodzenia lub ustalimy inne rozwiązanie satysfakcjonujące obie strony.</li>
+		</ol>
 
-		<h2>Odbiór sprzętu</h2>
-		<p>
-			Sprzęt nieodebrany przez {site.warrantyMonths + 1} miesiące od zakończenia naprawy uznajemy
-			za porzucony, o czym poinformujemy Cię wcześniej na podany kontakt.
-		</p>
+		<h2>§10 — Postanowienia końcowe</h2>
+		<ol>
+			<li>W sprawach nieuregulowanych niniejszym regulaminem zastosowanie mają przepisy polskiego prawa cywilnego, w szczególności Kodeksu cywilnego.</li>
+			<li>Wszelkie spory będziemy starali się rozwiązywać polubownie. W przypadku braku porozumienia właściwy jest sąd powszechny według miejsca zamieszkania Klienta lub siedziby usługodawcy.</li>
+			<li>Regulamin obowiązuje od dnia podanego w nagłówku i może być zmieniany — aktualna wersja jest zawsze dostępna na tej stronie.</li>
+		</ol>
 	</section>
 </PageLayout>
 
@@ -64,20 +112,24 @@ const description = "Regulamin usług Dziadka Komodora — proces naprawy, warun
 		max-width: 68ch;
 	}
 
-	.legal-page__notice {
-		padding: var(--space-4);
-		background: var(--color-bg-raised);
-		border-left: 3px solid var(--color-accent);
-		border-radius: var(--radius-sharp);
+	.legal-page__meta {
 		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+		margin-top: calc(var(--space-2) * -1);
 	}
 
 	.legal-page h2 {
 		margin-top: var(--space-6);
 	}
 
-	.legal-page ol {
+	.legal-page ol,
+	.legal-page ul {
 		display: grid;
 		gap: var(--space-2);
+		padding-left: var(--space-5);
+	}
+
+	.legal-page li > ul {
+		margin-top: var(--space-2);
 	}
 </style>

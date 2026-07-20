@@ -4,49 +4,106 @@ import { site } from '../../data/site';
 
 const lang = "en" as const;
 const title = "Privacy policy";
-const description = "Dziadek Komodor's privacy policy — what data we collect through the contact form, why, and how long we keep it.";
+const description = "Dziadek Komodor's privacy policy — what data we collect, on what legal basis, how long we keep it, and your rights under GDPR.";
+const updated = "2026-07-20";
 ---
 
 <PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
 	<section class="container legal-page" data-animate="reveal">
 		<h1>Privacy policy</h1>
+		<p class="legal-page__meta">Last updated: {updated}</p>
 
-		<p class="legal-page__notice">
-			<strong>Working draft.</strong> This text describes the actual mechanics of how the form on
-			this site handles data — it is not yet a finished legal document. Before the site goes
-			live, this text should be reviewed by a lawyer, as the project brief itself notes.
+		<h2>Data controller</h2>
+		<p>
+			The data controller is two private individuals operating under the name
+			<strong>{site.brandName}</strong> as unregistered small-scale activity
+			(działalność nierejestrowana) based in Wyrzysk, Poland.
+			For any data-related questions, contact us at: <a href={`mailto:${site.email}`}>{site.email}</a>.
 		</p>
 
-		<h2>What data we collect</h2>
+		<h2>What data we collect and why</h2>
+
+		<h3>Contact form</h3>
 		<p>
-			The contact form at <code>/kontakt</code> collects: your name, contact details (phone or
-			email), device type, a description of the problem, and — optionally — a photo of the
-			device. Submissions are sent directly to a private channel we use to manage requests.
+			The form at <strong>/kontakt</strong> collects: your name, contact details
+			(phone or email), location, device type, a description of the problem, and —
+			optionally — a photo of the device.
+		</p>
+		<p>
+			Purpose: to respond to your enquiry, prepare a repair quote, and carry out the service.
+		</p>
+		<p>
+			Legal basis: Article 6(1)(a) <strong>GDPR</strong> — your consent, given by ticking
+			the checkbox on the form. You may withdraw consent at any time by writing to
+			{site.email}. Withdrawal does not affect the lawfulness of processing carried out
+			before withdrawal.
 		</p>
 
-		<h2>Why we process this data</h2>
+		<h3>Browser storage</h3>
 		<p>
-			Solely to respond to your request, prepare a quote, and — if you decide to proceed — carry
-			out the repair. We do not share this data with third parties for marketing purposes.
+			The site saves a draft of the form in your browser's local storage (<em>localStorage</em>),
+			on your device only. This data is not sent to us until you submit the form. The draft
+			is deleted automatically on a successful submission, or you can remove it yourself
+			by clearing site data in your browser settings.
+		</p>
+		<p>This site uses no cookies and no tracking systems.</p>
+
+		<h2>Who we share data with</h2>
+		<p>
+			Form submissions are forwarded to a private working channel in <strong>Discord</strong>
+			(Discord Inc., USA) via a webhook. Discord relies on Standard Contractual Clauses (SCCs)
+			approved by the European Commission as the legal basis for data transfers to the US
+			under Article 46 GDPR. Discord's privacy policy is available at{" "}
+			<a href="https://discord.com/privacy" target="_blank" rel="noopener">discord.com/privacy</a>.
+		</p>
+		<p>
+			We do not sell or share your data with third parties for marketing or advertising purposes.
 		</p>
 
-		<h2>How long we keep it</h2>
+		<h2>How long we keep your data</h2>
 		<p>
-			We keep request data for no longer than {site.warrantyMonths + 7} months after our last
-			contact (covering the warranty period plus a margin for potential claims), then delete it.
-			If you'd like us to delete your data sooner, email {site.email}.
+			We retain enquiry data for no longer than <strong>{site.warrantyMonths + 9} months</strong>{" "}
+			from our last contact (covering the warranty period plus a buffer for potential claims),
+			after which it is deleted. If you'd like us to delete your data sooner,
+			email {site.email}.
 		</p>
 
 		<h2>Your rights</h2>
+		<p>Under GDPR you have the following rights:</p>
+		<ul>
+			<li><strong>Right of access</strong> — you can ask what personal data we hold about you.</li>
+			<li><strong>Right to rectification</strong> — you can ask us to correct inaccurate data.</li>
+			<li><strong>Right to erasure</strong> — you can ask us to delete your data ("right to be forgotten").</li>
+			<li><strong>Right to restriction</strong> — you can ask us to pause processing in certain circumstances.</li>
+			<li><strong>Right to data portability</strong> — you can receive your data in a structured format.</li>
+			<li><strong>Right to withdraw consent</strong> — at any time, without giving a reason.</li>
+		</ul>
 		<p>
-			You have the right to access, correct, delete, restrict the processing of, and port your
-			data. To exercise any of these rights, email {site.email}.
+			To exercise any of these rights, email: <a href={`mailto:${site.email}`}>{site.email}</a>.
+			We will respond within 30 days.
 		</p>
 
-		<h2>Consent</h2>
+		<h2>Right to lodge a complaint</h2>
 		<p>
-			By submitting the contact form, you consent to the processing of the data above for the
-			purpose described. This consent is voluntary but necessary for us to handle your request.
+			If you believe we are processing your data unlawfully, you have the right to lodge a
+			complaint with the Polish supervisory authority:
+		</p>
+		<address>
+			Urząd Ochrony Danych Osobowych (UODO)<br />
+			ul. Stawki 2, 00-193 Warszawa, Poland<br />
+			<a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>
+		</address>
+
+		<h2>Voluntary provision of data</h2>
+		<p>
+			Providing your contact details is voluntary, but necessary for us to respond to
+			your request. Without this information we cannot handle your enquiry.
+		</p>
+
+		<h2>Changes to this policy</h2>
+		<p>
+			If we make material changes to how we process data, we will update the date at the
+			top of this document. We encourage you to review it periodically.
 		</p>
 	</section>
 </PageLayout>
@@ -57,15 +114,32 @@ const description = "Dziadek Komodor's privacy policy — what data we collect t
 		max-width: 68ch;
 	}
 
-	.legal-page__notice {
-		padding: var(--space-4);
-		background: var(--color-bg-raised);
-		border-left: 3px solid var(--color-accent);
-		border-radius: var(--radius-sharp);
+	.legal-page__meta {
 		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+		margin-top: calc(var(--space-2) * -1);
 	}
 
 	.legal-page h2 {
 		margin-top: var(--space-6);
+	}
+
+	.legal-page h3 {
+		margin-top: var(--space-4);
+		font-size: var(--text-base);
+	}
+
+	.legal-page ul {
+		display: grid;
+		gap: var(--space-2);
+		padding-left: var(--space-5);
+	}
+
+	.legal-page address {
+		font-style: normal;
+		padding: var(--space-3) var(--space-4);
+		background: var(--color-bg-raised);
+		border-radius: var(--radius-sharp);
+		display: inline-block;
 	}
 </style>

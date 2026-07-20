@@ -4,52 +4,108 @@ import { site } from '../data/site';
 
 const lang = "pl" as const;
 const title = "Polityka prywatności";
-const description = "Polityka prywatności Dziadka Komodora — jakie dane zbieramy przez formularz kontaktowy, dlaczego i jak długo je przechowujemy.";
+const description = "Polityka prywatności Dziadka Komodora — jakie dane zbieramy, na jakiej podstawie, jak długo je przechowujemy i jakie masz prawa.";
+const updated = "2026-07-20";
 ---
 
 <PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
 	<section class="container legal-page" data-animate="reveal">
 		<h1>Polityka prywatności</h1>
+		<p class="legal-page__meta">Ostatnia aktualizacja: {updated}</p>
 
-		<p class="legal-page__notice">
-			<strong>Wersja robocza.</strong> Ten tekst opisuje mechanikę przetwarzania danych zgodnie z
-			tym, jak faktycznie działa formularz na tej stronie — nie jest to jednak gotowy dokument
-			prawny. Przed publikacją strony należy skonsultować tę treść z prawnikiem, tak jak zakłada
-			brief projektu.
+		<h2>Administrator danych</h2>
+		<p>
+			Administratorem Twoich danych osobowych są dwie osoby fizyczne prowadzące działalność
+			nierejestrowaną pod nazwą <strong>{site.brandName}</strong> z siedzibą w Wyrzysku.
+			We wszelkich sprawach dotyczących danych osobowych możesz się z nami skontaktować
+			pod adresem: <a href={`mailto:${site.email}`}>{site.email}</a>.
 		</p>
 
-		<h2>Jakie dane zbieramy</h2>
+		<h2>Jakie dane zbieramy i w jakim celu</h2>
+
+		<h3>Formularz kontaktowy</h3>
 		<p>
-			Formularz kontaktowy na stronie <code>/kontakt</code> zbiera: imię i nazwisko, dane kontaktowe
-			(telefon lub e-mail), rodzaj urządzenia, opis problemu oraz — opcjonalnie — zdjęcie
-			urządzenia. Dane są wysyłane bezpośrednio do prywatnego kanału, z którego korzystamy do
-			obsługi zgłoszeń.
+			Formularz na stronie <strong>/kontakt</strong> zbiera: imię i nazwisko, dane kontaktowe
+			(telefon lub e-mail), lokalizację, rodzaj urządzenia, opis problemu oraz — opcjonalnie —
+			zdjęcie urządzenia.
+		</p>
+		<p>
+			Cel: odpowiedź na Twoje zapytanie, przygotowanie wyceny naprawy i wykonanie usługi.
+		</p>
+		<p>
+			Podstawa prawna: art. 6 ust. 1 lit. <strong>a) RODO</strong> — zgoda wyrażona przez
+			zaznaczenie pola przy formularzu. Zgodę możesz cofnąć w każdej chwili, pisząc na
+			{site.email} — cofnięcie zgody nie wpływa na zgodność z prawem przetwarzania
+			dokonanego przed jej cofnięciem.
 		</p>
 
-		<h2>Dlaczego przetwarzamy te dane</h2>
+		<h3>Dane techniczne w przeglądarce</h3>
 		<p>
-			Wyłącznie po to, żeby odpowiedzieć na Twoje zgłoszenie, przygotować wycenę i, jeśli się na
-			nią zdecydujesz, wykonać naprawę. Nie przekazujemy tych danych podmiotom trzecim w celach
-			marketingowych.
+			Strona zapisuje roboczy szkic formularza w pamięci lokalnej (<em>localStorage</em>)
+			Twojej przeglądarki, wyłącznie na Twoim urządzeniu. Dane te nie są do nas przesyłane
+			dopóki nie wyślesz formularza. Szkic jest usuwany automatycznie po pomyślnym wysłaniu
+			zgłoszenia lub możesz go usunąć samodzielnie, czyszcząc dane witryny w ustawieniach
+			przeglądarki.
+		</p>
+		<p>Strona nie korzysta z plików cookie ani systemów śledzenia.</p>
+
+		<h2>Komu przekazujemy dane</h2>
+		<p>
+			Zgłoszenia z formularza są przesyłane do prywatnego kanału roboczego w serwisie
+			<strong>Discord</strong> (Discord Inc., USA) przy użyciu mechanizmu webhook.
+			Discord stosuje Standardowe Klauzule Umowne (SCC) zatwierdzone przez Komisję
+			Europejską jako podstawę prawną przekazywania danych do USA zgodnie z art. 46 RODO.
+			Politykę prywatności Discorda znajdziesz na <a href="https://discord.com/privacy" target="_blank" rel="noopener">discord.com/privacy</a>.
+		</p>
+		<p>
+			Nie sprzedajemy ani nie udostępniamy Twoich danych podmiotom trzecim w celach
+			marketingowych lub reklamowych.
 		</p>
 
 		<h2>Jak długo przechowujemy dane</h2>
 		<p>
-			Dane ze zgłoszeń przechowujemy nie dłużej niż {site.warrantyMonths + 7} miesięcy od ostatniego
-			kontaktu (co obejmuje okres gwarancji plus zapas czasu na ewentualne reklamacje), a następnie
-			usuwamy. Jeśli chcesz, żebyśmy usunęli Twoje dane wcześniej, napisz na {site.email}.
+			Dane ze zgłoszeń przechowujemy nie dłużej niż <strong>{site.warrantyMonths + 9} miesięcy</strong> od
+			ostatniego kontaktu (obejmuje to okres gwarancji plus bufor na ewentualne reklamacje).
+			Po tym czasie dane są usuwane. Jeśli chcesz, żebyśmy usunęli Twoje dane wcześniej,
+			napisz na {site.email}.
 		</p>
 
 		<h2>Twoje prawa</h2>
+		<p>Na podstawie RODO przysługują Ci następujące prawa:</p>
+		<ul>
+			<li><strong>Prawo dostępu</strong> — możesz zażądać informacji o tym, jakie Twoje dane przetwarzamy.</li>
+			<li><strong>Prawo do sprostowania</strong> — możesz poprosić o korektę nieprawidłowych danych.</li>
+			<li><strong>Prawo do usunięcia</strong> — możesz zażądać usunięcia swoich danych (prawo do bycia zapomnianym).</li>
+			<li><strong>Prawo do ograniczenia przetwarzania</strong> — możesz wnieść o wstrzymanie przetwarzania w określonych sytuacjach.</li>
+			<li><strong>Prawo do przenoszenia danych</strong> — możesz otrzymać swoje dane w ustrukturyzowanym formacie.</li>
+			<li><strong>Prawo do cofnięcia zgody</strong> — w dowolnym momencie, bez podania przyczyny.</li>
+		</ul>
 		<p>
-			Masz prawo do dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia
-			przetwarzania oraz przenoszenia danych. W tej sprawie napisz na {site.email}.
+			Aby skorzystać z któregokolwiek z powyższych praw, napisz na: <a href={`mailto:${site.email}`}>{site.email}</a>.
+			Odpowiemy w terminie do 30 dni.
 		</p>
 
-		<h2>Zgoda</h2>
+		<h2>Skarga do organu nadzorczego</h2>
 		<p>
-			Wysyłając formularz kontaktowy, wyrażasz zgodę na przetwarzanie powyższych danych w celu
-			opisanym powyżej. Zgoda jest dobrowolna, ale niezbędna do obsługi zgłoszenia.
+			Jeśli uważasz, że przetwarzamy Twoje dane niezgodnie z prawem, masz prawo złożyć
+			skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO):
+		</p>
+		<address>
+			Urząd Ochrony Danych Osobowych<br />
+			ul. Stawki 2, 00-193 Warszawa<br />
+			<a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>
+		</address>
+
+		<h2>Dobrowolność podania danych</h2>
+		<p>
+			Podanie danych kontaktowych jest dobrowolne, lecz niezbędne, abyśmy mogli
+			odpowiedzieć na Twoje zgłoszenie. Bez tych danych obsługa zapytania nie jest możliwa.
+		</p>
+
+		<h2>Zmiany polityki prywatności</h2>
+		<p>
+			W razie istotnych zmian w sposobie przetwarzania danych zaktualizujemy datę
+			w nagłówku tego dokumentu. Zachęcamy do jego okresowego przeglądania.
 		</p>
 	</section>
 </PageLayout>
@@ -60,15 +116,32 @@ const description = "Polityka prywatności Dziadka Komodora — jakie dane zbier
 		max-width: 68ch;
 	}
 
-	.legal-page__notice {
-		padding: var(--space-4);
-		background: var(--color-bg-raised);
-		border-left: 3px solid var(--color-accent);
-		border-radius: var(--radius-sharp);
+	.legal-page__meta {
 		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+		margin-top: calc(var(--space-2) * -1);
 	}
 
 	.legal-page h2 {
 		margin-top: var(--space-6);
+	}
+
+	.legal-page h3 {
+		margin-top: var(--space-4);
+		font-size: var(--text-base);
+	}
+
+	.legal-page ul {
+		display: grid;
+		gap: var(--space-2);
+		padding-left: var(--space-5);
+	}
+
+	.legal-page address {
+		font-style: normal;
+		padding: var(--space-3) var(--space-4);
+		background: var(--color-bg-raised);
+		border-radius: var(--radius-sharp);
+		display: inline-block;
 	}
 </style>

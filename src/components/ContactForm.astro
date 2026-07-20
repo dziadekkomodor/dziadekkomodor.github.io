@@ -38,7 +38,7 @@ const t = lang === "en"
       transportOptions: [
         { value: "wysylka", label: "I'll send it", note: "You cover the shipping cost." },
         { value: "dowoz", label: "I'll drop it off (Wyrzysk)", note: "Free — we'll share the exact address once we're in touch." },
-        { value: "odbior", label: "You pick it up", note: "Fuel cost there-and-back + 25 zł. We confirm availability after contact — not always possible right away." },
+        { value: "odbior", label: "You pick it up", note: "Fuel cost there-and-back + 12 zł. We confirm availability after contact — not always possible right away." },
       ],
       photo: "Photo (optional)",
       consentPre: "I agree to the processing of my data per the ",
@@ -79,7 +79,7 @@ const t = lang === "en"
       transportOptions: [
         { value: "wysylka", label: "Wyślę sam/a", note: "Koszt przesyłki jest po Twojej stronie." },
         { value: "dowoz", label: "Dowiozę osobiście (Wyrzysk)", note: "Bezpłatnie — dokładny adres podamy po kontakcie." },
-        { value: "odbior", label: "Odbierzcie ode mnie", note: "Koszt paliwa (dojazd i powrót) + 25 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest możliwe od razu." },
+        { value: "odbior", label: "Odbierzcie ode mnie", note: "Koszt paliwa (dojazd i powrót) + 12 zł. Dostępność potwierdzamy po kontakcie — nie zawsze jest możliwe od razu." },
       ],
       photo: "Zdjęcie (opcjonalnie)",
       consentPre: "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
@@ -461,6 +461,63 @@ const t = lang === "en"
 		form.addEventListener('change', updateProgress);
 		updateProgress();
 
+		const DRAFT_KEY = 'cf-draft';
+
+		function saveDraft() {
+			const locationChecked = form!.querySelector<HTMLInputElement>('input[name="location"]:checked');
+			const transportChecked = form!.querySelector<HTMLInputElement>('input[name="transport"]:checked');
+			localStorage.setItem(DRAFT_KEY, JSON.stringify({
+				name: (document.getElementById('cf-name') as HTMLInputElement | null)?.value ?? '',
+				contact: (document.getElementById('cf-contact') as HTMLInputElement | null)?.value ?? '',
+				problem: (document.getElementById('cf-problem') as HTMLTextAreaElement | null)?.value ?? '',
+				device: (document.getElementById('cf-device') as HTMLSelectElement | null)?.value ?? '',
+				location: locationChecked?.dataset.value ?? '',
+				transport: transportChecked?.value ?? '',
+				locationOther: (document.getElementById('cf-location-other') as HTMLInputElement | null)?.value ?? '',
+			}));
+		}
+
+		function restoreDraft() {
+			const raw = localStorage.getItem(DRAFT_KEY);
+			if (!raw) return;
+			try {
+				const d = JSON.parse(raw);
+				const setVal = (id: string, val: string) => {
+					const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+					if (el && val) el.value = val;
+				};
+				setVal('cf-name', d.name);
+				setVal('cf-contact', d.contact);
+				setVal('cf-problem', d.problem);
+				setVal('cf-device', d.device);
+				if (d.location) {
+					const r = form!.querySelector<HTMLInputElement>(`input[name="location"][data-value="${d.location}"]`);
+					if (r) r.checked = true;
+				}
+				if (d.transport) {
+					const r = form!.querySelector<HTMLInputElement>(`input[name="transport"][value="${d.transport}"]`);
+					if (r) r.checked = true;
+				}
+				setVal('cf-location-other', d.locationOther);
+				syncLocationOther();
+				updateProblemCounter();
+				updateProgress();
+			} catch {}
+		}
+
+		restoreDraft();
+		form.addEventListener('input', saveDraft);
+		form.addEventListener('change', saveDraft);
+
+		// Warn before navigating away if anything has been typed — refreshing is fine since the
+		// draft is saved to localStorage, but clicking a nav link would lose the current session state.
+		window.addEventListener('beforeunload', (e) => {
+			const hasInput = ['cf-name', 'cf-contact', 'cf-problem'].some(
+				(id) => !!(document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null)?.value.trim()
+			);
+			if (hasInput) e.preventDefault();
+		});
+
 		const status = form.querySelector<HTMLParagraphElement>('.contact-form__status');
 		const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 		const webhookUrl = import.meta.env.PUBLIC_DISCORD_WEBHOOK_URL as string | undefined;
@@ -619,6 +676,7 @@ const t = lang === "en"
 				localStorage.setItem('cf-last-submit', String(Date.now()));
 				const res = await fetch(webhookUrl, { method: 'POST', body });
 				if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
+				localStorage.removeItem(DRAFT_KEY);
 				form.hidden = true;
 				if (status) {
 					status.textContent = messages.success;

@@ -32,7 +32,7 @@ export const site = {
     en: "Piła, Bydgoszcz, and surrounding towns",
   },
 
-  warrantyMonths: 5,
+  warrantyMonths: 3,
 
   hours: [
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },

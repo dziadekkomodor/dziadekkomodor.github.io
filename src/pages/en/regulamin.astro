@@ -3,58 +3,105 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import { site } from '../../data/site';
 
 const lang = "en" as const;
-const title = "Terms & warranty policy";
-const description = "Dziadek Komodor's terms of service — the repair process, warranty terms, and liability.";
+const title = "Terms & warranty";
+const description = "Dziadek Komodor's terms of service — the repair process, warranty, data protection, and collection policy.";
+const updated = "2026-07-20";
 ---
 
 <PageLayout lang={lang} slug="regulamin" title={title} description={description}>
 	<section class="container legal-page" data-animate="reveal">
-		<h1>Terms & warranty policy</h1>
+		<h1>Terms &amp; warranty</h1>
+		<p class="legal-page__meta">Effective: {updated}</p>
 
-		<p class="legal-page__notice">
-			<strong>Working draft.</strong> This text describes the terms we actually operate under —
-			it is not yet a finished legal document. Before the site goes live, this text should be
-			reviewed by a lawyer, as the project brief itself notes.
-		</p>
-
-		<h2>Who we are</h2>
+		<h2>§1 — Who we are</h2>
 		<p>
-			{site.brandName} operates as unregistered small-scale activity under Polish law — we are not
-			a registered company and do not issue VAT invoices. Services are provided personally, by
-			two private individuals.
+			{site.brandName} is operated by two private individuals as unregistered small-scale
+			activity (<em>działalność nierejestrowana</em>) under Polish law
+			(Art. 5(1) of the Act of 6 March 2018 — Law on Entrepreneurs). We are not registered
+			in any commercial register, do not hold a tax identification number (NIP/REGON), and
+			do not issue VAT invoices. All services are performed personally by us.
+		</p>
+		<p>
+			Contact: <a href={`mailto:${site.email}`}>{site.email}</a> &bull; <a href={site.phone.href}>{site.phone.display}</a>
 		</p>
 
-		<h2>The repair process</h2>
-		<p>Every job goes through the same stages:</p>
+		<h2>§2 — Enquiry and quote</h2>
 		<ol>
-			<li><strong>Diagnosis</strong> — we check what's wrong, free of charge.</li>
-			<li><strong>Quote</strong> — we give you the repair cost in writing.</li>
-			<li><strong>Repair</strong> — we start only after you approve the quote.</li>
-			<li><strong>Testing</strong> — we verify the device works correctly.</li>
-			<li><strong>Warranty</strong> — a {site.warrantyMonths}-month warranty on the completed repair.</li>
+			<li>You can place an order via the contact form, by phone, or by email.</li>
+			<li>An initial diagnosis is <strong>free of charge</strong>. If a detailed diagnosis is needed (disassembly, measurements), its cost is stated upfront and deducted from the repair price if you accept the quote.</li>
+			<li>A written quote (email or message) is provided before any repair work begins.</li>
+			<li><strong>We start work only after you explicitly approve the quote.</strong></li>
+			<li>Approval may be given by email, message, or verbally — verbal approval is confirmed by us in a follow-up text message.</li>
 		</ol>
 
-		<h2>Warranty</h2>
+		<h2>§3 — Carrying out the repair</h2>
+		<ol>
+			<li>Once we accept a job we confirm receipt and give an estimated turnaround time.</li>
+			<li>If additional faults are discovered or the scope changes during the repair, we inform you and provide an updated quote. Further work proceeds only after you accept the change.</li>
+			<li>We test the device for correct operation within the scope of the service before returning it.</li>
+		</ol>
+
+		<h2>§4 — Warranty</h2>
+		<ol>
+			<li>We provide a voluntary <strong>{site.warrantyMonths}-month warranty</strong> on completed repairs, starting from the day you collect the device.</li>
+			<li>The warranty covers only the fault that was the subject of the repair.</li>
+			<li>
+				The warranty <strong>does not cover</strong>:
+				<ul>
+					<li>new faults unrelated to the service performed,</li>
+					<li>mechanical damage, liquid damage, or misuse occurring after collection,</li>
+					<li>consumable parts (batteries, fans, HDDs),</li>
+					<li>damage caused by malware or unauthorised modifications after the repair.</li>
+				</ul>
+			</li>
+			<li>Warranty claims must be submitted by email to <a href={`mailto:${site.email}`}>{site.email}</a>. We will respond promptly, within 14 days at most.</li>
+		</ol>
+
+		<h2>§5 — Data protection and backup</h2>
+		<ol>
+			<li>Before any repair involving the drive or software (OS reinstall, motherboard repair, data recovery) we inform you of the risk of data loss.</li>
+			<li>We strongly recommend backing up your data before handing over the device.</li>
+			<li>Where possible and agreed with you, we also back up the device before starting work — however <strong>we are not liable for data loss where no backup was made before the device was handed over</strong>, unless the loss resulted from our negligence.</li>
+			<li>We do not browse file contents beyond what is strictly necessary to carry out the service.</li>
+		</ol>
+
+		<h2>§6 — Drop-off and collection</h2>
+		<p>You can get your device to us in three ways:</p>
+		<ul>
+			<li><strong>Drop-off</strong> (collection point in Wyrzysk) — free; we share the exact address once we're in touch.</li>
+			<li><strong>Courier</strong> — shipping costs are on you, in both directions.</li>
+			<li><strong>We pick up</strong> — available in the Piła and Bydgoszcz area, by prior arrangement; fuel cost (there and back) + 12 zł. Availability confirmed individually — not always possible right away.</li>
+		</ul>
+
+		<h2>§7 — Pricing and payment</h2>
+		<ol>
+			<li>All prices are in Polish złoty (PLN). As an unregistered activity we are not VAT-registered — quoted amounts are the full amounts payable.</li>
+			<li>We accept cash on collection and bank transfer.</li>
+			<li>For courier jobs, cash on delivery or transfer before return shipping is arranged individually.</li>
+		</ol>
+
+		<h2>§8 — Uncollected devices</h2>
 		<p>
-			We provide a {site.warrantyMonths}-month warranty on completed repairs, starting from the
-			day you collect the device. The warranty covers only the fault that was repaired, and does
-			not cover new faults unrelated to the service performed or mechanical damage occurring
-			after collection.
+			Devices left uncollected for <strong>{site.warrantyMonths + 1} months</strong> after
+			you are notified that the repair or diagnosis is complete are treated as abandoned
+			under Art. 180 of the Polish Civil Code. We will contact you in advance before
+			this deadline. A storage fee of 5 zł/day may apply after 30 days from completion
+			of the repair — we will notify you in advance.
 		</p>
 
-		<h2>Liability</h2>
-		<p>
-			Before any repair that involves the drive, we tell you about the risk of data loss. We
-			recommend backing up your data before handing over the device — where possible, we also
-			back it up ourselves, but we are not liable for data that wasn't secured before the repair
-			started.
-		</p>
+		<h2>§9 — Complaints</h2>
+		<ol>
+			<li>All service complaints should be sent to <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+			<li>We will respond within 14 calendar days of receiving the complaint.</li>
+			<li>If a complaint is upheld, we will — depending on the circumstances — redo the repair, issue a partial refund, or agree another mutually satisfactory resolution.</li>
+		</ol>
 
-		<h2>Uncollected devices</h2>
-		<p>
-			Devices left uncollected for {site.warrantyMonths + 1} months after the repair is finished
-			are considered abandoned, and we'll notify you beforehand at the contact details you provided.
-		</p>
+		<h2>§10 — General provisions</h2>
+		<ol>
+			<li>Matters not covered by these terms are governed by Polish civil law, in particular the Civil Code (<em>Kodeks cywilny</em>).</li>
+			<li>We will always try to resolve disputes amicably. If no agreement is reached, the competent court is the civil court at the customer's place of residence or our registered address.</li>
+			<li>These terms are effective from the date shown in the header and may be updated — the current version is always available on this page.</li>
+		</ol>
 	</section>
 </PageLayout>
 
@@ -64,20 +111,24 @@ const description = "Dziadek Komodor's terms of service — the repair process, 
 		max-width: 68ch;
 	}
 
-	.legal-page__notice {
-		padding: var(--space-4);
-		background: var(--color-bg-raised);
-		border-left: 3px solid var(--color-accent);
-		border-radius: var(--radius-sharp);
+	.legal-page__meta {
 		color: var(--color-ink-soft);
+		font-size: var(--text-sm);
+		margin-top: calc(var(--space-2) * -1);
 	}
 
 	.legal-page h2 {
 		margin-top: var(--space-6);
 	}
 
-	.legal-page ol {
+	.legal-page ol,
+	.legal-page ul {
 		display: grid;
 		gap: var(--space-2);
+		padding-left: var(--space-5);
+	}
+
+	.legal-page li > ul {
+		margin-top: var(--space-2);
 	}
 </style>
