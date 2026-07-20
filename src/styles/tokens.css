@@ -71,8 +71,9 @@
   --header-height: 4.5rem;
 }
 
-/* Senior-focused page: same fonts, same palette, larger type + more breathing room only. */
-[data-density="comfortable"] {
+/* Senior-focused page: larger type + more breathing room in content only.
+   Scoped to #main-content so header/footer spacing is unaffected. */
+[data-density="comfortable"] #main-content {
   --text-body: var(--text-body-lg);
   --leading-normal: 1.65;
   --space-3: 1.25rem;
