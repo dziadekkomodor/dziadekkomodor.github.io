@@ -18,13 +18,13 @@ export const services: ServiceEntry[] = [
     persona: { pl: "Rodziny i klienci indywidualni", en: "Families & individuals" },
     title: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
     short: {
-      pl: "Laptopy i komputery stacjonarne, w Pile i w Bydgoszczy — czyszczenie, wymiana dysku, matrycy, naprawy płyty głównej.",
-      en: "Laptops and desktops, in both Piła and Bydgoszcz — cleaning, drive swaps, screen replacement, motherboard repairs.",
+      pl: "Laptopy i komputery stacjonarne, w Pile, Bydgoszczy i okolicach — czyszczenie, wymiana dysku, matrycy, naprawy płyty głównej.",
+      en: "Laptops and desktops, in Piła, Bydgoszcz, and surrounding towns — cleaning, drive swaps, screen replacement, motherboard repairs.",
     },
     serviceType: { pl: "Naprawa laptopów i komputerów", en: "Laptop and computer repair" },
     metaDescription: {
-      pl: "Naprawa laptopów i komputerów w Pile i Bydgoszczy — bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji.",
-      en: "Laptop and computer repair in Piła and Bydgoszcz — free diagnosis, clear pricing, 5-month warranty.",
+      pl: "Naprawa laptopów i komputerów w Pile, Bydgoszczy i okolicach — bezpłatna diagnoza, jasna wycena, 3 miesiące gwarancji.",
+      en: "Laptop and computer repair in Piła, Bydgoszcz, and surrounding towns — free diagnosis, clear pricing, 3-month warranty.",
     },
   },
   {
@@ -37,8 +37,8 @@ export const services: ServiceEntry[] = [
     },
     serviceType: { pl: "Naprawa telefonów i tabletów", en: "Phone and tablet repair" },
     metaDescription: {
-      pl: "Naprawa telefonów i tabletów w Pile i Bydgoszczy — wymiana szybki, wyświetlacza, baterii. Bezpłatna diagnoza, 5 miesięcy gwarancji.",
-      en: "Phone and tablet repair in Piła and Bydgoszcz — glass, display, and battery replacement. Free diagnosis, 5-month warranty.",
+      pl: "Naprawa telefonów i tabletów w Pile, Bydgoszczy i okolicach — wymiana szybki, wyświetlacza, baterii. Bezpłatna diagnoza, 3 miesiące gwarancji.",
+      en: "Phone and tablet repair in Piła, Bydgoszcz, and surrounding towns — glass, display, and battery replacement. Free diagnosis, 3-month warranty.",
     },
   },
   {
@@ -66,8 +66,8 @@ export const services: ServiceEntry[] = [
     },
     serviceType: { pl: "Wsparcie IT i serwis sprzętu dla firm", en: "IT support and hardware service for businesses" },
     metaDescription: {
-      pl: "Usługi IT dla firm w Pile i Bydgoszczy — serwis break/fix, wsparcie na miejscu, sprzęt poleasingowy. Szybki czas reakcji.",
-      en: "IT services for businesses in Piła and Bydgoszcz — break/fix support, on-site help, post-lease hardware. Fast response times.",
+      pl: "Usługi IT dla firm w Pile, Bydgoszczy i okolicach — serwis break/fix, wsparcie na miejscu, sprzęt poleasingowy. Szybki czas reakcji.",
+      en: "IT services for businesses in Piła, Bydgoszcz, and surrounding towns — break/fix support, on-site help, post-lease hardware. Fast response times.",
     },
   },
   {
@@ -80,8 +80,8 @@ export const services: ServiceEntry[] = [
     },
     serviceType: { pl: "Pomoc komputerowa dla seniorów", en: "Computer assistance for seniors" },
     metaDescription: {
-      pl: "Pomoc komputerowa dla seniorów w Pile i Bydgoszczy — cierpliwe wyjaśnienia, możliwość wizyty domowej, kontakt telefoniczny.",
-      en: "Computer help for seniors in Piła and Bydgoszcz — patient explanations, home visits available, phone-first contact.",
+      pl: "Pomoc komputerowa dla seniorów w Pile, Bydgoszczy i okolicach — cierpliwe wyjaśnienia, możliwość wizyty domowej, kontakt telefoniczny.",
+      en: "Computer help for seniors in Piła, Bydgoszcz, and surrounding towns — patient explanations, home visits available, phone-first contact.",
     },
   },
 ];

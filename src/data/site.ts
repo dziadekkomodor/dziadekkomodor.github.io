@@ -27,9 +27,17 @@ export const site = {
   addressRegion: "wielkopolskie",
   addressCountry: "PL",
   serviceAreas: ["Piła", "Bydgoszcz"],
+  // Full list used in JSON-LD areaServed and the contact-page town list.
+  // Ordered: primary cities first, then nearby towns roughly by proximity to Wyrzysk.
+  serviceAreaTowns: [
+    "Piła", "Bydgoszcz", "Wyrzysk",
+    "Mrocza", "Białośliwie", "Wysoka", "Łobżenica", "Kaczory",
+    "Nakło nad Notecią", "Ujście", "Miasteczko Krajeńskie",
+    "Kcynia", "Szubin", "Chodzież", "Więcbork", "Barcin",
+  ],
   serviceAreasNote: {
-    pl: "Piła, Bydgoszcz i okoliczne miejscowości",
-    en: "Piła, Bydgoszcz, and surrounding towns",
+    pl: "Piła, Bydgoszcz, Wyrzysk i okolice",
+    en: "Piła, Bydgoszcz, Wyrzysk, and surrounding towns",
   },
 
   warrantyMonths: 3,

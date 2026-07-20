@@ -31,7 +31,7 @@ const jsonLd = {
     addressRegion: site.addressRegion,
     addressCountry: site.addressCountry,
   },
-  areaServed: site.serviceAreas.map((name) => ({ "@type": "City", name })),
+  areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
   openingHoursSpecification: site.hours.map((h) => ({
     "@type": "OpeningHoursSpecification",
     dayOfWeek: h.days,

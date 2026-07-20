@@ -43,9 +43,13 @@ const description = "Skontaktuj się z Dziadkiem Komodorem — telefon, formular
 					<circle cx="12" cy="9.5" r="2.5" />
 				</svg>
 				<p>
-					Działamy w formule serwisu obsługującego obszar — bez stacjonarnego punktu z jawnym adresem.
-					Odbiór, dostawa lub wizyta na miejscu do ustalenia telefonicznie.
+					Działamy z Wyrzyska w formule serwisu obsługującego obszar — bez stacjonarnego punktu z jawnym adresem.
+					Odbiór, dostawa kurierem lub wizyta na miejscu do ustalenia telefonicznie.
 				</p>
+			</div>
+			<div class="kontakt-towns">
+				<p class="kontakt-towns__label">Obsługiwane miejscowości</p>
+				<p class="kontakt-towns__list">{site.serviceAreaTowns.join(", ")} i inne okoliczne miejscowości. Nie widzisz swojego miasta? I tak napisz — jeśli możemy dojechać lub przyjąć przesyłkę, chętnie pomożemy.</p>
 			</div>
 		</div>
 
@@ -117,6 +121,25 @@ const description = "Skontaktuj się z Dziadkiem Komodorem — telefon, formular
 	.kontakt-area-note p {
 		margin: 0;
 		font-size: var(--text-sm);
+	}
+
+	.kontakt-towns {
+		margin-top: var(--space-4);
+		font-size: var(--text-sm);
+		color: var(--color-ink-soft);
+	}
+
+	.kontakt-towns__label {
+		font-size: var(--text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-ink-soft);
+		margin-bottom: var(--space-1);
+	}
+
+	.kontakt-towns__list {
+		margin: 0;
+		line-height: 1.7;
 	}
 
 	@media (min-width: 900px) {

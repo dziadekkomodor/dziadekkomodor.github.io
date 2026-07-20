@@ -43,9 +43,13 @@ const description = "Get in touch with Dziadek Komodor — phone, request form, 
 					<circle cx="12" cy="9.5" r="2.5" />
 				</svg>
 				<p>
-					We operate as a service-area business without a walk-in address. Pickup, drop-off, or
-					an on-site visit can be arranged by phone.
+					We operate from Wyrzysk as a service-area business without a walk-in address. Pickup,
+					courier drop-off, or an on-site visit can be arranged by phone.
 				</p>
+			</div>
+			<div class="kontakt-towns">
+				<p class="kontakt-towns__label">Towns we serve</p>
+				<p class="kontakt-towns__list">{site.serviceAreaTowns.join(", ")} and other nearby towns. Don't see your town? Get in touch anyway — if we can reach you or accept a courier, we'll be glad to help.</p>
 			</div>
 		</div>
 
@@ -117,6 +121,25 @@ const description = "Get in touch with Dziadek Komodor — phone, request form, 
 	.kontakt-area-note p {
 		margin: 0;
 		font-size: var(--text-sm);
+	}
+
+	.kontakt-towns {
+		margin-top: var(--space-4);
+		font-size: var(--text-sm);
+		color: var(--color-ink-soft);
+	}
+
+	.kontakt-towns__label {
+		font-size: var(--text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-ink-soft);
+		margin-bottom: var(--space-1);
+	}
+
+	.kontakt-towns__list {
+		margin: 0;
+		line-height: 1.7;
 	}
 
 	@media (min-width: 900px) {

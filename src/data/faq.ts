@@ -25,8 +25,8 @@ export const faqItems: FaqItem[] = [
   {
     question: { pl: "Czy dojeżdżacie do klienta?", en: "Do you offer on-site or home visits?" },
     answer: {
-      pl: "Obsługujemy Piłę, Bydgoszcz i okoliczne miejscowości. W wielu przypadkach możliwy jest odbiór sprzętu lub wizyta na miejscu — szczególnie ważne dla seniorów i firm. Napisz lub zadzwoń, a ustalimy najwygodniejszą opcję.",
-      en: "We serve Piła, Bydgoszcz, and nearby towns. In many cases we can pick up your device or visit on-site — especially useful for seniors and business clients. Message or call us and we'll work out what's easiest.",
+      pl: "Działamy z Wyrzyska i obsługujemy Piłę, Bydgoszcz i okoliczne miejscowości — m.in. Nakło nad Notecią, Mroczę, Białośliwie, Wysoką, Łobżenicę, Kcynię, Szubin i inne. W wielu przypadkach możliwy jest odbiór sprzętu lub wizyta na miejscu. Napisz lub zadzwoń, a ustalimy najwygodniejszą opcję.",
+      en: "We operate from Wyrzysk and serve Piła, Bydgoszcz, and surrounding towns — including Nakło nad Notecią, Mrocza, Białośliwie, Wysoka, Łobżenica, Kcynia, Szubin, and more. In many cases we can pick up your device or visit on-site. Message or call us and we'll work out what's easiest.",
     },
   },
   {

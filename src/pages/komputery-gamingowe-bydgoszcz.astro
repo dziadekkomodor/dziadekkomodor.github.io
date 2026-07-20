@@ -21,7 +21,7 @@ const jsonLd = {
   "@type": "Service",
   serviceType: svc.serviceType[lang],
   provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
-  areaServed: [{ "@type": "City", name: "Piła" }, { "@type": "City", name: "Bydgoszcz" }],
+  areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
 };
 ---
 

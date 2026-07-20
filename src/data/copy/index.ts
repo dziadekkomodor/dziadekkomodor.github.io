@@ -4,13 +4,13 @@
 
 export const homeCopy = {
   metaDescription: {
-    pl: "Dziadek Komodor — naprawa komputerów, laptopów i telefonów w Pile i Bydgoszczy. Bezpłatna diagnoza, jasna wycena, 5 miesięcy gwarancji.",
-    en: "Dziadek Komodor — computer, laptop, and phone repair in Piła and Bydgoszcz. Free diagnosis, clear pricing, 5-month warranty.",
+    pl: "Dziadek Komodor — naprawa komputerów, laptopów i telefonów w Pile, Bydgoszczy i okolicach. Bezpłatna diagnoza, jasna wycena, 3 miesiące gwarancji.",
+    en: "Dziadek Komodor — computer, laptop, and phone repair in Piła, Bydgoszcz, and surrounding towns. Free diagnosis, clear pricing, 3-month warranty.",
   },
   hero: {
     eyebrow: {
-      pl: "Serwis komputerowy — Piła i Bydgoszcz",
-      en: "Computer repair — Piła and Bydgoszcz",
+      pl: "Serwis komputerowy — Piła, Bydgoszcz i okolice",
+      en: "Computer repair — Piła, Bydgoszcz & surrounding area",
     },
     headline: {
       pl: "Naprawiamy komputery, laptopy i telefony — uczciwie, szybko, z gwarancją.",
