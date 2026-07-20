@@ -626,10 +626,22 @@ const t = lang === "en"
 			// real rate limiting on a static site — Discord's own webhook rate limit is the backstop.
 			const COOLDOWN_MS = 30_000;
 			const lastSubmit = Number(localStorage.getItem('cf-last-submit') ?? 0);
-			if (Date.now() - lastSubmit < COOLDOWN_MS) {
+			const remaining = COOLDOWN_MS - (Date.now() - lastSubmit);
+			if (remaining > 0) {
 				if (status) {
-					status.textContent = messages.tooSoon;
 					status.dataset.state = 'error';
+					let secs = Math.ceil(remaining / 1000);
+					const setText = () => {
+						status!.textContent = lang === 'en'
+							? `You've just sent a request — please wait ${secs}s before sending another.`
+							: `Właśnie wysłałeś/aś zgłoszenie — odczekaj jeszcze ${secs}s.`;
+					};
+					setText();
+					const tick = setInterval(() => {
+						secs--;
+						if (secs <= 0) { clearInterval(tick); status!.textContent = ''; delete status!.dataset.state; }
+						else setText();
+					}, 1000);
 				}
 				return;
 			}
