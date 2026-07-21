@@ -45,7 +45,8 @@ const SELECTORS = {
 
 async function run() {
   console.log('🔍  Opening browser…');
-  const browser = await chromium.launch({ headless: true });
+  const headed = process.argv.includes('--headed');
+  const browser = await chromium.launch({ headless: !headed, slowMo: headed ? 400 : 0 });
   const ctx = await browser.newContext({
     locale: 'pl-PL',
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
