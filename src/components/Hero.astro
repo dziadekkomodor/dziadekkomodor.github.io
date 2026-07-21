@@ -36,6 +36,8 @@ const photoAlt = lang === "en" ? photoCaptionEn : photoCaptionPl;
 			<Image
 				src={photo}
 				alt={photoAlt}
+				widths={[480, 720, 960]}
+				sizes="(min-width: 900px) 55vw, 100vw"
 				width={960}
 				height={720}
 				format="webp"
