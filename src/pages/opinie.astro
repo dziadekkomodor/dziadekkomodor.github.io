@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import PlaceholderReviews from '../components/PlaceholderReviews.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import { site } from '../data/site';
 import { localePath } from '../data/nav';
 
 const lang = "pl" as const;
@@ -25,8 +26,8 @@ const description = "Opinie klientów o Dziadku Komodorze — serwisie komputero
 	<CtaBanner
 		heading="Bądź jednym z pierwszych klientów"
 		body="Pomóż nam zbudować listę opinii — zostaw swoją po naprawie."
-		ctaLabel="Darmowa wycena"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaLabel="Napisz opinię na Google"
+		ctaHref={site.socials.googleReview}
 	/>
 </PageLayout>
 

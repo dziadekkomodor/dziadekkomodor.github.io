@@ -57,6 +57,7 @@ export const site = {
   socials: {
     facebook: "https://www.facebook.com/dziadekkomodor",
     googleBusiness: "https://g.page/dziadekkomodor",
+    googleReview: "https://g.page/r/CRbvvd2C83BeEAE/review",
   },
 
   // Env var name only — the actual webhook URL lives in .env (never committed), read via

@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { site } from '../data/site';
+import { localePath } from '../data/nav';
 
 const lang = "pl" as const;
 const title = "Kontakt";
@@ -35,6 +36,10 @@ const description = "Skontaktuj się z Dziadkiem Komodorem — telefon, formular
 				<div>
 					<dt>Godziny</dt>
 					<dd>{site.hoursDisplay[lang]}</dd>
+				</div>
+				<div>
+					<dt>Opinie</dt>
+					<dd><a href={site.socials.googleReview} target="_blank" rel="noopener noreferrer">Napisz opinię na Google ↗</a></dd>
 				</div>
 			</dl>
 			<div class="kontakt-area-note">

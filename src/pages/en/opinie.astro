@@ -2,6 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import PlaceholderReviews from '../../components/PlaceholderReviews.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import { site } from '../../data/site';
 import { localePath } from '../../data/nav';
 
 const lang = "en" as const;
@@ -24,8 +25,8 @@ const description = "Customer reviews of Dziadek Komodor — a computer repair s
 	<CtaBanner
 		heading="Be one of our first customers"
 		body="Help us build our review list — leave one after your repair."
-		ctaLabel="Free quote"
-		ctaHref={localePath(lang, "kontakt")}
+		ctaLabel="Leave a Google review"
+		ctaHref={site.socials.googleReview}
 	/>
 </PageLayout>
 

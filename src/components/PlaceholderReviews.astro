@@ -1,7 +1,5 @@
 ---
-// Reviews placeholder — the brief is explicit: never fabricate ratings or pad with fake reviews.
-// Real Google reviews get embedded here post-launch (Stage 3, brief §16); until then this is an
-// honest empty state, not a fake 5-star wall.
+import { site } from '../data/site';
 
 export interface Props {
   lang: "pl" | "en";
@@ -25,6 +23,9 @@ const { lang } = Astro.props;
 			<p>Prawdziwe opinie pojawią się tutaj, gdy tylko je zbierzemy. Nigdy nie publikujemy fałszywych ocen.</p>
 		</>
 	)}
+	<a href={site.socials.googleReview} target="_blank" rel="noopener noreferrer" class="review-btn">
+		{lang === "en" ? "Leave a Google review" : "Napisz opinię na Google"}
+	</a>
 </div>
 
 <style>
@@ -46,5 +47,21 @@ const { lang } = Astro.props;
 		margin: 0;
 		max-width: 42ch;
 		font-size: var(--text-sm);
+	}
+
+	.review-btn {
+		display: inline-block;
+		margin-top: var(--space-2);
+		padding: var(--space-2) var(--space-4);
+		background: var(--color-accent);
+		color: #fff;
+		border-radius: var(--radius-soft);
+		text-decoration: none;
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
+	}
+
+	.review-btn:hover {
+		opacity: 0.9;
 	}
 </style>
