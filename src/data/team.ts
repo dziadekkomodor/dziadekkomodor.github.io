@@ -5,7 +5,6 @@ export const team = [
   {
     slug: "albert",
     name: "Albert Cynarzewski",
-    age: 22,
     photo: albertPhoto,
     role: {
       pl: "Współzałożyciel — specjalista od oprogramowania i diagnostyki",
@@ -20,7 +19,6 @@ export const team = [
   {
     slug: "mikolaj",
     name: "Mikołaj Knioła",
-    age: 21,
     photo: mikolajPhoto,
     role: {
       pl: "Współzałożyciel — specjalista od sprzętu i napraw komponentowych",

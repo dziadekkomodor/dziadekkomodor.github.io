@@ -68,7 +68,7 @@ export const pricingCategories: PriceCategory[] = [
     rows: [
       {
         name: { pl: "Naprawa układu zasilania płyty głównej", en: "Motherboard power-circuit repair" },
-        price: { pl: "ok. 230–350 zł", en: "approx. 230–350 zł" },
+        price: { pl: "180–350 zł", en: "180–350 zł" },
       },
       {
         name: { pl: "Lutowanie BGA", en: "BGA rework" },
@@ -100,24 +100,37 @@ export const pricingCategories: PriceCategory[] = [
   },
   {
     id: "telefony",
-    title: { pl: "Telefony", en: "Phones" },
+    title: { pl: "Telefony i tablety", en: "Phones and tablets" },
     rows: [
       {
-        name: { pl: "Wymiana szybki", en: "Glass replacement" },
-        price: { pl: "ok. 586 zł", en: "approx. 586 zł" },
+        name: { pl: "Wymiana baterii (Android)", en: "Battery replacement (Android)" },
+        price: { pl: "150–199 zł", en: "150–199 zł" },
       },
       {
-        name: { pl: "Wymiana wyświetlacza", en: "Full display replacement" },
-        price: { pl: "ok. 679 zł", en: "approx. 679 zł" },
-        note: { pl: "iPhone: do ok. 1 610 zł.", en: "iPhone: up to approx. 1,610 zł." },
+        name: { pl: "Wymiana baterii (iPhone / flagowiec)", en: "Battery replacement (iPhone / flagship)" },
+        price: { pl: "250–350 zł", en: "250–350 zł" },
       },
       {
-        name: { pl: "Wymiana baterii", en: "Battery replacement" },
-        price: { pl: "ok. 415 zł", en: "approx. 415 zł" },
+        name: { pl: "Wymiana wyświetlacza (Android)", en: "Display replacement (Android)" },
+        price: { pl: "259–329 zł", en: "259–329 zł" },
+      },
+      {
+        name: { pl: "Wymiana wyświetlacza (iPhone / flagowiec)", en: "Display replacement (iPhone / flagship)" },
+        price: { pl: "od 600 zł", en: "from 600 zł" },
+        note: { pl: "Najnowsze modele: do 1 610 zł.", en: "Latest models: up to 1,610 zł." },
+      },
+      {
+        name: { pl: "Wymiana szybki (bez wymiany matrycy)", en: "Glass-only replacement (no display swap)" },
+        price: { pl: "od 250 zł", en: "from 250 zł" },
       },
     ],
   },
 ];
+
+export const pricingVatNote = {
+  pl: "Ceny bez VAT — prowadzimy działalność nierejestrowaną, nie doliczamy podatku VAT.",
+  en: "Prices exclude VAT — we operate as an unregistered micro-business and do not charge VAT.",
+};
 
 export const pricingDisclaimer = {
   pl: "Ceny orientacyjne — mogą się różnić w zależności od modelu urządzenia i zakresu usterki. Ostateczna wycena zawsze po bezpłatnej diagnozie, a naprawa wykonywana jest wyłącznie po Twojej akceptacji.",

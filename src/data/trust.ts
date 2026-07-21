@@ -24,8 +24,8 @@ export const trustPoints: TrustPoint[] = [
       en: "Can I trust a small local operation as much as a big chain?",
     },
     answer: {
-      pl: "Prawdziwe zdjęcia nas i naszego warsztatu — żadnych zdjęć stockowych ani generowanych przez AI. Autentyczne opinie z Google, jasno opisana gwarancja.",
-      en: "Real photos of us and our actual workshop — no stock photos, no AI-generated imagery. Genuine Google reviews, warranty terms stated plainly.",
+      pl: "Prawdziwe zdjęcia nas i naszego warsztatu — żadnych zdjęć stockowych. Autentyczne opinie z Google, jasno opisana gwarancja.",
+      en: "Real photos of us and our actual workshop — no stock photos. Genuine Google reviews, warranty terms stated plainly.",
     },
   },
   {

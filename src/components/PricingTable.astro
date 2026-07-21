@@ -1,5 +1,5 @@
 ---
-import { pricingCategories, pricingDisclaimer } from '../data/pricing';
+import { pricingCategories, pricingDisclaimer, pricingVatNote } from '../data/pricing';
 import { site } from '../data/site';
 
 export interface Props {
@@ -37,6 +37,7 @@ const warrantyNote = lang === "en"
 			</table>
 		</section>
 	))}
+	<p class="pricing-table__vat">{pricingVatNote[lang]}</p>
 	<p class="pricing-table__warranty">{warrantyNote}</p>
 	<p class="pricing-table__disclaimer">{pricingDisclaimer[lang]}</p>
 </div>
@@ -88,6 +89,16 @@ const warrantyNote = lang === "en"
 		color: var(--color-ink-soft);
 		font-weight: var(--weight-body-regular);
 		margin-top: var(--space-1);
+	}
+
+	.pricing-table__vat {
+		display: inline-block;
+		padding: var(--space-1) var(--space-3);
+		background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+		color: var(--color-accent);
+		border-radius: var(--radius-soft);
+		font-weight: var(--weight-body-bold);
+		font-size: var(--text-sm);
 	}
 
 	.pricing-table__warranty {
