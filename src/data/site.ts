@@ -55,7 +55,7 @@ export const site = {
   },
 
   socials: {
-    facebook: "https://www.facebook.com/dziadekkomodor",
+    facebook: "https://www.facebook.com/profile.php?id=61592436141511",
     googleBusiness: "https://g.page/dziadekkomodor",
     googleReview: "https://g.page/r/CRbvvd2C83BeEAE/review",
   },
