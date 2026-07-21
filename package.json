@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "fetch-reviews": "node scripts/fetch-reviews.mjs"
+    "fetch-reviews": "node scripts/fetch-reviews.mjs",
+    "export-pdfs": "node scripts/export-pdfs.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
