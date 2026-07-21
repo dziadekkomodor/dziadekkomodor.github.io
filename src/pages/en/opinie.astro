@@ -1,13 +1,15 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import PlaceholderReviews from '../../components/PlaceholderReviews.astro';
+import Reviews from '../../components/Reviews.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import { site } from '../../data/site';
-import { localePath } from '../../data/nav';
+import reviewsData from '../../data/reviews.json';
 
 const lang = "en" as const;
 const title = "Reviews";
 const description = "Customer reviews of Dziadek Komodor — a computer repair shop in Piła, Bydgoszcz, and surrounding towns.";
+const hasReviews = reviewsData.reviews.length > 0;
 ---
 
 <PageLayout lang={lang} slug="opinie" title={title} description={description}>
@@ -18,12 +20,15 @@ const description = "Customer reviews of Dziadek Komodor — a computer repair s
 		</p>
 	</section>
 
-	<section class="container">
-		<PlaceholderReviews lang={lang} />
+	<section class="container" data-animate="reveal">
+		{hasReviews
+			? <Reviews reviews={reviewsData.reviews} lang={lang} />
+			: <PlaceholderReviews lang={lang} />
+		}
 	</section>
 
 	<CtaBanner
-		heading="Be one of our first customers"
+		heading={hasReviews ? "Leave us a review" : "Be one of our first customers"}
 		body="Help us build our review list — leave one after your repair."
 		ctaLabel="Leave a Google review"
 		ctaHref={site.socials.googleReview}

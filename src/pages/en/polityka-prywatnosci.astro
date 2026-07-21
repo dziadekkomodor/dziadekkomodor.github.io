@@ -5,7 +5,7 @@ import { site } from '../../data/site';
 const lang = "en" as const;
 const title = "Privacy policy";
 const description = "Dziadek Komodor's privacy policy — what data we collect, on what legal basis, how long we keep it, and your rights under GDPR.";
-const updated = "2026-07-20";
+const updated = "2026-07-21";
 ---
 
 <PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
@@ -98,6 +98,23 @@ const updated = "2026-07-20";
 		<p>
 			Providing your contact details is voluntary, but necessary for us to respond to
 			your request. Without this information we cannot handle your enquiry.
+		</p>
+
+		<h2>Google reviews</h2>
+		<p>
+			Our <strong>/opinie</strong> page displays publicly available Google reviews left by
+			customers of our repair shop. Reviews contain personal data the reviewer has made
+			public on Google (their display name and profile picture).
+		</p>
+		<p>
+			Legal basis: Article 6(1)(f) <strong>GDPR</strong> — legitimate interest of the
+			controller (building trust with potential customers by presenting verifiable reviews).
+			We only display reviews rated 4 or 5 stars and never alter the review content.
+		</p>
+		<p>
+			If you'd like us to remove your review from our display (even if it remains
+			visible on Google), email <a href={`mailto:${site.email}`}>{site.email}</a>
+			and we'll remove it at the next update.
 		</p>
 
 		<h2>Changes to this policy</h2>

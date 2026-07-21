@@ -1,0 +1,253 @@
+---
+import { site } from '../data/site';
+
+export interface Review {
+  author: string;
+  rating: number;
+  text: string;
+  photoUrl: string | null;
+  date: string;
+}
+
+export interface Props {
+  reviews: Review[];
+  lang: "pl" | "en";
+}
+
+const { reviews, lang } = Astro.props;
+const scroll = reviews.length >= 3;
+const duration = Math.max(20, reviews.length * 9);
+---
+
+<div class="reviews-wrap">
+  <div class={`reviews-track ${scroll ? 'reviews-track--scroll' : 'reviews-track--grid'}`}
+       style={scroll ? `animation-duration: ${duration}s` : ''}>
+    {reviews.map((r) => (
+      <article class="review-card">
+        <div class="review-card__head">
+          <div class="review-card__avatar">
+            <div class="review-card__initials" aria-hidden="true">
+              {r.author.charAt(0).toUpperCase()}
+            </div>
+            {r.photoUrl && (
+              <img
+                src={r.photoUrl}
+                alt=""
+                class="review-card__photo"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+            )}
+          </div>
+          <div>
+            <p class="review-card__author">{r.author}</p>
+            <p class="review-card__date">{r.date}</p>
+          </div>
+        </div>
+
+        <div class="review-card__stars" aria-label={lang === "en" ? `${r.rating} out of 5 stars` : `${r.rating} z 5 gwiazdek`}>
+          {Array.from({ length: 5 }, (_, i) => (
+            <span class={i < r.rating ? 'star star--on' : 'star'} aria-hidden="true">★</span>
+          ))}
+        </div>
+
+        {r.text && <p class="review-card__text">{r.text}</p>}
+
+        <a href={site.socials.googleReview} target="_blank" rel="noopener noreferrer" class="review-card__source">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Google
+        </a>
+      </article>
+    ))}
+
+    {/* Duplicate for seamless infinite scroll */}
+    {scroll && reviews.map((r) => (
+      <article class="review-card" aria-hidden="true">
+        <div class="review-card__head">
+          <div class="review-card__avatar">
+            <div class="review-card__initials" aria-hidden="true">
+              {r.author.charAt(0).toUpperCase()}
+            </div>
+            {r.photoUrl && (
+              <img
+                src={r.photoUrl}
+                alt=""
+                class="review-card__photo"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+            )}
+          </div>
+          <div>
+            <p class="review-card__author">{r.author}</p>
+            <p class="review-card__date">{r.date}</p>
+          </div>
+        </div>
+        <div class="review-card__stars" aria-hidden="true">
+          {Array.from({ length: 5 }, (_, i) => (
+            <span class={i < r.rating ? 'star star--on' : 'star'} aria-hidden="true">★</span>
+          ))}
+        </div>
+        {r.text && <p class="review-card__text">{r.text}</p>}
+        <a href={site.socials.googleReview} target="_blank" rel="noopener noreferrer" class="review-card__source">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Google
+        </a>
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .reviews-wrap {
+    overflow: hidden;
+    /* Fade edges on scroll mode */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .reviews-track--scroll {
+    width: max-content;
+    animation: marquee linear infinite;
+  }
+
+  .reviews-wrap:hover .reviews-track--scroll,
+  .reviews-wrap:focus-within .reviews-track--scroll {
+    animation-play-state: paused;
+  }
+
+  .reviews-track--grid {
+    flex-wrap: wrap;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Card */
+  .review-card {
+    width: 300px;
+    flex-shrink: 0;
+    background: var(--color-bg-raised);
+    border-radius: var(--radius-soft);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border: 1px solid var(--color-border);
+  }
+
+  .reviews-track--grid .review-card {
+    width: min(300px, 100%);
+  }
+
+  /* Head */
+  .review-card__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .review-card__avatar {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-accent);
+  }
+
+  .review-card__initials {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline-bold);
+    font-size: var(--text-base);
+  }
+
+  .review-card__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .review-card__author {
+    margin: 0;
+    font-weight: var(--weight-body-bold);
+    font-size: var(--text-sm);
+    line-height: 1.3;
+  }
+
+  .review-card__date {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: var(--color-ink-soft);
+  }
+
+  /* Stars */
+  .review-card__stars {
+    display: flex;
+    gap: 1px;
+    line-height: 1;
+  }
+
+  .star {
+    font-size: 1rem;
+    color: var(--color-border);
+  }
+
+  .star--on {
+    color: #F5A623;
+  }
+
+  /* Text */
+  .review-card__text {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Source */
+  .review-card__source {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    margin-top: auto;
+    width: fit-content;
+  }
+
+  .review-card__source:hover {
+    color: var(--color-accent);
+  }
+</style>

@@ -1,13 +1,15 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import PlaceholderReviews from '../components/PlaceholderReviews.astro';
+import Reviews from '../components/Reviews.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { site } from '../data/site';
-import { localePath } from '../data/nav';
+import reviewsData from '../data/reviews.json';
 
 const lang = "pl" as const;
 const title = "Opinie";
 const description = "Opinie klientów o Dziadku Komodorze — serwisie komputerowym w Pile, Bydgoszczy i okolicach.";
+const hasReviews = reviewsData.reviews.length > 0;
 ---
 
 <PageLayout lang={lang} slug="opinie" title={title} description={description}>
@@ -19,12 +21,15 @@ const description = "Opinie klientów o Dziadku Komodorze — serwisie komputero
 		</p>
 	</section>
 
-	<section class="container">
-		<PlaceholderReviews lang={lang} />
+	<section class="container" data-animate="reveal">
+		{hasReviews
+			? <Reviews reviews={reviewsData.reviews} lang={lang} />
+			: <PlaceholderReviews lang={lang} />
+		}
 	</section>
 
 	<CtaBanner
-		heading="Bądź jednym z pierwszych klientów"
+		heading={hasReviews ? "Zostaw nam opinię" : "Bądź jednym z pierwszych klientów"}
 		body="Pomóż nam zbudować listę opinii — zostaw swoją po naprawie."
 		ctaLabel="Napisz opinię na Google"
 		ctaHref={site.socials.googleReview}

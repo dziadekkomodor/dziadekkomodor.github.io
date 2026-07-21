@@ -5,7 +5,7 @@ import { site } from '../data/site';
 const lang = "pl" as const;
 const title = "Polityka prywatności";
 const description = "Polityka prywatności Dziadka Komodora — jakie dane zbieramy, na jakiej podstawie, jak długo je przechowujemy i jakie masz prawa.";
-const updated = "2026-07-20";
+const updated = "2026-07-21";
 ---
 
 <PageLayout lang={lang} slug="polityka-prywatnosci" title={title} description={description}>
@@ -100,6 +100,24 @@ const updated = "2026-07-20";
 		<p>
 			Podanie danych kontaktowych jest dobrowolne, lecz niezbędne, abyśmy mogli
 			odpowiedzieć na Twoje zgłoszenie. Bez tych danych obsługa zapytania nie jest możliwa.
+		</p>
+
+		<h2>Opinie Google</h2>
+		<p>
+			Na stronie <strong>/opinie</strong> wyświetlamy publicznie dostępne opinie
+			wystawione w Google przez klientów naszego serwisu. Opinie zawierają dane osobowe
+			udostępnione publicznie przez autora (imię i zdjęcie profilowe z Google).
+		</p>
+		<p>
+			Podstawa prawna: art. 6 ust. 1 lit. <strong>f) RODO</strong> — uzasadniony interes
+			administratora (budowanie zaufania potencjalnych klientów poprzez prezentację
+			weryfikowalnych opinii). Wyświetlamy wyłącznie opinie ocenione na 4 lub 5 gwiazdek,
+			bez ingerencji w treść.
+		</p>
+		<p>
+			Jeśli chcesz, abyśmy usunęli Twoją opinię z naszej strony (nawet jeśli jest
+			nadal widoczna w Google), napisz na <a href={`mailto:${site.email}`}>{site.email}</a>
+			— usuniemy ją przy najbliższej aktualizacji.
 		</p>
 
 		<h2>Zmiany polityki prywatności</h2>
