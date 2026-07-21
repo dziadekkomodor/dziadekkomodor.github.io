@@ -14,13 +14,41 @@ const svc = services.find((s) => s.slug === "naprawa-telefonow-i-tabletow")!;
 // Pre-select "Telefon" on the contact form — more common than tablets on this page.
 const contactHref = `${localePath(lang, "kontakt")}?device=phone`;
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  serviceType: svc.serviceType[lang],
-  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
-  areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: svc.serviceType[lang],
+    provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+    areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Czy można naprawić telefon po zalaniu?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak, pod warunkiem że przyniesiesz sprzęt jak najszybciej — im szybciej, tym większa szansa na uratowanie telefonu. Czyszczenie po zalaniu kosztuje 150–280 zł." },
+      },
+      {
+        "@type": "Question",
+        name: "Czy wymieniacie tylko szybkę bez wymiany całego wyświetlacza?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak, w wybranych modelach możliwa jest wymiana samej szybki bez wymiany matrycy, od 250 zł. Czy jest to możliwe w Twoim telefonie, potwierdzimy po bezpłatnej diagnozie." },
+      },
+      {
+        "@type": "Question",
+        name: "Czy naprawiacie telefony w Bydgoszczy i Pile?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak. Obsługujemy klientów z Piły, Bydgoszczy i okolic. Możliwy jest odbiór telefonu — koszt paliwa w obie strony plus 12 zł, dostępność potwierdzamy po kontakcie." },
+      },
+      {
+        "@type": "Question",
+        name: "Ile kosztuje naprawa portu ładowania w telefonie?",
+        acceptedAnswer: { "@type": "Answer", text: "Koszt naprawy portu ładowania zależy od modelu telefonu i zakresu uszkodzenia. Dokładną kwotę podajemy zawsze po bezpłatnej diagnozie wstępnej." },
+      },
+    ],
+  },
+];
 ---
 
 <PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>

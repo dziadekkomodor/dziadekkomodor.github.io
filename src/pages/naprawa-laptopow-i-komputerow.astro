@@ -14,13 +14,41 @@ const svc = services.find((s) => s.slug === "naprawa-laptopow-i-komputerow")!;
 // Pre-select "Laptop" on the contact form — the more common of the two device types this page covers.
 const contactHref = `${localePath(lang, "kontakt")}?device=laptop`;
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  serviceType: svc.serviceType[lang],
-  provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
-  areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: svc.serviceType[lang],
+    provider: { "@type": "ProfessionalService", "@id": `${site.url}/#firma` },
+    areaServed: site.serviceAreaTowns.map((name) => ({ "@type": "City", name })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Ile kosztuje czyszczenie laptopa gamingowego?",
+        acceptedAnswer: { "@type": "Answer", text: "Czyszczenie laptopa gamingowego z wymianą pasty termoprzewodzącej kosztuje od ok. 250 zł ze względu na bardziej rozbudowany system chłodzenia. Standardowe laptopy: 65–150 zł." },
+      },
+      {
+        "@type": "Question",
+        name: "Czy naprawiacie uszkodzone zawiasy i obudowę laptopa?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak. Naprawa zawiasów lub obudowy laptopa kosztuje od ok. 50 zł + części, zależnie od modelu i zakresu uszkodzenia." },
+      },
+      {
+        "@type": "Question",
+        name: "Czy można naprawić laptopa po zalaniu?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak, jednak liczy się czas — im szybciej przyniesiesz sprzęt, tym większa szansa na pełną naprawę. Czyszczenie po zalaniu kosztuje 150–280 zł." },
+      },
+      {
+        "@type": "Question",
+        name: "Czy naprawiacie komputery stacjonarne i laptopy z Bydgoszczy?",
+        acceptedAnswer: { "@type": "Answer", text: "Tak. Obsługujemy klientów z Piły, Bydgoszczy i okolic — Nakła nad Notecią, Szubina, Kcyni, Wyrzyska i innych okolicznych miejscowości. Możliwy jest odbiór sprzętu." },
+      },
+    ],
+  },
+];
 ---
 
 <PageLayout lang={lang} slug={svc.slug} title={svc.title[lang]} description={svc.metaDescription[lang]} jsonLd={jsonLd}>
