@@ -1,0 +1,46 @@
+# Dziadek Komodor
+
+> Serwis komputerowy i telefoniczny w Pile, Bydgoszczy i okolicach. Naprawa
+> laptopów, komputerów stacjonarnych, telefonów i tabletów. Bezpłatna diagnoza
+> wstępna. Dojazd do klienta na terenie Piły, Bydgoszczy i okolic.
+
+Działamy z Wyrzyska. Obsługujemy Piłę, Bydgoszcz i okoliczne miejscowości —
+m.in. Nakło nad Notecią, Mroczę, Białośliwie, Wysoką, Łobżenicę, Kcynię,
+Szubin i inne. Czas realizacji typowych napraw: 24–72 godziny od akceptacji
+wyceny. Gwarancja 3 miesiące na wszystkie naprawy.
+
+## Cennik
+
+- Diagnoza wstępna: 0 zł
+- Diagnoza szczegółowa: 60–70 zł (kwota odliczana od ceny naprawy)
+- Czyszczenie laptopa + pasta termoprzewodząca: 65–150 zł (gamingowy: od 250 zł)
+- Czyszczenie po zalaniu: 150–280 zł
+- Instalacja systemu operacyjnego: 100–180 zł
+- Wymiana dysku HDD/SSD (robocizna): 50–70 zł + część
+- Wymiana matrycy 15.6": od 370 zł
+- Naprawa płyty głównej (układ zasilania): 180–350 zł
+- Lutowanie BGA: 200–450 zł
+- Naprawa BIOS: 150–280 zł
+- Odzyskiwanie danych logiczne: od 100 zł
+- Odzyskiwanie danych mechaniczne/RAID: 300–4 500 zł (zewnętrzne laboratorium)
+- Wymiana baterii Android: 150–199 zł
+- Wymiana baterii iPhone / flagowiec: 250–350 zł
+- Wymiana wyświetlacza Android: 259–329 zł
+- Wymiana wyświetlacza iPhone / flagowiec: od 600 zł (najnowsze modele: do 1 610 zł)
+- Wymiana szybki (bez wymiany matrycy): od 250 zł
+
+Ceny bez VAT (działalność nierejestrowana). Ostateczna wycena zawsze po
+bezpłatnej diagnozie.
+
+## Strony
+
+- [Cennik](https://dziadekkomodor.pl/cennik): pełen cennik napraw z orientacyjnymi
+  widełkami cen. Diagnoza wstępna 0 zł.
+- [Naprawa laptopów i komputerów](https://dziadekkomodor.pl/naprawa-laptopow-i-komputerow):
+  czyszczenie od 65 zł, wymiana matrycy od 370 zł, naprawy płyty głównej.
+- [Naprawa telefonów i tabletów](https://dziadekkomodor.pl/naprawa-telefonow-i-tabletow):
+  wymiana baterii od 150 zł, wyświetlacza od 259 zł.
+- [Często zadawane pytania](https://dziadekkomodor.pl/faq): diagnoza, czas
+  naprawy, gwarancja, odzyskiwanie danych, dojazd do klienta.
+- [Kontakt](https://dziadekkomodor.pl/kontakt): telefon, e-mail, formularz,
+  godziny pracy (Pon–Pt 9:00–17:00).

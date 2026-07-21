@@ -8,9 +8,56 @@ import { site } from '../data/site';
 const lang = "pl" as const;
 const title = "Cennik napraw";
 const description = "Orientacyjny cennik napraw komputerów, laptopów i telefonów w Pile, Bydgoszczy i okolicach. Bezpłatna diagnoza, jasna wycena przed każdą naprawą.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Ile kosztuje czyszczenie laptopa?",
+      acceptedAnswer: { "@type": "Answer", text: "Czyszczenie laptopa z wymianą pasty termoprzewodzącej kosztuje 65–150 zł. Laptopy gamingowe od ok. 250 zł." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje wymiana baterii w telefonie?",
+      acceptedAnswer: { "@type": "Answer", text: "Wymiana baterii w telefonie z Androidem: 150–199 zł. W iPhonie i flagowcach: 250–350 zł." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje wymiana wyświetlacza w telefonie?",
+      acceptedAnswer: { "@type": "Answer", text: "Wymiana wyświetlacza w Androidzie: 259–329 zł. W iPhonie i flagowcach: od 600 zł (najnowsze modele do 1 610 zł)." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje instalacja Windowsa?",
+      acceptedAnswer: { "@type": "Answer", text: "Instalacja systemu operacyjnego kosztuje 100–180 zł." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje wymiana matrycy w laptopie?",
+      acceptedAnswer: { "@type": "Answer", text: "Wymiana matrycy 15.6\" kosztuje od ok. 370 zł. Cena zależy od modelu urządzenia i rodzaju ekranu." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje odzyskiwanie danych?",
+      acceptedAnswer: { "@type": "Answer", text: "Odzyskiwanie podstawowe (logiczne) kosztuje od ok. 100 zł. Odzyskiwanie głębokie, mechaniczne lub z macierzy RAID: 300–4 500 zł (realizowane przez zewnętrzne laboratorium)." },
+    },
+    {
+      "@type": "Question",
+      name: "Ile kosztuje naprawa płyty głównej laptopa?",
+      acceptedAnswer: { "@type": "Answer", text: "Naprawa układu zasilania płyty głównej: 180–350 zł. Lutowanie BGA: 200–450 zł. Naprawa BIOS: 150–280 zł." },
+    },
+    {
+      "@type": "Question",
+      name: "Czy diagnoza jest darmowa?",
+      acceptedAnswer: { "@type": "Answer", text: `Diagnoza wstępna jest bezpłatna. Diagnoza szczegółowa kosztuje ${site.diagnosisDetailedFee} zł, ale kwota ta jest odliczana od ceny naprawy, jeśli zdecydujesz się na jej wykonanie.` },
+    },
+  ],
+};
 ---
 
-<PageLayout lang={lang} slug="cennik" title={title} description={description}>
+<PageLayout lang={lang} slug="cennik" title={title} description={description} jsonLd={jsonLd}>
 	<section class="container page-hero" data-animate="reveal">
 		<h1>Cennik</h1>
 		<p class="page-hero__lead">

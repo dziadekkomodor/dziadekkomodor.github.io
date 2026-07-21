@@ -1,0 +1,11 @@
+{
+  "name": "Dziadek Komodor",
+  "description": "Serwis komputerowy i telefoniczny w Pile, Bydgoszczy i okolicach. Naprawa laptopów, komputerów i telefonów, odzyskiwanie danych. Bezpłatna diagnoza wstępna.",
+  "homepage": "https://dziadekkomodor.pl",
+  "contact_email": "kontakt@dziadekkomodor.pl",
+  "phone": "+48607318412",
+  "llms_txt": "https://dziadekkomodor.pl/llms.txt",
+  "languages": ["pl"],
+  "service_area": ["Piła", "Bydgoszcz", "Wyrzysk", "Nakło nad Notecią", "Szubin", "Kcynia"],
+  "opening_hours": "Mo-Fr 09:00-17:00"
+}
