@@ -3,6 +3,8 @@ import '../styles/global.css';
 import { getImage } from 'astro:assets';
 import { site } from '../data/site';
 import logo from '../assets/photos/logo2-cropped.png';
+import frauncesFontUrl from '@fontsource-variable/fraunces/files/fraunces-latin-soft-normal.woff2?url';
+import atkinsonFontUrl from '@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2?url';
 
 export interface Props {
   lang: "pl" | "en";
@@ -39,6 +41,8 @@ const favicon = await getImage({ src: logo, width: 64, height: 64, format: 'png'
 		<link rel="icon" type="image/png" href={favicon.src} />
 		<title>{title} — {site.brandName}</title>
 		<meta name="description" content={description} />
+		<link rel="preload" href={frauncesFontUrl} as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href={atkinsonFontUrl} as="font" type="font/woff2" crossorigin />
 		<link rel="canonical" href={canonicalUrl} />
 		<link rel="alternate" hreflang="pl" href={plUrl} />
 		<link rel="alternate" hreflang="en" href={enUrl} />
