@@ -24,7 +24,8 @@ import { fileURLToPath } from 'url';
 const __dir = dirname(fileURLToPath(import.meta.url));
 const OUT   = join(__dir, '../src/data/reviews.json');
 
-const MAPS_URL  = process.env.GOOGLE_MAPS_URL;
+const MAPS_URL  = process.env.GOOGLE_MAPS_URL
+  || 'https://www.google.com/maps/place/Dziadek+Komodor/@53.1958953,17.1981741,17z/data=!4m15!1m8!3m7!1s0x4703bf25becd5863:0x5e70f382ddbdef16!2sDziadek+Komodor!8m2!3d53.1959414!4d17.198368!10e1!16s%2Fg%2F11zd36jjy6!3m5!1s0x4703bf25becd5863:0x5e70f382ddbdef16!8m2!3d53.1959414!4d17.198368!16s%2Fg%2F11zd36jjy6?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D';
 const MIN_STARS = 4;
 
 // ponytail: selector-based — update these if Google redesigns Maps HTML
@@ -41,11 +42,6 @@ const SELECTORS = {
   date:      '.rsqaWe, span[aria-label*="temu"], span[aria-label*="ago"]',
 };
 
-if (!MAPS_URL) {
-  console.error('❌  Set GOOGLE_MAPS_URL env var to your Google Maps listing URL.');
-  console.error('    Example: GOOGLE_MAPS_URL="https://www.google.com/maps/place/..." npm run fetch-reviews');
-  process.exit(1);
-}
 
 async function run() {
   console.log('🔍  Opening browser…');
