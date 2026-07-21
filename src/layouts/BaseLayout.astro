@@ -1,8 +1,6 @@
 ---
 import '../styles/global.css';
-import { getImage } from 'astro:assets';
 import { site } from '../data/site';
-import logo from '../assets/photos/logo2-cropped.png';
 import frauncesFontUrl from '@fontsource-variable/fraunces/files/fraunces-latin-soft-normal.woff2?url';
 import atkinsonFontUrl from '@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-400-normal.woff2?url';
 import atkinson700FontUrl from '@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-700-normal.woff2?url';
@@ -30,8 +28,6 @@ const enUrl = new URL(enPath, site.url).toString();
 
 const jsonLdBlocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
-// Real mascot logo as the browser-tab favicon, replacing Astro's default stock icon.
-const favicon = await getImage({ src: logo, width: 64, height: 64, format: 'png' });
 ---
 
 <!doctype html>
@@ -39,7 +35,7 @@ const favicon = await getImage({ src: logo, width: 64, height: 64, format: 'png'
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/png" href={favicon.src} />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<title>{title} — {site.brandName}</title>
 		<meta name="description" content={description} />
 		<link rel="preload" href={frauncesFontUrl} as="font" type="font/woff2" crossorigin />
