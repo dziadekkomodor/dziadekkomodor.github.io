@@ -10,8 +10,8 @@ const { lang } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer" data-nosnippet>
-	<div class="container site-footer__grid">
+<footer class="site-footer">
+	<div class="container site-footer__grid" data-nosnippet>
 		<div class="site-footer__brand">
 			<p class="site-footer__brandname">{site.brandName}</p>
 			<p class="site-footer__tagline">{site.tagline[lang]}</p>
@@ -48,7 +48,7 @@ const year = new Date().getFullYear();
 		</div>
 	</div>
 
-	<div class="container site-footer__bottom">
+	<div class="container site-footer__bottom" data-nosnippet>
 		<p>© {year} {site.brandName}</p>
 	</div>
 </footer>
