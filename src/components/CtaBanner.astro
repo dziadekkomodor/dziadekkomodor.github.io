@@ -19,7 +19,7 @@ const { heading, body, ctaLabel, ctaHref } = Astro.props;
 		<h2>{heading}</h2>
 		<p>{body}</p>
 	</div>
-	<div class="cta-banner__actions">
+	<div class="cta-banner__actions" data-nosnippet>
 		<a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
 		<a href={site.phone.href} class="btn btn-secondary">{site.phone.display}</a>
 	</div>
