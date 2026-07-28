@@ -12,9 +12,18 @@ import { team } from '../data/team';
 import { homeCopy } from '../data/copy/index';
 import { localePath } from '../data/nav';
 import heroPhoto from '../assets/photos/hero-team.jpg';
+import reviewsData from '../data/reviews.json';
 
 const lang = "pl" as const;
 const c = homeCopy;
+
+const aggregateRating = reviewsData.reviews.length > 0 ? {
+  "@type": "AggregateRating",
+  ratingValue: (reviewsData.reviews.reduce((s, r) => s + r.rating, 0) / reviewsData.reviews.length).toFixed(1),
+  reviewCount: reviewsData.reviews.length,
+  bestRating: 5,
+  worstRating: 1,
+} : undefined;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -39,6 +48,7 @@ const jsonLd = {
     closes: h.closes,
   })),
   sameAs: [site.socials.facebook, site.socials.googleBusiness],
+  ...(aggregateRating && { aggregateRating }),
 };
 ---
 

@@ -31,15 +31,14 @@ const MIN_STARS = 4;
 // ponytail: selector-based — update these if Google redesigns Maps HTML
 const SELECTORS = {
   consent:   'button[aria-label*="Zaakceptuj"], button[aria-label*="Accept all"], form[action*="consent"] button',
-  reviewsTab:'button[data-tab-index="1"], [role="tab"][aria-label*="Opinie"], [role="tab"][aria-label*="Reviews"]',
-  feed:      '[role="feed"], .m6QErb[aria-label], .m6QErb[tabindex]',
-  moreBtn:   'button[aria-label*="Więcej"], button[aria-label*="See more"], button[jsaction*="pane.review.expandReview"]',
-  container: '[data-review-id]',
-  rating:    '[role="img"][aria-label]',
-  author:    '.d4r55, button[jsaction*="reviewer"], a[href*="contrib"]',
-  photo:     'img.NBa7we, img[src*="googleusercontent"][width="45"], img[src*="googleusercontent"][width="40"]',
-  text:      '.wiI7pd, [data-expandable-section] span:last-child, .MyEned + div span',
-  date:      '.rsqaWe, span[aria-label*="temu"], span[aria-label*="ago"]',
+  reviewsTab:'[role="tab"][aria-label*="Opinie"], [role="tab"][aria-label*="Reviews"]',
+  // Top-level review containers have aria-label set to the author name; inner helper divs don't
+  container: '[data-review-id][aria-label]',
+  rating:    '.kvMYJc[role="img"][aria-label], [role="img"][aria-label*="gwiazdek"], [role="img"][aria-label*="star"]',
+  author:    '.d4r55',
+  photo:     'img.NBa7we, img[src*="googleusercontent"][width="36"], img[src*="googleusercontent"][width="45"]',
+  text:      '.wiI7pd, .MyEned span, [data-expandable-section] span:last-child',
+  date:      '.rsqaWe',
 };
 
 
@@ -57,47 +56,68 @@ async function run() {
   try {
     console.log('🌐  Navigating to listing…');
     await page.goto(MAPS_URL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
-    // Dismiss EU consent banner if shown
+    // Dismiss EU consent banner if shown — then re-navigate because consent
+    // redirects to generic Maps, losing the business URL
     const consent = page.locator(SELECTORS.consent).first();
     if (await consent.isVisible({ timeout: 4000 }).catch(() => false)) {
+      console.log('   Dismissing consent banner…');
       await consent.click();
-      await page.waitForTimeout(1000);
-    }
-
-    // Click Reviews tab
-    const tab = page.locator(SELECTORS.reviewsTab).first();
-    if (await tab.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await tab.click();
       await page.waitForTimeout(2000);
+      // Re-navigate to the business listing after consent redirect
+      await page.goto(MAPS_URL, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      await page.waitForTimeout(4000);
     }
 
-    // Sort by newest so we always pick up fresh reviews
-    const sortBtn = page.locator('button[aria-label*="Sortuj"], button[data-value*="sort"], [aria-label*="Sort"]').first();
+    // Click Reviews tab — wait for it to actually appear in the DOM first
+    const tab = page.locator(SELECTORS.reviewsTab).first();
+    const tabAppeared = await tab.waitFor({ state: 'visible', timeout: 8000 }).then(() => true).catch(() => false);
+    if (tabAppeared) {
+      console.log('   Clicking Reviews tab…');
+      await tab.click();
+      await page.waitForTimeout(3000);
+    } else {
+      console.warn('   Reviews tab not found — proceeding anyway');
+    }
+
+    // Wait for reviews to be in the DOM before doing anything else
+    await page.waitForSelector(SELECTORS.container, { timeout: 8000 }).catch(() => {});
+
+    // Sort by newest — then re-wait for reviews to repopulate
+    const sortBtn = page.locator('button[aria-label*="Sortuj"], button[aria-label*="Sort"]').first();
     if (await sortBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
       await sortBtn.click();
       await page.waitForTimeout(500);
-      const newestOpt = page.locator('[role="menuitemradio"][aria-label*="Najnow"], [role="option"][aria-label*="Najnow"], [role="menuitemradio"][aria-label*="Newest"]').first();
+      const newestOpt = page.locator('[role="menuitemradio"][aria-label*="Najnow"], [role="menuitemradio"][aria-label*="Newest"]').first();
       if (await newestOpt.isVisible({ timeout: 2000 }).catch(() => false)) {
         await newestOpt.click();
-        await page.waitForTimeout(1500);
+        // Wait for the feed to repopulate after sort
+        await page.waitForSelector(SELECTORS.container, { timeout: 8000 }).catch(() => {});
+        await page.waitForTimeout(1000);
       }
     }
 
-    // Scroll the feed to load more reviews (up to ~40)
-    const feed = page.locator(SELECTORS.feed).first();
-    for (let i = 0; i < 10; i++) {
-      const scrolled = await feed.evaluate(el => {
-        el.scrollTop += 1500;
-        return el.scrollHeight > 0;
-      }).catch(() => false);
-      if (!scrolled) await page.evaluate(() => window.scrollBy(0, 1500));
-      await page.waitForTimeout(700);
+    // Scroll the reviews panel to load lazy reviews (up to ~40)
+    // The panel is the scrollable sidebar, not the window
+    for (let i = 0; i < 8; i++) {
+      await page.evaluate((containerSel) => {
+        const el = document.querySelector(containerSel);
+        let panel = el;
+        while (panel && panel !== document.body) {
+          if (panel.scrollHeight > panel.clientHeight && getComputedStyle(panel).overflowY !== 'visible') {
+            panel.scrollTop += 1200;
+            return;
+          }
+          panel = panel.parentElement;
+        }
+        window.scrollBy(0, 1200);
+      }, SELECTORS.container);
+      await page.waitForTimeout(600);
     }
 
     // Expand truncated reviews
-    const moreBtns = page.locator(SELECTORS.moreBtn);
+    const moreBtns = page.locator('button[aria-label*="Więcej"], button[aria-label*="See more"]');
     for (const btn of await moreBtns.all()) {
       await btn.click().catch(() => {});
       await page.waitForTimeout(80);

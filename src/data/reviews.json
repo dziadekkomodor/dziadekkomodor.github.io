@@ -1,4 +1,12 @@
 {
-  "fetchedAt": null,
-  "reviews": []
+  "fetchedAt": "2026-07-28T22:22:06.439Z",
+  "reviews": [
+    {
+      "author": "Mr Poop",
+      "rating": 5,
+      "text": "Szybka naprawa, uczciwa cena i pełen profesjonalizm. Polecam!",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJIO-4QAkd12JjuACdeu5c-MpvcctQBSKvoHu0qNFmwVL02qQ=w36-h36-p-rp-mo-br100",
+      "date": "tydzień temu"
+    }
+  ]
 }
