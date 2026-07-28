@@ -19,8 +19,8 @@ const homeHref = localePath(lang, "");
 const ctaLabel = lang === "en" ? "Free quote" : "Darmowa wycena";
 ---
 
-<header class="site-header" data-scroll-behavior="auto-hide" data-nosnippet>
-	<div class="site-header__bar container">
+<header class="site-header" data-scroll-behavior="auto-hide">
+	<div class="site-header__bar container" data-nosnippet>
 		<a href={homeHref} class="site-header__brand">
 			<span class="site-header__logo">
 				<Image src={logo} alt="" width={72} height={72} format="webp" loading="eager" />
