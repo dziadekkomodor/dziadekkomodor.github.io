@@ -23,8 +23,8 @@ export interface Props {
 
 const { lang, title, description, slug, jsonLd, theme, density } = Astro.props;
 
-const plPath = slug ? `/${slug}` : "/";
-const enPath = slug ? `/en/${slug}` : "/en/";
+const plPath = slug ? `/${slug}/` : "/";
+const enPath = slug ? `/en/${slug}/` : "/en/";
 const canonicalPath = lang === "en" ? enPath : plPath;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 const plUrl = new URL(plPath, site.url).toString();

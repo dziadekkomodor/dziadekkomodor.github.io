@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dziadekkomodor.pl',
+  trailingSlash: 'always',
   i18n: {
     defaultLocale: 'pl',
     locales: ['pl', 'en'],
