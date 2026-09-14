@@ -1,12 +1,19 @@
 {
-  "fetchedAt": "2026-07-28T22:22:06.439Z",
+  "fetchedAt": "2026-09-14T13:30:10.852Z",
   "reviews": [
+    {
+      "author": "Zerath",
+      "rating": 5,
+      "text": "Super serwis, dostałem darmową diagnoze gdzie zazwyczaj chcą za to kasę a sama naprawa poszła szybko i sprawnie polecam",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocI-GitzjXXxJaCu3fnSo03LWUwGCzlywM5N44YVgU5XGqrQyA=w36-h36-p-rp-mo-br100",
+      "date": "miesiąc temu"
+    },
     {
       "author": "Mr Poop",
       "rating": 5,
       "text": "Szybka naprawa, uczciwa cena i pełen profesjonalizm. Polecam!",
       "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJIO-4QAkd12JjuACdeu5c-MpvcctQBSKvoHu0qNFmwVL02qQ=w36-h36-p-rp-mo-br100",
-      "date": "tydzień temu"
+      "date": "miesiąc temu"
     }
   ]
 }
