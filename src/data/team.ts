@@ -1,5 +1,5 @@
 import albertPhoto from '../assets/photos/albert.jpg';
-import mikolajPhoto from '../assets/photos/mikolaj.jpg';
+import mikolajPhoto from '../assets/photos/mikolaj-new.jpg';
 
 export const team = [
   {
